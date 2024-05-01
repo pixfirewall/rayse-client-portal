@@ -1,0 +1,95 @@
+definitions:
+  steps:
+    - step: &build-and-test
+        name: Build and Test
+        image: node:latest
+        script:
+          - npm install
+          - npm run test
+          - npm run build
+
+    - step: &docker-build-and-push
+        name: Build and Push Docker Image
+        image: amazon/aws-cli
+        runs-on:
+          - self.hosted
+          - linux
+        script:
+          - export IMAGE_TAG=$(echo "$BITBUCKET_BRANCH" | sed -r 's/feature\///g' | sed -r 's/release\///g')
+          - docker build --no-cache -t "${APP_NAME}:${IMAGE_TAG}" .
+          - pipe: atlassian/aws-ecr-push-image:2.3.0
+            variables:
+              AWS_ACCESS_KEY_ID: "$AWS_ACCESS_KEY_ID"
+              AWS_SECRET_ACCESS_KEY: "$AWS_SECRET_ACCESS_KEY"
+              AWS_DEFAULT_REGION: "$AWS_REGION"
+              IMAGE_NAME: "${APP_NAME}"
+              TAGS: "${IMAGE_TAG}"
+              
+    - step: &deploy-to-ecs
+        name: ECS Deploy
+        image: amazon/aws-cli
+        runs-on:
+          - self.hosted
+          - linux
+        script:
+          - yum install gettext -y
+          - aws configure set aws_access_key_id ${AWS_ACCESS_KEY_ID}
+          - aws configure set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY}
+          - aws configure set region ${AWS_REGION}
+          - export AWS_ID=$(aws sts get-caller-identity --query "Account" --output text)
+          - export IMAGE_TAG=$(echo "$BITBUCKET_BRANCH" | sed -r 's/feature\///g' | sed -r 's/release\///g')
+          - envsubst < ./.deploy/task-definition-template.json > ./task-definition.json
+          - cat task-definition.json
+          - pipe: atlassian/aws-ecs-deploy:1.12.1
+            variables:
+              AWS_ACCESS_KEY_ID: '${AWS_ACCESS_KEY_ID}'
+              AWS_SECRET_ACCESS_KEY: '${AWS_SECRET_ACCESS_KEY}'
+              AWS_DEFAULT_REGION: '${AWS_REGION}'
+              CLUSTER_NAME: '${CLUSTER_NAME}'
+              SERVICE_NAME: 'WebsitesAPI-SVC'
+              TASK_DEFINITION: 'task-definition.json'
+              FORCE_NEW_DEPLOYMENT: 'true'
+              DEBUG: 'false'
+
+pipelines:
+  default:
+    - stage:
+        name: Default Build and Test
+        steps:
+          - step: *build-and-test
+
+  branches:
+    develop:
+      - stage:
+          name: Deploy to Development
+          deployment: Development          
+          steps:
+            - step: *build-and-test
+            - step: *docker-build-and-push
+            - step: *deploy-to-ecs
+
+    release/*:
+      - stage:
+          name: Deploy to QA
+          deployment: QA
+          steps:
+            - step: *build-and-test
+            - step: *docker-build-and-push
+            - step: *deploy-to-ecs
+
+      - stage:
+          name: Deploy to UAT
+          deployment: UAT
+          trigger: manual
+          steps:
+            - step: *build-and-test
+            - step: *docker-build-and-push
+            - step: *deploy-to-ecs
+
+      - stage:
+          name: Deploy to Production
+          deployment: Production
+          trigger: manual
+          steps:
+            - step: *docker-build-and-push
+            - step: *deploy-to-ecs
