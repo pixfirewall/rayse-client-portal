@@ -1,0 +1,17 @@
+{
+	"name": "@rayseinc-features/home",
+	"version": "0.0.1",
+	"private": true,
+	"type": "commonjs",
+	"main": "./src/index.js",
+	"typings": "./src/index.d.ts",
+	"dependencies": {
+		"tslib": "^2.3.0",
+    "@rayseinc-core/gateway": "0.0.1",
+    "@rayseinc-core/redux": "0.0.1",
+    "@rayseinc-core/types": "0.0.1",
+    "react": "18.2.0",
+    "react-router-dom": "^6.23.0",
+    "antd": "^5.17.0"
+	}
+}

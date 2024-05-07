@@ -1,0 +1,32 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "noPropertyAccessFromIndexSignature": false,
+    "lib": ["es2020", "dom"],
+    "jsx": "react",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@rayseinc-core/boot": ["core/boot/src/index.ts"],
+      "@rayseinc-core/gateway": ["core/gateway/src/index.ts"],
+      "@rayseinc-core/redux": ["core/redux/src/index.ts"],
+      "@rayseinc-core/router": ["core/router/src/index.ts"],
+      "@rayseinc-core/store": ["core/store/src/index.ts"],
+      "@rayseinc-core/types": ["core/types/src/index.ts"],
+      "@rayseinc-features/home": ["features/home/src/index.ts"],
+      "@rayseinc-packages/ui": ["packages/ui/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

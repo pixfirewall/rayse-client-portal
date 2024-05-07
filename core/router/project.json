@@ -1,0 +1,19 @@
+{
+  "name": "router",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "core/router/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/core/router",
+        "main": "core/router/src/index.ts",
+        "tsConfig": "core/router/tsconfig.lib.json",
+        "assets": ["core/router/*.md"]
+      }
+    }
+  }
+}

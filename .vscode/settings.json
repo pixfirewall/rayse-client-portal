@@ -1,0 +1,11 @@
+{
+  "material-icon-theme.folders.associations": {
+    "navigations": "public",
+    "navigation": "public",
+    "features": "windows",
+    "feature": "windows",
+    "boot": "connection",
+    "gateway": "global",
+    "store": "database",
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "@rayseinc-core/router",
+  "version": "0.0.1",
+  "dependencies": {
+    "tslib": "^2.3.0",
+    "react-router-dom": "^6.23.0",
+    "@rayseinc-features/home": "0.0.1"
+  },
+  "type": "commonjs",
+  "main": "./src/index.js",
+  "typings": "./src/index.d.ts",
+  "private": true
+}

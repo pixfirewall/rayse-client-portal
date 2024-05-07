@@ -1,0 +1,19 @@
+{
+  "name": "boot",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "core/boot/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/core/boot",
+        "main": "core/boot/src/index.ts",
+        "tsConfig": "core/boot/tsconfig.lib.json",
+        "assets": ["core/boot/*.md"]
+      }
+    }
+  }
+}

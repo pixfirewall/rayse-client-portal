@@ -1,0 +1,19 @@
+{
+  "name": "gateway",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "core/gateway/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/core/gateway",
+        "main": "core/gateway/src/index.ts",
+        "tsConfig": "core/gateway/tsconfig.lib.json",
+        "assets": ["core/gateway/*.md"]
+      }
+    }
+  }
+}
