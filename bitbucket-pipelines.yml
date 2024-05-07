@@ -31,10 +31,8 @@ pipelines:
   default:
     - stage:
         name: Default Build and Test
-        deployment: Development
         steps:
           - step: *build-and-test
-          - step: *build-and-deploy
 
   branches:
     develop:
