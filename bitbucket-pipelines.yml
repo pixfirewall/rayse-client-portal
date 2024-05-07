@@ -1,18 +1,17 @@
 definitions:
   steps:
-    - step: &build-app
+    - step: &build-and-test
+        name: Build and Test
+        image: node:latest
+        script:
+          - echo 'Client Portal'
+
+    - step: &build-and-deploy
         name: Build artifact
         image: node:18
         script:
           - yarn install
           - yarn build:web
-        artifacts:
-          - dist/apps/web/*
-
-    - step: &artifacts-to-s3
-        name: Deploy artifacts to S3
-        image: node:18
-        script:
           - pipe: atlassian/aws-s3-deploy:1.6.0
             variables:
               AWS_ACCESS_KEY_ID: "$AWS_ACCESS_KEY_ID"
@@ -27,12 +26,15 @@ definitions:
               AWS_DEFAULT_REGION: "$AWS_REGION"
               DISTRIBUTION_ID: "$CF_DISTRIBUTION_ID"              
 
+
 pipelines:
   default:
     - stage:
         name: Default Build and Test
+        deployment: Development
         steps:
-          - step: *build-app
+          - step: *build-and-test
+          - step: *build-and-deploy
 
   branches:
     develop:
@@ -40,29 +42,25 @@ pipelines:
           name: Deploy to Development
           deployment: Development          
           steps:
-            - step: *build-app
-            - step: *artifacts-to-s3
+            - step: *build-and-deploy
 
     release/*:
       - stage:
           name: Deploy to QA
           deployment: QA
           steps:
-            - step: *build-app
-            - step: *artifacts-to-s3
+            - step: *build-and-deploy
 
       - stage:
           name: Deploy to UAT
           deployment: UAT
           trigger: manual
           steps:
-            - step: *build-app
-            - step: *artifacts-to-s3
+            - step: *build-and-deploy
 
       - stage:
           name: Deploy to Production
           deployment: Production
           trigger: manual
           steps:
-            - step: *build-app
-            - step: *artifacts-to-s3
+            - step: *build-and-deploy
