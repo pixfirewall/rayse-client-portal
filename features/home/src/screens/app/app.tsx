@@ -1,13 +1,13 @@
+import './styles/App.css'
 import React from 'react'
 import { Button, Box, Text, Link, Image } from '@rayseinc-packages/ui'
 
-import './styles/App.css'
+import { useNavigateToDuring } from '@rayseinc-features/during'
 
 import logo from './logo.svg'
-import { useNavigateToHome } from '../../navigations'
 
 export const App = () => {
-  const navigateToHome = useNavigateToHome()
+  const navigateToDuring = useNavigateToDuring()
 
   return (
     <Box className="App">
@@ -17,7 +17,9 @@ export const App = () => {
         <Link className="App-link" href="https://reactjs.org" target="_blank">
           Learn React
         </Link>
-        <Button variant="contained" onClick={() => navigateToHome()}>Hello world</Button>
+        <Button variant="contained" onClick={() => navigateToDuring()}>
+          Hello world
+        </Button>
       </Box>
     </Box>
   )

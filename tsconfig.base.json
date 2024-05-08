@@ -25,7 +25,8 @@
       "@rayseinc-core/store": ["core/store/src/index.ts"],
       "@rayseinc-core/types": ["core/types/src/index.ts"],
       "@rayseinc-features/home": ["features/home/src/index.ts"],
-      "@rayseinc-packages/ui": ["packages/ui/src/index.ts"]
+      "@rayseinc-packages/ui": ["packages/ui/src/index.ts"],
+      "@rayseinc-features/during": ["features/during/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
