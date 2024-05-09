@@ -1,7 +1,14 @@
 import React from 'react'
-import { Box, Text, YellowIcon, WhiteButton } from '@rayseinc-packages/ui'
+import { Box, Text, YellowIcon, WhiteButton, Image, Divider, GreenButton, WhiteIcon } from '@rayseinc-packages/ui'
+
+import { AgentProfile } from '../../components'
 
 import './styles/main.css'
+
+import berkshireImage from './berkshire.png'
+import graduationHat from './graduation-hat.png'
+import shieldPlus from './shield-plus.png'
+import rayseLogo from './rayse-logo.png'
 
 export const Main = () => {
 
@@ -46,6 +53,70 @@ export const Main = () => {
         </Box>
       </Box>
 
+      <Box className="section-container">
+        <AgentProfile />
+      </Box>
+
+      <Box className="section-container">
+        <Box className="collaboration-container">
+          <Box className="collab-top">
+            <Image src={berkshireImage} width="351" height="68" />
+
+            <WhiteButton>
+              <Text fontSize="24px" fontWeight="600">
+                Learn more
+              </Text>
+              <YellowIcon material="arrow_forward" />
+            </WhiteButton>
+          </Box>
+
+          <Divider className="collab-divider" orientation="horizontal" flexItem />
+          <Text fontSize="32px" color="#FFF" fontWeight={700}>
+            Our collaboration is all the more valuable with the support, access and expertise of the team
+            I’m proud to be a part of in leading the way forward in residential real estate. 
+          </Text>
+        </Box>
+      </Box>
+
+      <Box className="section-container">
+        <Box className="duty-section">
+          <Box className="duty-section-top">
+            <Image src={graduationHat} width="64px" height="64px" />
+            <Image src={shieldPlus} width="64px" height="64px" />
+          </Box>
+
+          <Text fontSize="44px" color="#171717" fontWeight={700} textAlign="left">
+            I take my fiduciary duty seriously.
+          </Text>
+
+          <Text fontSize="24px" color="#171717" textAlign="left">
+            You’re making a new future for yourself and your family. I’m making it my job to protect you—from surprises,
+            from unknowns, from bad actors and small print and potential obstacles that range from the size of two termites
+            to a four-lane highway or flood zone. I’m here as your first line of defense to help you anticipate,
+            negotiate and pre-empt the many legal and financial challenges to successful homeowning.
+          </Text>
+        </Box>
+      </Box>
+
+      <Box className="section-container">
+        <Box className="bottom-section">
+          <Text fontSize="44px" color="#171717" fontWeight={700} textAlign="left" padding="40px">
+            Clarity. Accountability. Collaboration.
+          </Text>
+          <Divider className="collab-divider" orientation="horizontal" flexItem />
+
+          <Box className="bottom-section-lower">
+            <Image src={rayseLogo} width="360px" height="108px" />
+            <GreenButton>
+              <Box className="agent-button-icon" />
+              <Text fontSize="20px">
+                Get started
+              </Text>
+              <WhiteIcon material="arrow_forward" />
+            </GreenButton>
+          </Box>
+        </Box>
+      </Box>
     </Box>
   )
 }
