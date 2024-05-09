@@ -6,10 +6,10 @@
     "strict": true,
     "noImplicitOverride": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
+    "noFallthroughCasesInSwitch": true
   },
   "files": [],
-  "include": [],
+  "include": ["../../typings/*.d.ts"],
   "references": [
     {
       "path": "./tsconfig.lib.json"
