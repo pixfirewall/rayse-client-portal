@@ -1,0 +1,51 @@
+import { createTheme } from '@mui/material'
+
+// doc: https://mui.com/material-ui/customization/theming
+export const theme = createTheme({
+  typography: {
+    'rayse-12600': {
+      fontSize: 12,
+      fontWeight: 600,
+      fontFamily: 'inter',
+    },
+    'rayse-16400': {
+      fontSize: 16,
+      fontWeight: 400,
+      fontFamily: 'inter',
+    },
+    'rayse-16700': {
+      fontSize: 16,
+      fontWeight: 700,
+      fontFamily: 'inter',
+    },
+    'rayse-20400': {
+      fontSize: 20,
+      fontWeight: 400,
+      fontFamily: 'inter',
+    },
+    'rayse-20700': {
+      fontSize: 20,
+      fontWeight: 700,
+      fontFamily: 'inter',
+    },
+    'rayse-24700': {
+      fontSize: 24,
+      fontWeight: 700,
+      fontFamily: 'inter',
+    },
+  },
+  components: {
+    MuiButtonBase: {
+      defaultProps: {
+        disableRipple: true,
+      },
+    },
+    MuiLink: {
+      defaultProps: {
+        underline: 'none',
+        typography: 'body1',
+        color: 'text.primary',
+      },
+    },
+  },
+})

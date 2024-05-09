@@ -3,23 +3,19 @@ import ReactDOM from 'react-dom/client'
 import { RouterProvider, router } from '@rayseinc-core/router'
 import { store } from '@rayseinc-core/store'
 import { Provider } from '@rayseinc-core/redux'
-import { ThemeProvider, createTheme } from '@mui/material'
+import { ThemeProvider } from '@mui/material'
+
+import { theme } from './theme'
 
 import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
 
-// doc: https://mui.com/material-ui/customization/theming
-const theme = createTheme({
-  components: {
-    MuiButtonBase: {
-      defaultProps: {
-        disableRipple: true,
-      },
-    },
-  },
-})
+import '@fontsource/inter/300.css'
+import '@fontsource/inter/400.css'
+import '@fontsource/inter/500.css'
+import '@fontsource/inter/700.css'
 
 export const render = () => {
   const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
