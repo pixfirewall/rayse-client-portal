@@ -1,5 +1,19 @@
 import React from 'react'
-import { Box, Text, YellowIcon, WhiteButton, Image, Divider, GreenButton, WhiteIcon } from '@rayseinc-packages/ui'
+import {
+  Box,
+  Text,
+  YellowIcon,
+  WhiteButton,
+  Image,
+  Divider,
+  GreenButton,
+  WhiteIcon
+ } from '@rayseinc-packages/ui'
+
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Pagination } from 'swiper/modules'
+import 'swiper/css'
+import 'swiper/css/pagination'
 
 import { AgentProfile } from '../../components'
 
@@ -10,7 +24,17 @@ import graduationHat from './graduation-hat.png'
 import shieldPlus from './shield-plus.png'
 import rayseLogo from './rayse-logo.png'
 
+import slide1 from './slide01.png'
+import slide2 from './slide02.png'
+import slide3 from './slide03.png'
+
 export const Main = () => {
+  const sliderImages = [slide1, slide2, slide3]
+  const sliderCaptions = [
+    'Because having an expert is key(s).',
+    'Because homeowning > homescrolling.',
+    'Because you can’t return a house.'
+  ]
 
   return (
     <Box className="top-container">
@@ -25,10 +49,25 @@ export const Main = () => {
           </Text>
 
           <Box className="image-slide-container">
-            <Box className="image-slide" />
-            <Text fontSize="32px" className="image-slide-caption">
-              Because having an expert is key(s).
-            </Text>
+            <Swiper
+              slidesPerView={1}
+              loop
+              spaceBetween={20}
+              pagination={{
+                clickable: true,
+              }}
+              modules={[Pagination]}
+              className="image-swiper-container"
+            >
+              {sliderImages.map((value, index) => (
+                <SwiperSlide key={index}>
+                  <Image src={value} width="740.07px" height="414.428px" style={{ borderRadius: '24px 24px 0 0' }} />
+                  <Text fontSize="32px" className="image-slide-caption" height="50px">
+                    {sliderCaptions[index]}
+                  </Text>
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </Box>
         </Box>
       </Box>
