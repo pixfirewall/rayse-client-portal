@@ -1,0 +1,57 @@
+.Journey-Container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+	padding: 20px 16px;
+	gap: 24px;
+	background: #3F947D;
+	border-radius: 24px;
+}
+
+.Journey-Card-Container {
+	display: flex;
+	flex-direction: row;
+	/* flex-wrap: wrap; */
+	align-items: center;
+	align-content: flex-start;
+	padding: 0px;
+	gap: 12px;
+
+	height: 348px;
+}
+
+.Journey-Card-Row {
+	/* gap: 12px; */
+	display: flex;
+	flex-direction: row;
+	/* justify-content: space-between;
+	align-content: space-between; */
+}
+
+.Journey-Card {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: flex-start;
+	padding: 20px;
+	gap: 40px;
+	/* width: 115px; */
+	height: 140px;
+	background: #FFFFFF;
+	border-radius: 20px;
+}
+
+.Journey-Card-Info {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 2px;
+}
+
+.Journey-Card-Info-Status {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 2px;
+}

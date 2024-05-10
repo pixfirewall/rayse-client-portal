@@ -16,10 +16,10 @@ export const BrandFooter = () => {
       </Box>
       <Divider className="Brand-Footer-Divider" orientation="horizontal" flexItem />
       <Box className="Brand-Footer-Text-Container">
-        <Text variant="h6" color="#FFFFFF">
+        <Text variant="rayse-24700" color="#FFFFFF">
           25% of buyers end up
         </Text>
-        <Text variant="h6" color="#FFFFFF">
+        <Text variant="rayse-24700" color="#FFFFFF">
           seeking a lawyer
         </Text>
       </Box>
