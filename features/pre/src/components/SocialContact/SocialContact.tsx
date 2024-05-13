@@ -1,8 +1,6 @@
 import React from 'react'
 import { Box, Text, Image } from '@rayseinc-packages/ui'
 
-import './styles.css'
-
 import facebookIcon from './icons/facebook.png'
 
 type SocialContactProps = {
@@ -21,9 +19,14 @@ export const SocialContact = (props: SocialContactProps) => {
   } = props
 
   return (
-    <Box className="social-contact">
+    <Box style={{
+      display: 'flex',
+      alignItems: 'center',
+      gap: '12px'
+    }}
+    >
       <Image src={String(socialIcons[socialNetwork])} width="52px" height="52px" />
-      <Text fontSize="32px" color="#FFF">
+      <Text variant="rayse-32400" color="#FFF">
         {infoText}
       </Text>
     </Box>

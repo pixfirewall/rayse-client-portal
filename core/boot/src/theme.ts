@@ -43,8 +43,38 @@ export const theme = createTheme({
       fontWeight: 700,
       fontFamily: 'inter',
     },
+    'rayse-24400': {
+      fontSize: 24,
+      fontWeight: 400,
+      fontFamily: 'inter',
+    },
     'rayse-24700': {
       fontSize: 24,
+      fontWeight: 700,
+      fontFamily: 'inter',
+    },
+    'rayse-32400': {
+      fontSize: 32,
+      fontWeight: 400,
+      fontFamily: 'inter',
+    },
+    'rayse-32700': {
+      fontSize: 32,
+      fontWeight: 700,
+      fontFamily: 'inter',
+    },
+    'rayse-36700': {
+      fontSize: 36,
+      fontWeight: 700,
+      fontFamily: 'inter',
+    },
+    'rayse-44700': {
+      fontSize: 44,
+      fontWeight: 700,
+      fontFamily: 'inter',
+    },
+    'rayse-68700': {
+      fontSize: 68,
       fontWeight: 700,
       fontFamily: 'inter',
     },

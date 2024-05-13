@@ -15,7 +15,7 @@ const IconBox = styled(Box)({
   gap: 8,
 })
 
-type Material = 'arrow_forward' | 'check'
+type Material = 'arrow_forward' | 'check' | 'chevron_right'
 
 export const YellowIcon = ({ material, size = 40, ...props }: { material: Material; size?: number } & IconOwnProps) => {
   return (
@@ -23,6 +23,16 @@ export const YellowIcon = ({ material, size = 40, ...props }: { material: Materi
       <Icon sx={{ color: 'black' }} {...props}>
         {material}
       </Icon>
+    </IconBox>
+  )
+}
+
+export const YellowIconPre = ({ material, size = 40, fontSize = '24px' }: {
+  material: Material; size?: number, fontSize?: string
+}) => {
+  return (
+    <IconBox className="Icon-Amir" sx={{ width: size, height: size }}>
+      <Icon sx={{ color: 'black', 'font-size': fontSize }}>{material}</Icon>
     </IconBox>
   )
 }
