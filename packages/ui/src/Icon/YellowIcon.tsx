@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box } from '../Box'
-import { Icon } from '../Icon'
+import { Icon, IconOwnProps } from '../Icon'
 import styled from '@emotion/styled'
 
 const IconBox = styled(Box)({
@@ -17,10 +17,12 @@ const IconBox = styled(Box)({
 
 type Material = 'arrow_forward' | 'check'
 
-export const YellowIcon = ({ material, size = 40 }: { material: Material; size?: number }) => {
+export const YellowIcon = ({ material, size = 40, ...props }: { material: Material; size?: number } & IconOwnProps) => {
   return (
     <IconBox className="Icon-Amir" sx={{ width: size, height: size }}>
-      <Icon sx={{ color: 'black' }}>{material}</Icon>
+      <Icon sx={{ color: 'black' }} {...props}>
+        {material}
+      </Icon>
     </IconBox>
   )
 }

@@ -1,29 +1,30 @@
-import './style.css'
 import React from 'react'
-import { Box, Text, Grid } from '@rayseinc-packages/ui'
+import { Group, MainPaper, Text, Grid } from '@rayseinc-packages/ui'
 
-import { JourneyCard } from './JourneyCard'
+import { JourneyCard, State } from './JourneyCard'
 
 export const Journey = () => {
   return (
-    <Box className="Journey-Container">
-      <Text variant="rayse-24700" color="#FFFFFF">
-        Your journey progess
-      </Text>
-      <Grid container spacing={2}>
-        <Grid item xs={6}>
-          <JourneyCard info="Consultation" />
+    <MainPaper bgcolor="#3F947D" padding="20px 16px">
+      <Group dir="vertical" gap={24}>
+        <Text variant="rayse-24700" color="#FFFFFF">
+          Your journey progess
+        </Text>
+        <Grid container spacing={2}>
+          <Grid item xs={6}>
+            <JourneyCard info="Consultation" />
+          </Grid>
+          <Grid item xs={6}>
+            <JourneyCard info="Touring & Offers" state={State.Inprogres} order={2} />
+          </Grid>
+          <Grid item xs={6}>
+            <JourneyCard info="Escrow" state={State.Todo} order={3} />
+          </Grid>
+          <Grid item xs={6}>
+            <JourneyCard info="Closing" state={State.Todo} order={4} />
+          </Grid>
         </Grid>
-        <Grid item xs={6}>
-          <JourneyCard info="Touring & Offers" state="inprogres" order={2} />
-        </Grid>
-        <Grid item xs={6}>
-          <JourneyCard info="Escrow" state="todo" order={3} />
-        </Grid>
-        <Grid item xs={6}>
-          <JourneyCard info="Closing" state="todo" order={4} />
-        </Grid>
-      </Grid>
-    </Box>
+      </Group>
+    </MainPaper>
   )
 }
