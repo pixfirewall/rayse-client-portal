@@ -3,18 +3,22 @@ import styled from "@emotion/styled";
 import { Button } from "@mui/material";
 
 type Props = {
-  color: 'darkGreen' | 'lightGreen'
+  color: 'darkGreen' | 'lightGreen' | 'purple' | 'black'
 }
 
 export const LongButton = (props: PropsWithChildren<Props>) => {
   switch (props.color) {
     case 'darkGreen': return (<DarkGreenStyle>{props.children}</DarkGreenStyle>)
     case 'lightGreen': return (<LightGreenStyle>{props.children}</LightGreenStyle>)
+    case 'purple': return (<PurpleStyle>{props.children}</PurpleStyle>)
+    case 'black': return (<BlackStyle>{props.children}</BlackStyle>)
     default: return (<></>)
   }
 }
 
 const LightGreenStyle = styled(Button)({
+  display: 'flex',
+  justifyContent: 'space-between',
   width: '280px',
   textAlign: 'left',
   backgroundColor: "#3F947D",
@@ -31,6 +35,8 @@ const LightGreenStyle = styled(Button)({
 })
 
 const DarkGreenStyle = styled(Button)({
+  display: 'flex',
+  justifyContent: 'space-between',
   width: '280px',
   textAlign: 'left',
   backgroundColor: "#2A6656",
@@ -43,5 +49,41 @@ const DarkGreenStyle = styled(Button)({
   gap: 12,
   '&:hover': {
     backgroundColor: '#2A665677'
+  }
+})
+
+const PurpleStyle = styled(Button)({
+  display: 'flex',
+  justifyContent: 'space-between',
+  width: '280px',
+  textAlign: 'left',
+  backgroundColor: "#451F3C",
+  color: '#FFF',
+  boxShadow: 'none',
+  textTransform: 'none',
+  fontSize: 16,
+  padding: 9,
+  borderRadius: 444,
+  gap: 12,
+  '&:hover': {
+    backgroundColor: '#451F3C77'
+  }
+})
+
+const BlackStyle = styled(Button)({
+  display: 'flex',
+  justifyContent: 'space-between',
+  width: '280px',
+  textAlign: 'left',
+  backgroundColor: "#171717",
+  color: '#FFF',
+  boxShadow: 'none',
+  textTransform: 'none',
+  fontSize: 16,
+  padding: 9,
+  borderRadius: 444,
+  gap: 12,
+  '&:hover': {
+    backgroundColor: '#17171777'
   }
 })

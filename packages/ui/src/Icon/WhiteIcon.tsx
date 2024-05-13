@@ -15,7 +15,7 @@ const IconBox = styled(Box)({
   gap: 8,
 })
 
-type Material = 'arrow_forward' | 'check'
+type Material = 'arrow_forward' | 'check' | 'arrow_back'
 
 export const WhiteIcon = ({ material, size = 40 }: { material: Material; size?: number }) => {
   return (
