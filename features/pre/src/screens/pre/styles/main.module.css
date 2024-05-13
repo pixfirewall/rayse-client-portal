@@ -1,4 +1,4 @@
-.top-container {
+.topContainer {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -9,12 +9,12 @@
 	padding-bottom: 100px;
 }
 
-.section-container {
+.sectionContainer {
 	flex-shrink: 0;
 	background: #FFF;
 }
 
-.top-section {
+.topSection {
 	width: 897px;
 	color: #171717;
 	text-align: center;
@@ -26,18 +26,18 @@
 	gap: 24px;
 }
 
-.image-swiper-container {
+.imageSwiperContainer {
 	padding-bottom: 20px;
 	border-radius: 24px;
 }
 
-.image-slide-container {
+.imageSlideContainer {
 	width: 740px;
 	border-radius: 24px;
 	background: #F8F7F4;
 }
 
-.image-slide-caption {
+.imageSlideCaption {
 	display: flex;
 	padding: 36px 40px 40px 40px;
 	align-items: center;
@@ -49,7 +49,7 @@
 	background: #F8F7F4;
 }
 
-.image-slide {
+.imageSlide {
 	width: 740.07px;
 	height: 414.428px;
 	flex-shrink: 0;
@@ -59,7 +59,7 @@
 	background: url('../slide1.jpg') lightgray 0px -140.194px / 100% 270.192% no-repeat;
 }
 
-.section-two {
+.sectionTwo {
 	width: 930px;
 	color: #171717;
 	text-align: center;
@@ -71,7 +71,7 @@
 	background: #FFF;
 }
 
-.meet-rayse-container {
+.meetRayseContainer {
 	width: 930px;
 	height: 472px;
 
@@ -83,7 +83,7 @@
 	background: url('../blur.jpg') lightgray 50% / cover no-repeat;
 }
 
-.collaboration-container {
+.collaborationContainer {
 	display: flex;
 	width: 930px;
 	padding: 40px;
@@ -96,18 +96,18 @@
 	background: #3F947D;
 }
 
-.collab-top {
+.collabTop {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	align-self: stretch;
 }
 
-.collab-divider {
+.collabDivider {
 	background: #FFF;
 }
 
-.duty-section {
+.dutySection {
 	display: flex;
 	width: 930px;
 	padding: 40px;
@@ -119,14 +119,14 @@
 	background: #EEECE6;
 }
 
-.duty-section-top {
+.dutySectionTop {
 	display: flex;
 	align-items: flex-start;
 	gap: 20px;
 	align-self: stretch;
 }
 
-.bottom-section {
+.bottomSection {
 	display: flex;
 	width: 1120px;
 	flex-direction: column;
@@ -136,7 +136,7 @@
 	background: #D9D4C8;
 }
 
-.bottom-section-lower {
+.bottomSectionLower {
 	width: 1040px;
 	display: flex;
 	flex-direction: row;
@@ -148,7 +148,7 @@
 	background: #D9D4C8;
 }
 
-.agent-button-icon {
+.agentButtonIcon {
 	width: 40px;
 	height: 40px;
 	flex-shrink: 0;
@@ -157,4 +157,18 @@
 	background-blend-mode: luminosity;
 
 	background: url('../slide1.jpg') lightgray -13.571px -8.538px / 152.467% 220.686% no-repeat;
+}
+
+.topNavBar {
+	width: 1120px;
+	//height: 24px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	padding: 20px;
+	
+	border-radius: 24px;
+	background: rgba(63, 148, 125, 0.88);
+	backdrop-filter: blur(20px);
 }
