@@ -1,3 +1,12 @@
+image: node:18
+
+options:
+  docker: true
+  size: 2x
+
+
+
+
 definitions:
   steps:
     - step: &build-and-test
@@ -6,25 +15,42 @@ definitions:
         script:
           - echo 'Client Portal'
 
-    - step: &build-and-deploy
-        name: Build artifact
-        image: node:18
+    - step: &docker-build-and-push
+        name: Build and Push Docker Image
+        image: amazon/aws-cli
         script:
-          - yarn install
-          - yarn build:web
-          - pipe: atlassian/aws-s3-deploy:1.6.0
+          - export IMAGE_TAG=$(echo "$BITBUCKET_BRANCH" | sed -r 's/feature\///g' | sed -r 's/release\///g')
+          - docker build --no-cache -t "${APP_NAME}:${IMAGE_TAG}" .
+          - pipe: atlassian/aws-ecr-push-image:2.4.0
             variables:
               AWS_ACCESS_KEY_ID: "$AWS_ACCESS_KEY_ID"
               AWS_SECRET_ACCESS_KEY: "$AWS_SECRET_ACCESS_KEY"
               AWS_DEFAULT_REGION: "$AWS_REGION"
-              S3_BUCKET: "${S3_BUCKET}"
-              LOCAL_PATH: "dist/apps/web"
-          - pipe: atlassian/aws-cloudfront-invalidate:0.10.0
+              IMAGE_NAME: "${APP_NAME}"
+              TAGS: "${IMAGE_TAG}"
+
+    - step: &deploy-to-ecs
+        name: ECS Deploy
+        image: amazon/aws-cli
+        script:
+          - yum install gettext -y
+          - aws configure set aws_access_key_id ${AWS_ACCESS_KEY_ID}
+          - aws configure set aws_secret_access_key ${AWS_SECRET_ACCESS_KEY}
+          - aws configure set region ${AWS_REGION}
+          - export AWS_ID=$(aws sts get-caller-identity --query "Account" --output text)
+          - export IMAGE_TAG=$(echo "$BITBUCKET_BRANCH" | sed -r 's/feature\///g' | sed -r 's/release\///g')
+          - envsubst < ./.deploy/task-definition-template.json > ./task-definition.json
+          - cat task-definition.json
+          - pipe: atlassian/aws-ecs-deploy:1.12.1
             variables:
-              AWS_ACCESS_KEY_ID: "$AWS_ACCESS_KEY_ID" 
-              AWS_SECRET_ACCESS_KEY: "$AWS_SECRET_ACCESS_KEY"
-              AWS_DEFAULT_REGION: "$AWS_REGION"
-              DISTRIBUTION_ID: "$CF_DISTRIBUTION_ID"              
+              AWS_ACCESS_KEY_ID: '${AWS_ACCESS_KEY_ID}'
+              AWS_SECRET_ACCESS_KEY: '${AWS_SECRET_ACCESS_KEY}'
+              AWS_DEFAULT_REGION: '${AWS_REGION}'
+              CLUSTER_NAME: '${CLUSTER_NAME}'
+              SERVICE_NAME: 'client-portal-service'
+              TASK_DEFINITION: 'task-definition.json'
+              FORCE_NEW_DEPLOYMENT: 'true'
+              DEBUG: 'false'
 
 
 pipelines:
@@ -40,25 +66,29 @@ pipelines:
           name: Deploy to Development
           deployment: Development          
           steps:
-            - step: *build-and-deploy
+          - step: *docker-build-and-push
+          - step: *deploy-to-ecs
 
     release/*:
       - stage:
           name: Deploy to QA
           deployment: QA
           steps:
-            - step: *build-and-deploy
+          - step: *docker-build-and-push
+          - step: *deploy-to-ecs
 
       - stage:
           name: Deploy to UAT
           deployment: UAT
           trigger: manual
           steps:
-            - step: *build-and-deploy
+          - step: *docker-build-and-push
+          - step: *deploy-to-ecs
 
       - stage:
           name: Deploy to Production
           deployment: Production
           trigger: manual
           steps:
-            - step: *build-and-deploy
+          - step: *docker-build-and-push
+          - step: *deploy-to-ecs
