@@ -3,6 +3,7 @@ import { ThemeProvider, createTheme } from '@mui/material'
 
 export enum Colors {
   Y1 = '#FFCE31',
+	B1 = '#000000'
 }
 
 const themeGenerator = (color: Colors) =>

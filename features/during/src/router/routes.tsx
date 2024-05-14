@@ -1,10 +1,10 @@
 import React from 'react'
 import { type RouteObject } from '@rayseinc-core/types'
-import { Main } from '../screens'
+import { Home12 } from '../screens'
 
 export const routes: RouteObject[] = [
   {
-    path: '/during',
-    element: <Main />,
-  },
+    path: '/during/12',
+    element: <Home12 />,
+  }
 ]

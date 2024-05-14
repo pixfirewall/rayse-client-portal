@@ -1,0 +1,8 @@
+.Header-Container {
+	display: flex;
+	flex-direction: column;
+	padding: 20px;
+	gap: 16px;
+	background: #3F947D;
+	border-radius: 24px;
+}
