@@ -1,40 +1,5 @@
-import styled from '@emotion/styled'
-import { Box } from '@mui/material'
-
-export const RoundCard = styled(Box)<{
-  dir?: 'vertical' | 'horizontal'
-  align?: ItemAlignment
-  spread?: ContentSpread
-	gap?: string
-  color: string
-  radius?: string
-  hPadding: string
-  vPadding: string
-  width?: string
-  height?: string
-  boxShadow?: string
-  position?: string
-  top?: string
-  left?: string
-  bottom?: string
-  right?: string
-}>(({ dir = 'vertical', align = 'flex-start', spread = 'space-between', gap, color, radius = '24px',
-  hPadding, vPadding, width, height, boxShadow }) =>
-{
-  return {
-    display: 'flex',
-    flexDirection: dir === 'horizontal' ? 'row' : 'column',
-    justifyContent: spread,
-    alignItems: align,
-		gap,
-    background: color,
-    borderRadius: radius,
-    padding: [vPadding, hPadding, vPadding, hPadding].join(' '),
-    width,
-    height,
-    boxShadow
-  }
-})
+import React, { FunctionComponent, PropsWithChildren } from 'react'
+import { Box, BoxProps } from '@mui/material'
 
 type ItemAlignment = 'center' | 'start' | 'end' | 'flex-start' | 'flex-end' | 'self-start' | 'self-end'
 type ContentSpread =
@@ -50,3 +15,39 @@ type ContentSpread =
   | 'space-around'
   | 'space-evenly'
   | 'stretch'
+
+interface RoundCardProps {
+  dir?: 'vertical' | 'horizontal'
+  align?: ItemAlignment
+  spread?: ContentSpread
+	gap?: string
+  color: string
+  radius?: string
+  hPadding: string
+  vPadding: string
+  style?: React.CSSProperties
+}
+
+export const RoundCard: FunctionComponent<PropsWithChildren<RoundCardProps & BoxProps>> = ({
+  children, dir = 'vertical', align = 'flex-start', spread = 'space-between', gap, color,
+  radius = '24px', hPadding, vPadding, style, ...props
+}) => {
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: dir === 'horizontal' ? 'row' : 'column',
+        justifyContent: spread,
+        alignItems: align,
+        gap,
+        background: color,
+        borderRadius: radius,
+        padding: [vPadding, hPadding, vPadding, hPadding].join(' '),
+        ...style,
+      }}
+      {...props}
+    >
+      {children}
+    </Box>
+  )
+}

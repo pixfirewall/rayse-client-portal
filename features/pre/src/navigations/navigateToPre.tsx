@@ -6,3 +6,9 @@ export const useNavigateToPre = () => {
 
   return useCallback(() => navigate(`/pre`, { replace: false }), [])
 }
+
+export const useNavigateToPreSecondaryPage = () => {
+  const navigate = useNavigate()
+
+  return useCallback(() => navigate(`/meet-rayse`, { replace: false }), [])
+}

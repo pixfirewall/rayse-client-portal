@@ -3,13 +3,14 @@ import React from 'react'
 import { Button, Box, Image } from '@rayseinc-packages/ui'
 
 import { useNavigateToDuring } from '@rayseinc-features/during'
-import { useNavigateToPre } from '@rayseinc-features/pre'
+import { useNavigateToPre, useNavigateToPreSecondaryPage } from '@rayseinc-features/pre'
 
 import logo from './logo.svg'
 
 export const App = () => {
   const navigateToDuring = useNavigateToDuring()
   const navigateToPre = useNavigateToPre()
+  const navigateToPreSecondaryPage = useNavigateToPreSecondaryPage()
 
   return (
     <Box className="App">
@@ -18,6 +19,9 @@ export const App = () => {
 
         <Button variant="contained" onClick={() => navigateToPre()}>
           Open the PRE page
+        </Button>
+        <Button variant="contained" onClick={() => navigateToPreSecondaryPage()}>
+          Open the PRE SECONDARY page
         </Button>
         <Button variant="contained" onClick={() => navigateToDuring()}>
           Open the DURING page
