@@ -2,6 +2,14 @@ import { createTheme } from '@mui/material'
 
 // doc: https://mui.com/material-ui/customization/theming
 export const theme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      mobile: 360,
+      tablet: 1024,
+      desktop: 1440,
+    },
+  },
   typography: {
     'rayse-12600': {
       fontSize: 12,
