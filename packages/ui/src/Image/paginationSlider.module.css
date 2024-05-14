@@ -1,8 +1,8 @@
-.swiper-pagination-bullet-active {
+.swiperBulletActive {
 	position: relative;
 }
 
-.swiper-pagination-bullet-active:after {
+.swiperBulletActive:after {
 	border-radius: 50%;
 	border: 2px solid #ffffff;
 	position: absolute;
@@ -13,6 +13,6 @@
 	right: -4px;
 }
 
-.swiper-pagination-bullet {
+.swiperBullet {
 	background-color: #FFFFFF;
 }

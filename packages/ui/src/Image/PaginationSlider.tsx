@@ -1,10 +1,12 @@
 import React, { FunctionComponent } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Pagination } from 'swiper/modules'
+import { clsx } from 'clsx'
 
 import 'swiper/css'
 import 'swiper/css/pagination'
-import './style.css'
+import styles from './paginationSlider.module.css'
+
 import { Image } from './Image'
 
 interface PropsPaginationSlider {
@@ -13,7 +15,14 @@ interface PropsPaginationSlider {
 
 export const PaginationSlider: FunctionComponent<PropsPaginationSlider> = ({ images }) => {
   return (
-    <Swiper pagination={true} modules={[Pagination]} className="mySwiper">
+    <Swiper
+      pagination={{
+        bulletActiveClass: clsx('swiper-pagination-bullet-active', styles.swiperBulletActive),
+        bulletClass: clsx('swiper-pagination-bullet', styles.swiperBullet)
+      }}
+      modules={[Pagination]}
+      className="mySwiper"
+    >
       {images.map(image => (
         <SwiperSlide key={image}>
           <Image
