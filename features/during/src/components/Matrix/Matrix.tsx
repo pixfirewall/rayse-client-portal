@@ -1,24 +1,27 @@
 import React, { FunctionComponent } from 'react'
-import { Group, Text, MainPaper } from '@rayseinc-packages/ui'
+import { Group, Text, MainPaper, Showif } from '@rayseinc-packages/ui'
 
 import { CTA } from './CTA'
 import { Info } from './Info'
 
 interface MatrixProps {
-  agentName: string
+  title: string
+  agentName?: string
   activities: number
   outcomes: number
   tours: number
   offers: number
 }
 
-export const Matrix: FunctionComponent<MatrixProps> = ({ agentName, ...data }) => {
+export const Matrix: FunctionComponent<MatrixProps> = ({ title, agentName, ...data }) => {
   return (
     <MainPaper bgcolor="#D9D4C8" padding="24px 20px">
       <Group dir="vertical" gap={32}>
-        <Text variant="rayse-24700">This is what Julie has been up to on your behalf</Text>
+        <Text variant="rayse-24700">{title}</Text>
         <Info {...data} />
-        <CTA agentName={agentName} />
+        <Showif con={agentName !== undefined}>
+          <CTA agentName={agentName as string} />
+        </Showif>
       </Group>
     </MainPaper>
   )

@@ -41,6 +41,11 @@ export const theme = createTheme({
       fontWeight: 400,
       fontFamily: 'inter',
     },
+    'rayse-18700': {
+      fontSize: 18,
+      fontWeight: 700,
+      fontFamily: 'inter',
+    },
     'rayse-20400': {
       fontSize: 20,
       fontWeight: 400,

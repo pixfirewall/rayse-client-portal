@@ -11,9 +11,10 @@ import { Image } from './Image'
 
 interface PropsPaginationSlider {
   images: string[]
+  ribbon?: React.ReactNode
 }
 
-export const PaginationSlider: FunctionComponent<PropsPaginationSlider> = ({ images }) => {
+export const PaginationSlider: FunctionComponent<PropsPaginationSlider> = ({ images, ribbon }) => {
   return (
     <Swiper
       pagination={{
@@ -25,13 +26,14 @@ export const PaginationSlider: FunctionComponent<PropsPaginationSlider> = ({ ima
     >
       {images.map(image => (
         <SwiperSlide key={image}>
+          {ribbon}
           <Image
             src={image}
             style={{
               display: 'block',
               width: '100%',
               height: '400px',
-							borderRadius: '24px'
+              borderRadius: '24px',
             }}
           />
         </SwiperSlide>

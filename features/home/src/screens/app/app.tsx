@@ -2,13 +2,13 @@ import './styles/App.css'
 import React from 'react'
 import { Button, Box, Image } from '@rayseinc-packages/ui'
 
-import { useNavigateToDuring } from '@rayseinc-features/during'
 import { useNavigateToPre, useNavigateToPreSecondaryPage } from '@rayseinc-features/pre'
+import { useNavigateToDuringHome12 } from '@rayseinc-features/during'
 
 import logo from './logo.svg'
 
 export const App = () => {
-  const navigateToDuring = useNavigateToDuring()
+  const navigateToDuring = useNavigateToDuringHome12()
   const navigateToPre = useNavigateToPre()
   const navigateToPreSecondaryPage = useNavigateToPreSecondaryPage()
 

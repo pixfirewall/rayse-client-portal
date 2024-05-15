@@ -1,4 +1,4 @@
-import React from "react"
+import React from 'react'
 
 export declare module '@mui/material/styles' {
   interface TypographyVariants {
@@ -7,6 +7,7 @@ export declare module '@mui/material/styles' {
     'rayse-16400': React.CSSProperties
     'rayse-16700': React.CSSProperties
     'rayse-18400': React.CSSProperties
+    'rayse-18700': React.CSSProperties
     'rayse-20400': React.CSSProperties
     'rayse-20700': React.CSSProperties
     'rayse-12600': React.CSSProperties
@@ -26,6 +27,7 @@ export declare module '@mui/material/styles' {
     'rayse-16400'?: React.CSSProperties
     'rayse-16700'?: React.CSSProperties
     'rayse-18400'?: React.CSSProperties
+    'rayse-18700'?: React.CSSProperties
     'rayse-20400'?: React.CSSProperties
     'rayse-20700'?: React.CSSProperties
     'rayse-12600'?: React.CSSProperties
@@ -47,6 +49,7 @@ export declare module '@mui/material/Typography' {
     'rayse-16400': true
     'rayse-16700': true
     'rayse-18400': true
+    'rayse-18700': true
     'rayse-20400': true
     'rayse-20700': true
     'rayse-12600': true

@@ -7,12 +7,13 @@ import 'swiper/css/pagination'
 
 interface PerViewSliderProps {
   slides: React.ReactNode[]
+	ns: number
 }
 
-export const PerViewSlider: FunctionComponent<PerViewSliderProps> = ({ slides }) => {
+export const PerViewSlider: FunctionComponent<PerViewSliderProps> = ({ slides, ns }) => {
   return (
     <Swiper
-      slidesPerView={1.2}
+      slidesPerView={ns}
       spaceBetween={0}
       pagination={false}
       modules={[Pagination]}

@@ -1,1 +1,1 @@
-export * from './navigateToDuring'
+export * from './navigateToDuringHome12'

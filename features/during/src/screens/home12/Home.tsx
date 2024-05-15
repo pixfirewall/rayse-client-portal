@@ -1,7 +1,8 @@
 import React, { FunctionComponent } from 'react'
 import { Group } from '@rayseinc-packages/ui'
 
-import { Footer, BrandFooter, Journey, Matrix, Header } from '../../components'
+import { Footer, BrandFooter, Journey, Matrix, Header, Evaluating, RejectedHomes } from '../../components'
+import { homeData } from '../../fixtures/homeData'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Home12Props {}
@@ -17,8 +18,17 @@ export const Home12: FunctionComponent<Home12Props> = () => {
       }}
     >
       <Header review={true} />
+      <Evaluating homes={homeData} />
+      <RejectedHomes homes={homeData.map(home => ({ ...home, label: true }))} />
       <Group dir="vertical" gap={12}>
-        <Matrix agentName="Julie" activities={34} outcomes={42} tours={15} offers={1} />
+        <Matrix
+          title="This is what Julie has been up to on your behalf"
+          agentName="Julie"
+          activities={34}
+          outcomes={42}
+          tours={15}
+          offers={1}
+        />
         <Journey />
         <BrandFooter />
         <Footer />
