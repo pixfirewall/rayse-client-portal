@@ -1,4 +1,7 @@
 import React from 'react'
+import { useTheme } from '@mui/material/styles'
+import { clsx } from 'clsx'
+import useMediaQuery from '@mui/material/useMediaQuery'
 import {
   Box,
   Text,
@@ -8,8 +11,9 @@ import {
   Divider,
   LongButton,
   WhiteIcon,
-  RayseIcon
- } from '@rayseinc-packages/ui'
+  RayseIcon,
+  Grid
+} from '@rayseinc-packages/ui'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Pagination } from 'swiper/modules'
@@ -24,12 +28,36 @@ import berkshireImage from './berkshire.png'
 import graduationHat from './graduation-hat.png'
 import shieldPlus from './shield-plus.png'
 import rayseLogo from './rayse-logo.png'
+import checkeredImage from './assets/checkered.png'
 
 import slide1 from './slide01.png'
 import slide2 from './slide02.png'
 import slide3 from './slide03.png'
 
+export type MatchSizes = {
+  xs: boolean
+  mobile: boolean
+  sm: boolean
+  tablet: boolean
+  desktop: boolean
+  min600: boolean
+  min860: boolean
+}
+
 export const Main = () => {
+  const theme = useTheme();
+  const matchSize: MatchSizes = {
+    xs: useMediaQuery(theme.breakpoints.up('xs')),
+    mobile: useMediaQuery(theme.breakpoints.up('mobile')),
+    sm: useMediaQuery(theme.breakpoints.up('sm')),
+    tablet: useMediaQuery(theme.breakpoints.up('tablet')),
+    desktop: useMediaQuery(theme.breakpoints.up('desktop')),
+    min600: useMediaQuery('(min-width:600px)'),
+    min860: useMediaQuery('(min-width:860px)')
+  }
+
+  const dutySectionIconSize = matchSize.tablet ? '64px' : '56px'
+
   const sliderImages = [slide1, slide2, slide3]
   const sliderCaptions = [
     'Because having an expert is key(s).',
@@ -38,81 +66,116 @@ export const Main = () => {
   ]
 
   return (
-    <Box className={styles.topContainer}>
+    <Grid container className={styles.topContainer}>
 
-      <Box className={styles.topNavBar}>
-        <RayseIcon size={56} iconSize={40} />
-        <LongButton color="darkGreen">
-          <Box className={styles.agentButtonIcon} />
-          <Text variant="rayse-20700">
-            Get started
-          </Text>
-          <Box style={{ width: '24px' }} />
-          <WhiteIcon material="arrow_forward" />
-        </LongButton>
-      </Box>
+      <Grid container item className={styles.topNavBar} xs={12}>
+        <Grid item>
+          <RayseIcon size={56} iconSize={40} />
+        </Grid>
+        <Grid item>
+          <LongButton color="darkGreen">
+            <Box className={styles.agentButtonIcon} />
+            <Text variant="rayse-20700">
+              Get started
+            </Text>
+            {matchSize.sm && <Box style={{ width: '24px' }} />}
+            <WhiteIcon material="arrow_forward" />
+          </LongButton>
+        </Grid>
+      </Grid>
 
-      <Box className={styles.sectionContainer}>
-        <Box className={styles.topSection}>
-          <Text variant="rayse-68700">
+      <Grid container item className={styles.sectionContainer} xs={12}>
+        <Grid item xs={12} paddingTop="30px">
+          <Text variant={matchSize.tablet ? 'rayse-68700' : 'rayse-36700'}>
             Let's find your way home!
           </Text>
-          <Text variant="rayse-24400">
-            As your advocate on-demand, I’m committed to honoring your trust and partnership through every step of the journey.
-          </Text>
-
-          <Box className={styles.imageSlideContainer}>
+        </Grid>
+        <Grid item xs={12}>
+          <Box display="flex" alignItems="center" justifyContent="center">
+            <Text variant={matchSize.tablet ? 'rayse-24400' : 'rayse-20400'} width="880px" align="center">
+              As your advocate on-demand, I’m committed to honoring your trust and partnership through every step of the journey.
+            </Text>
+          </Box>
+        </Grid>
+        <Grid item xs={12}>
+          <Box display="flex" alignItems="center" justifyContent="center" margin="10px">
             <Swiper
               slidesPerView={1}
               loop
               spaceBetween={20}
               pagination={{
-                clickable: true,
+                bulletActiveClass: clsx('swiper-pagination-bullet-active', styles.swiperBulletActive),
+                bulletClass: clsx('swiper-pagination-bullet', styles.swiperBullet)
               }}
               modules={[Pagination]}
               className={styles.imageSwiperContainer}
             >
               {sliderImages.map((value, index) => (
                 <SwiperSlide key={index}>
-                  <Image src={value} width="740.07px" height="414.428px" style={{ borderRadius: '24px 24px 0 0' }} />
-                  <Text variant="rayse-32700" className={styles.imageSlideCaption} height="50px">
+                  <Image src={value}
+                    width="100%"
+                    height="414.428px"
+                    style={{
+                      borderRadius: '24px 24px 0 0',
+                      objectPosition: '50% 50%',
+                      objectFit: 'cover'
+                    }}
+                  />
+                  <Text
+                    variant={matchSize.sm ? "rayse-32700" : "rayse-24700"}
+                    className={styles.imageSlideCaption}
+                    height="50px"
+                  >
                     {sliderCaptions[index]}
                   </Text>
                 </SwiperSlide>
               ))}
             </Swiper>
           </Box>
-        </Box>
-      </Box>
+        </Grid>
+      </Grid>
 
-      <Box className={styles.sectionContainer}>
-        <Box className={styles.sectionTwo}>
-          <Text variant="rayse-68700" width="700px" lineHeight="78px">
+      <Grid container item className={styles.sectionTwo} paddingTop="30px" xs={12}>
+        <Grid item xs={12}>
+          <Text
+            variant={matchSize.tablet ? "rayse-68700" : "rayse-32700"}
+            width="700px"
+            lineHeight={matchSize.tablet ? "78px" : "36px"}
+          >
             The search is only 5% of the process.
           </Text>
-          <Text variant="rayse-24400">
+        </Grid>
+        <Grid item xs={12}>
+          <Text variant={matchSize.tablet ? "rayse-24400" : "rayse-20400"}>
             I’ll help you navigate 100 percent of it, all mapped out in advance, with easy information sharing and real-time collaboration.
           </Text>
-
-          <Box className={styles.meetRayseContainer}>
-            <WhiteButton>
-              <Text variant="rayse-32700">
-                Meet Rayse
-              </Text>
-              <YellowIcon material="arrow_forward" />
-            </WhiteButton>
+        </Grid>
+        <Grid item xs={12}>
+          <Box display="flex" alignItems="center" justifyContent="center">
+            <Box className={styles.meetRayseContainer}>
+              <WhiteButton>
+                <Text variant="rayse-32700">
+                  Meet Rayse
+                </Text>
+                <YellowIcon material="arrow_forward" />
+              </WhiteButton>
+            </Box>
           </Box>
-        </Box>
-      </Box>
+        </Grid>
+      </Grid>
 
-      <Box className={styles.sectionContainer}>
-        <AgentProfile />
-      </Box>
+      <Grid item className={styles.sectionContainer} xs={12}>
+        <AgentProfile matchSize={matchSize} />
+      </Grid>
 
-      <Box className={styles.sectionContainer}>
-        <Box className={styles.collaborationContainer}>
+      <Grid item className={styles.sectionContainer} xs={12}>
+        <Box className={styles.collaborationContainer} margin="auto">
           <Box className={styles.collabTop}>
-            <Image src={berkshireImage} width="351" height="68" />
+            <Image
+              src={matchSize.tablet ? berkshireImage : checkeredImage}
+              className={matchSize.tablet ? styles.companyLogo
+                : (matchSize.sm ? styles.companyLogoMobile : styles.companyLogoTiny)}
+            />
 
             <WhiteButton>
               <Text variant="rayse-20700">
@@ -123,53 +186,60 @@ export const Main = () => {
           </Box>
 
           <Divider className={styles.collabDivider} orientation="horizontal" flexItem />
-          <Text variant="rayse-32700" color="#FFF">
+          <Text variant={matchSize.tablet ? "rayse-32700" : "rayse-18400"} color="#FFF" align="left">
             Our collaboration is all the more valuable with the support, access and expertise of the team
-            I’m proud to be a part of in leading the way forward in residential real estate. 
+            I’m proud to be a part of in leading the way forward in residential real estate.
           </Text>
         </Box>
-      </Box>
+      </Grid>
 
-      <Box className={styles.sectionContainer}>
-        <Box className={styles.dutySection}>
+      <Grid item className={styles.sectionContainer} xs={12}>
+        <Box className={styles.dutySection} margin="auto">
           <Box className={styles.dutySectionTop}>
-            <Image src={graduationHat} width="64px" height="64px" />
-            <Image src={shieldPlus} width="64px" height="64px" />
+            <Image src={graduationHat} width={dutySectionIconSize} height={dutySectionIconSize} />
+            <Image src={shieldPlus} width={dutySectionIconSize} height={dutySectionIconSize} />
           </Box>
 
-          <Text variant="rayse-44700" color="#171717" textAlign="left">
+          <Text variant={matchSize.tablet ? "rayse-44700" : "rayse-32700"} color="#171717" textAlign="left">
             I take my fiduciary duty seriously.
           </Text>
 
-          <Text variant="rayse-24400" color="#171717" textAlign="left">
+          <Text variant={matchSize.tablet ? "rayse-24400" : "rayse-18400"} color="#171717" textAlign="left">
             You’re making a new future for yourself and your family. I’m making it my job to protect you—from surprises,
             from unknowns, from bad actors and small print and potential obstacles that range from the size of two termites
             to a four-lane highway or flood zone. I’m here as your first line of defense to help you anticipate,
             negotiate and pre-empt the many legal and financial challenges to successful homeowning.
           </Text>
         </Box>
-      </Box>
+      </Grid>
 
-      <Box className={styles.sectionContainer}>
-        <Box className={styles.bottomSection}>
-          <Text variant="rayse-44700" color="#171717" textAlign="left" padding="40px">
+      <Grid item className={styles.sectionContainer} xs={12}>
+        <Box className={styles.bottomSection} margin="auto">
+          <Text variant={matchSize.tablet ? "rayse-44700" : "rayse-32700"} color="#171717" textAlign="left" padding="40px">
             Clarity. Accountability. Collaboration.
           </Text>
-          <Divider className={styles.collabDivider} orientation="horizontal" flexItem />
+          <Divider
+            sx={{ background: '#FFF', 'border-width': '2px', opacity: 0.9, 'border-color': '#FFF' }}
+            orientation="horizontal"
+            flexItem
+          />
 
           <Box className={styles.bottomSectionLower}>
-            <Image src={rayseLogo} width="360px" height="108px" />
+            <Image src={rayseLogo} className={matchSize.tablet ? styles.rayseLogo : styles.rayseLogoMobile} />
+
             <LongButton color="lightGreen">
               <Box className={styles.agentButtonIcon} />
               <Text variant="rayse-20700">
                 Get started
               </Text>
-              <Box style={{ width: '24px' }} />
+              {matchSize.sm && <Box style={{ width: '24px' }} />}
               <WhiteIcon material="arrow_forward" />
             </LongButton>
+
           </Box>
         </Box>
-      </Box>
-    </Box>
+      </Grid>
+
+    </Grid>
   )
 }

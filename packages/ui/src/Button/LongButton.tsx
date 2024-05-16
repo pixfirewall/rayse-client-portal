@@ -37,7 +37,7 @@ const LightGreenStyle = styled(Button)({
 const DarkGreenStyle = styled(Button)({
   display: 'flex',
   justifyContent: 'space-between',
-  width: '280px',
+  //width: '280px',
   textAlign: 'left',
   backgroundColor: "#2A6656",
   color: '#FFF',

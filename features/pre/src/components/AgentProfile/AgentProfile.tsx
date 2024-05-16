@@ -12,7 +12,13 @@ import avatar1 from './avatar1.png'
 import avatar2 from './avatar2.png'
 import avatar3 from './avatar3.png'
 
-export const AgentProfile = () => {
+import type { MatchSizes } from '../../screens/pre/index'
+
+type Props = {
+  matchSize: MatchSizes
+}
+
+export const AgentProfile = ({ matchSize }: Props) => {
   const avatarPics = [avatar1, avatar2, avatar3, avatar1, avatar2, avatar3, avatar1]
   const reviewTexts = [
     `Julie was so clear on everything on the path to finding our dream home (we did!) that…`,
@@ -27,57 +33,86 @@ export const AgentProfile = () => {
   let swiper = useSwiper()
 
   return (
-    <Box className={styles.profileContainer}>
-      <Box className={styles.profileTopSection}>
-        <Box className={styles.profileImage} />
+    <Box className={styles.profileContainer} margin="auto">
+      <Box className={matchSize.tablet ? styles.profileTopSection : styles.profileTopSectionMobile}>
+        <Box
+          className={matchSize.tablet ? styles.profileImage : styles.profileImageMobile}
+        />
 
-        <Box className={styles.profileDetailsContainer}>
-          <Text variant="rayse-36700" color="#FFF" padding="40px 40px 0 40px">
+        <Box
+          className={styles.profileDetailsContainer}
+          style={matchSize.tablet
+            ? { height: '730px' }
+            : { gap: '48px' }
+          }
+        >
+          <Text variant={matchSize.tablet ? "rayse-36700" : "rayse-32700"} color="#FFF" padding="40px 40px 0 40px" textAlign="left">
             Julie Capinstand
           </Text>
-          <Text variant="rayse-32700" color="#FFF" padding="0 40px 0 40px" textAlign="left">
+          <Text variant={matchSize.tablet ? "rayse-32700" : "rayse-20700"} color="#FFF" padding="0 40px 0 40px" textAlign="left">
             I’m committed to being your advocate on-demand, honoring your trust and partnership
             through your unique home-buying journey.
           </Text>
           <Box className={styles.profileContactInfoContainer}>
-            <Text variant="rayse-24400" color="#FFF" textAlign="left">
-              Eliot Park Residential DRE #02095311
+            <Text variant={matchSize.tablet ? "rayse-24400" : "rayse-20400"} color="#FFF" textAlign="left">
+              Eliot Park Residential
             </Text>
-            <Text variant="rayse-24400" color="#FFF" textAlign="left">
+            <Text variant={matchSize.tablet ? "rayse-24400" : "rayse-20400"} color="#FFF" textAlign="left">
+              DRE #02095311
+            </Text>
+            <Text variant={matchSize.tablet ? "rayse-24400" : "rayse-20400"} color="#FFF" textAlign="left">
               (555) 654-6675
             </Text>
-            <Text variant="rayse-24400" color="#FFF" textAlign="left">
+            <Text variant={matchSize.tablet ? "rayse-24400" : "rayse-20400"} color="#FFF" textAlign="left">
               jcapinstand@eliotpark.com
             </Text>
           </Box>
 
           <Grid container style={{ padding: '0 40px 40px 40px' }} rowSpacing={2} columnSpacing={4}>
-            <Grid item xs={6}>
-              <SocialContact socialNetwork="facebook" infoText="@13579" />
+            <Grid item xs={12} tablet={6}>
+              {matchSize.tablet ? (
+                <SocialContact socialNetwork="linkedin" infoText="@13579" variant="rayse-32400" size="52px" />
+              ) : (
+                <SocialContact socialNetwork="linkedin" infoText="@13579" variant="rayse-20400" size="36px" />
+              )}
             </Grid>
-            <Grid item xs={6}>
-              <SocialContact socialNetwork="facebook" infoText="@13579" />
+            <Grid item xs={12} tablet={6}>
+              {matchSize.tablet ? (
+                <SocialContact socialNetwork="facebook" infoText="@13579" variant="rayse-32400" size="52px" />
+              ) : (
+                <SocialContact socialNetwork="facebook" infoText="@13579" variant="rayse-20400" size="36px" />
+              )}
             </Grid>
-            <Grid item xs={6}>
-              <SocialContact socialNetwork="facebook" infoText="@13579" />
+            <Grid item xs={12} tablet={6}>
+              {matchSize.tablet ? (
+                <SocialContact socialNetwork="instagram" infoText="@13579" variant="rayse-32400" size="52px" />
+              ) : (
+                <SocialContact socialNetwork="instagram" infoText="@13579" variant="rayse-20400" size="36px" />
+              )}
             </Grid>
-            <Grid item xs={6}>
-              <SocialContact socialNetwork="facebook" infoText="@13579" />
+            <Grid item xs={12} tablet={6}>
+              {matchSize.tablet ? (
+                <SocialContact socialNetwork="tiktok" infoText="@13579" variant="rayse-32400" size="52px" />
+              ) : (
+                <SocialContact socialNetwork="tiktok" infoText="@13579" variant="rayse-20400" size="36px" />
+              )}
             </Grid>
           </Grid>
         </Box>
       </Box>
 
-      <Box className={styles.profileBottomSection}>
+      <Box className={matchSize.tablet ? styles.profileBottomSection : styles.profileBottomSectionMobile}>
         <Box>
-          <Text variant="rayse-44700" color="#FFF" width="210px" textAlign="left">
+          <Text variant={matchSize.tablet ? "rayse-44700" : "rayse-32700"} color="#FFF" width="210px" textAlign="left">
             Julie's reviews
           </Text>
         </Box>
 
         <Box className={styles.reviewSlideContainer}>
           <Swiper
-            slidesPerView={3}
+            slidesPerView={
+              matchSize.min860 ? 3 : (matchSize.min600 ? 2 : 1)
+            }
             loop
             spaceBetween={10}
             className={styles.reviewSwiperContainer}

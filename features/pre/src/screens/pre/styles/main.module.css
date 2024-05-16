@@ -1,27 +1,33 @@
 .topContainer {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
+	//display: flex;
+	//flex-direction: column;
+	justify-content: flex-start;
 	align-items: center;
 	background: #FFF;
-	gap: 128px;
-	padding-top: 100px;
+	gap: 24px;
+	padding-top: 16px;
 	padding-bottom: 100px;
+	padding-left: 10px;
+	padding-right: 10px;
 }
 
 .sectionContainer {
-	flex-shrink: 0;
+	//flex-shrink: 0;
+	color: #171717;
 	background: #FFF;
+	text-align: center;
+	gap: 24px;
+	padding-top: 64px;
 }
 
 .topSection {
-	width: 897px;
+	//width: 897px;
 	color: #171717;
 	text-align: center;
 
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+	//display: flex;
+	//flex-direction: column;
+	//align-items: center;
 	background: #FFF;
 	gap: 24px;
 }
@@ -29,6 +35,7 @@
 .imageSwiperContainer {
 	padding-bottom: 20px;
 	border-radius: 24px;
+	width: 740px;
 }
 
 .imageSlideContainer {
@@ -64,33 +71,36 @@
 	color: #171717;
 	text-align: center;
 	gap: 24px;
-	
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+	color: #171717;
+	padding-top: 64px;
+
+	//display: flex;
+	//flex-direction: column;
+	//align-items: center;
 	background: #FFF;
 }
 
 .meetRayseContainer {
 	width: 930px;
 	height: 472px;
-
+	margin: 10px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	
+
 	border-radius: 24px;
 	background: url('../blur.jpg') lightgray 50% / cover no-repeat;
 }
 
 .collaborationContainer {
 	display: flex;
-	width: 930px;
+	max-width: 930px;
 	padding: 40px;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	gap: 40px;
+	//margin: auto;
 
 	border-radius: 24px;
 	background: #3F947D;
@@ -109,7 +119,7 @@
 
 .dutySection {
 	display: flex;
-	width: 930px;
+	max-width: 930px;
 	padding: 40px;
 	flex-direction: column;
 	justify-content: center;
@@ -128,7 +138,7 @@
 
 .bottomSection {
 	display: flex;
-	width: 1120px;
+	max-width: 1120px;
 	flex-direction: column;
 	align-items: flex-start;
 
@@ -137,11 +147,12 @@
 }
 
 .bottomSectionLower {
-	width: 1040px;
+	max-width: 1040px;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
+	align-self: stretch;
 	padding: 40px;
 
 	border-radius: 24px;
@@ -160,10 +171,10 @@
 }
 
 .topNavBar {
-	width: 1120px;
+	//width: 1120px;
 	//height: 24px;
-	display: flex;
-	flex-direction: row;
+	//display: flex;
+	//flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
 	padding: 20px;
@@ -171,4 +182,53 @@
 	border-radius: 24px;
 	background: rgba(63, 148, 125, 0.88);
 	backdrop-filter: blur(20px);
+}
+
+.swiperBullet {
+	position: relative;
+	top: 10px;
+}
+
+.swiperBulletActive {
+	background-color: #555;
+}
+
+.companyLogo {
+	width: 351px;
+	height: 68px;
+}
+
+.companyLogoMobile {
+	width: 96px;
+	height: 96px;
+	background-size: cover;
+}
+
+.companyLogoTiny {
+	width: 48px;
+	height: 48px;
+}
+
+.rayseLogo {
+	width: 360px;
+	height: 108px;
+}
+
+.rayseLogoMobile {
+	width: 103px;
+	height: 32px;
+}
+
+@media screen and (max-width: 440px) {
+	.collaborationContainer {
+		padding: 24px;
+	}
+	.collabDivider {
+		background: rgba(0, 0, 0, 0.32);
+	}
+	.bottomSectionLower {
+		gap: 16px;
+		flex-direction: column;
+		padding: 30px 10px 30px 16px;
+	}
 }
