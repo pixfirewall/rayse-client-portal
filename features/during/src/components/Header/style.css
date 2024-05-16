@@ -1,8 +1,13 @@
 .Header-Container {
 	display: flex;
 	flex-direction: column;
+	/* align-items: center; */
 	padding: 20px;
 	gap: 16px;
+
+	/* width: 369px; */
+	/* height: 196px; */
+
 	background: #3F947D;
 	border-radius: 24px;
 }

@@ -5,6 +5,7 @@ import { store } from '@rayseinc-core/store'
 import { Provider } from '@rayseinc-core/redux'
 import { ThemeProvider } from '@mui/material'
 
+import './styles.css'
 import { theme } from './theme'
 
 import '@fontsource/roboto/300.css'
