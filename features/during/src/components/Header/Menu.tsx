@@ -2,14 +2,16 @@ import React, { FunctionComponent } from 'react'
 import styled from '@emotion/styled'
 
 import { Button, Icon, RayseIcon } from '@rayseinc-packages/ui'
+import { useMenuRef } from '../../contexts'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface MenuProps {}
 
 export const Menu: FunctionComponent<MenuProps> = () => {
+  const menuRef = useMenuRef()
 
   return (
-    <MainButton>
+    <MainButton onClick={() => menuRef.current?.handleOpen()}>
       <Icon sx={{ color: 'white' }}>menu</Icon>
       <RayseIcon />
     </MainButton>
