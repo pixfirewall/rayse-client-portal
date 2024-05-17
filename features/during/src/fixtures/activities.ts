@@ -33,3 +33,26 @@ export const activities = [
     clickable: false,
   },
 ]
+
+export const consultationActivities = [
+  {
+    title: 'Home requirements',
+    status: Statu.Done,
+    clickable: false,
+  },
+  {
+    title: 'Buyer/Broker agreement',
+    status: Statu.Done,
+    clickable: false,
+  },
+  {
+    title: 'MLS Search',
+    status: Statu.Done,
+    clickable: false,
+  },
+  {
+    title: 'Financing options',
+    status: Statu.Done,
+    clickable: false,
+  },
+]
