@@ -2,12 +2,13 @@ image: node:18
 
 options:
   docker: true
-  size: 2x
-
-
-
 
 definitions:
+  services:
+    docker-build:
+       memory: 3072
+       type: docker
+
   steps:
     - step: &build-and-test
         name: Build and Test
@@ -18,6 +19,11 @@ definitions:
     - step: &docker-build-and-push
         name: Build and Push Docker Image
         image: amazon/aws-cli
+        services:
+          - docker-build
+        runs-on:
+          - self.hosted
+          - linux
         script:
           - export IMAGE_TAG=$(echo "$BITBUCKET_BRANCH" | sed -r 's/feature\///g' | sed -r 's/release\///g')
           - docker build --no-cache -t "${APP_NAME}:${IMAGE_TAG}" .
@@ -32,6 +38,9 @@ definitions:
     - step: &deploy-to-ecs
         name: ECS Deploy
         image: amazon/aws-cli
+        runs-on:
+          - self.hosted
+          - linux
         script:
           - yum install gettext -y
           - aws configure set aws_access_key_id ${AWS_ACCESS_KEY_ID}
