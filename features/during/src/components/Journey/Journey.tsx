@@ -2,8 +2,11 @@ import React from 'react'
 import { Group, MainPaper, Text, Grid } from '@rayseinc-packages/ui'
 
 import { JourneyCard, State } from './JourneyCard'
+import { useNavigateToConsultation } from '../../navigations'
 
 export const Journey = () => {
+	  const navigateToConsultation = useNavigateToConsultation()
+
   return (
     <MainPaper bgcolor="#3F947D" padding="20px 16px">
       <Group dir="vertical" gap={24}>
@@ -12,7 +15,7 @@ export const Journey = () => {
         </Text>
         <Grid container spacing={2}>
           <Grid item xs={6}>
-            <JourneyCard info="Consultation" />
+            <JourneyCard info="Consultation" onClick={navigateToConsultation} />
           </Grid>
           <Grid item xs={6}>
             <JourneyCard info="Touring & Offers" state={State.Inprogres} order={2} />
