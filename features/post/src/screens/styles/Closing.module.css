@@ -1,6 +1,8 @@
 .topContainer {
 	//display: flex;
 	//flex-direction: column;
+	max-width: 740px;
+	margin: auto;
 	justify-content: flex-start;
 	align-items: center;
 	background: 'linear-gradient(179.99deg, #FFFFFF 0.01%, #EEECE6 66.41%)';
