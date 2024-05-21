@@ -5,6 +5,7 @@ import { Backdrop, IconButton } from '@mui/material'
 import { Close, Portrait, ImportContacts, Task } from '@mui/icons-material'
 
 import styles from './Menu.module.css'
+import { useNavigateToAgentActivity } from '../../navigations'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface MenuProps {}
@@ -20,6 +21,7 @@ export const Menu = forwardRef<MenuRef, MenuProps>((props, ref) => {
     handleOpen,
     handleClose,
   }))
+	const navigateToAgentActivity = useNavigateToAgentActivity()
 
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
@@ -41,7 +43,7 @@ export const Menu = forwardRef<MenuRef, MenuProps>((props, ref) => {
             <Text>Your account</Text>
           </WhiteButton>
           <Box className={styles.divider} />
-          <WhiteButton>
+          <WhiteButton onClick={() => navigateToAgentActivity()}>
             <Task />
             <Text>Agent activities</Text>
           </WhiteButton>

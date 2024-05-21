@@ -1,12 +1,14 @@
 import React, { FunctionComponent } from 'react'
 import { Group, Text, MainPaper } from '@rayseinc-packages/ui'
 import { Activity, ActivityProps } from './Activity'
+import { useNavigateToMilestone } from '../../navigations'
 
 interface ActivityListProps {
   activities: (ActivityProps & { clickable: boolean })[]
 }
 
 export const ActivityList: FunctionComponent<ActivityListProps> = ({ activities }) => {
+	const navigateToMilestone = useNavigateToMilestone()
   return (
     <MainPaper>
       <Group dir="vertical" gap={24}>
@@ -19,6 +21,7 @@ export const ActivityList: FunctionComponent<ActivityListProps> = ({ activities 
               progress={activity?.progress}
               status={activity.status}
               line={!(index + 1 === activities.length)}
+              onClick={activity.clickable ? navigateToMilestone : undefined}
             />
           ))}
         </Group>
