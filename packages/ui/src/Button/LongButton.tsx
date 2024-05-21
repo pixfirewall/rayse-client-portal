@@ -10,11 +10,11 @@ type Props = {
 export const LongButton = (props: PropsWithChildren<Props>) => {
   switch (props.color) {
     case 'darkGreen': return (<DarkGreenStyle onClick={props.onClick}>{props.children}</DarkGreenStyle>)
-    case 'lightGreen': return (<LightGreenStyle>{props.children}</LightGreenStyle>)
-    case 'purple': return (<PurpleStyle>{props.children}</PurpleStyle>)
-    case 'black': return (<BlackStyle>{props.children}</BlackStyle>)
+    case 'lightGreen': return (<LightGreenStyle onClick={props.onClick}>{props.children}</LightGreenStyle>)
+    case 'purple': return (<PurpleStyle onClick={props.onClick}>{props.children}</PurpleStyle>)
+    case 'black': return (<BlackStyle onClick={props.onClick}>{props.children}</BlackStyle>)
     case 'report': return (<ReportStyle onClick={props.onClick}>{props.children}</ReportStyle>)
-    case 'report-white': return (<ReportWhiteStyle>{props.children}</ReportWhiteStyle>)
+    case 'report-white': return (<ReportWhiteStyle onClick={props.onClick}>{props.children}</ReportWhiteStyle>)
     default: return (<></>)
   }
 }

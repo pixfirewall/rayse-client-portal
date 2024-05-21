@@ -1,5 +1,5 @@
-import React from 'react'
-import { Box, Text, Image, ImageList, ImageListItem, LongButton, YellowIcon } from '@rayseinc-packages/ui'
+import React, { useState } from 'react'
+import { Box, Text, Image, ImageList, ImageListItem, LongButton, Icon } from '@rayseinc-packages/ui'
 
 import styles from './OtherHomes.module.css'
 
@@ -14,8 +14,17 @@ import home6 from './homes/home6.jpg'
 import home7 from './homes/home7.jpg'
 import home8 from './homes/home8.jpg'
 
+const IMAGE_DISPLAY_LIMIT = 8
+
 export const OtherHomes = () => {
-  const pics = [home1, home2, home3, home4, home5, home6, home7, home8]
+  const [expandHomes, setExpandHomes] = useState(false)
+
+  const pics = [home1, home2, home3, home4, home5, home6, home7, home8,
+    home1, home2, home3, home4, home5, home6, home7, home8]
+  const limitedPics = pics.slice(0, pics.length > IMAGE_DISPLAY_LIMIT ? IMAGE_DISPLAY_LIMIT : pics.length)
+
+  const imageReference = expandHomes ? pics : limitedPics
+
   return (
     <Box className={styles.container}>
       <Image src={iconHome} width='56px' height='56px' />
@@ -25,7 +34,7 @@ export const OtherHomes = () => {
 
       <Box>
         <ImageList variant="masonry" cols={2} gap={18} style={{ boxShadow: 'none' }}>
-          {pics.map(img => (
+          {imageReference.map(img => (
             <ImageListItem key={img}>
               <Image src={img} className={styles.imageStyle} width="95%"
               />
@@ -37,11 +46,18 @@ export const OtherHomes = () => {
         </ImageList>
       </Box>
 
-      <LongButton color="report-white">
-        <Text variant="rayse-16700">View all of the homes</Text>
-        <Box alignSelf="stretch">
-          <YellowIcon material="arrow_forward" />
-        </Box>
+      <LongButton color="report-white" onClick={() => setExpandHomes(!expandHomes)}>
+        {expandHomes ? (<>
+          <Text variant="rayse-16700">Show fewer homes</Text>
+          <Box alignSelf="stretch">
+            <Icon sx={{ color: 'black', 'font-size': 48, paddingTop: '7px', paddingRight: '5px' }}>expand_less</Icon>
+          </Box>
+        </>) : (<>
+          <Text variant="rayse-16700">Show all homes</Text>
+          <Box alignSelf="stretch">
+            <Icon sx={{ color: 'black', 'font-size': 48, paddingTop: '7px', paddingRight: '5px' }}>expand_more</Icon>
+          </Box>
+        </>)}
       </LongButton>
     </Box>
   )
