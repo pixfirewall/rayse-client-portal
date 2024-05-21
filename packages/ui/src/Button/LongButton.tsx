@@ -4,15 +4,16 @@ import { Button } from "@mui/material";
 
 type Props = {
   color: 'darkGreen' | 'lightGreen' | 'purple' | 'black' | 'report' | 'report-white'
+  onClick?: () => void
 }
 
 export const LongButton = (props: PropsWithChildren<Props>) => {
   switch (props.color) {
-    case 'darkGreen': return (<DarkGreenStyle>{props.children}</DarkGreenStyle>)
+    case 'darkGreen': return (<DarkGreenStyle onClick={props.onClick}>{props.children}</DarkGreenStyle>)
     case 'lightGreen': return (<LightGreenStyle>{props.children}</LightGreenStyle>)
     case 'purple': return (<PurpleStyle>{props.children}</PurpleStyle>)
     case 'black': return (<BlackStyle>{props.children}</BlackStyle>)
-    case 'report': return (<ReportStyle>{props.children}</ReportStyle>)
+    case 'report': return (<ReportStyle onClick={props.onClick}>{props.children}</ReportStyle>)
     case 'report-white': return (<ReportWhiteStyle>{props.children}</ReportWhiteStyle>)
     default: return (<></>)
   }

@@ -35,7 +35,7 @@ export const Closing = () => {
           <Box className={styles.imageBox}>
             <Image src={home1} width="100%" style={{
               borderRadius: '24px'
-            }}/>
+            }} />
           </Box>
         </Grid>
 
@@ -60,6 +60,20 @@ export const Closing = () => {
             activities={42}
             tours={15}
             offers={1}
+            days={47}
+            escrowClosed={'40 days'}
+            homesToured={10}
+            offersMade={3}
+            purchaseDate={'09/14/22'}
+            closingDate={'10/24/22'}
+            listPrice={'$799,000'}
+            purchasePrice={'$750,000'}
+            purchaseVsListPrice={'-7%'}
+            closingCredits={'+$6,500'}
+            milestones={21}
+            completedActivities={105}
+            totalHours={81.5}
+            totalMileage={'396 miles'}
           />
         </Grid>
 

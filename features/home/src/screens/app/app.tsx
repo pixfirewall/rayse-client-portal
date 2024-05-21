@@ -4,6 +4,7 @@ import { Button, Box, Image } from '@rayseinc-packages/ui'
 
 import { useNavigateToPre, useNavigateToPreSecondaryPage } from '@rayseinc-features/pre'
 import { useNavigateToDuringHome12, useNavigateToDuringHome34 } from '@rayseinc-features/during'
+import { useNavigateToPost } from '@rayseinc-features/post'
 
 import logo from './logo.svg'
 
@@ -12,6 +13,7 @@ export const App = () => {
   const navigateToPre = useNavigateToPre()
   const navigateToPreSecondaryPage = useNavigateToPreSecondaryPage()
   const navigateToDuringHome34 = useNavigateToDuringHome34()
+  const navigateToPost = useNavigateToPost()
 
   return (
     <Box className="App">
@@ -28,6 +30,9 @@ export const App = () => {
         </Button>
         <Button variant="contained" onClick={() => navigateToDuringHome34()}>
           Open the DURING Home 3/4
+        </Button>
+        <Button variant="contained" onClick={() => navigateToPost()}>
+          Open the CLOSING (Post) page
         </Button>
       </Box>
     </Box>

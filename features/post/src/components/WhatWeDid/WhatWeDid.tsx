@@ -1,20 +1,23 @@
-import React from 'react'
-import { Box, Text, Grid, RayseDivider, Image, LongButton, YellowIcon } from '@rayseinc-packages/ui'
+import React, { useState } from 'react'
+import { Box, Text, Grid, RayseDivider, Image, LongButton, Icon } from '@rayseinc-packages/ui'
 
 import { DataInfo } from './DataInfo'
+import { ClosingReport } from './ClosingReport'
 
 import styles from './WhatWeDid.module.css'
 
 import iconStars from './stars.png'
 
-type Props = {
-  hours: number
-  activities: number
-  tours: number
-  offers: number
-}
+import type { ReportProps } from './WhatWeDid.types'
 
-export const WhatWeDid = ({ hours, activities, tours, offers }: Props) => {
+export const WhatWeDid = (props: ReportProps) => {
+  const { hours, activities, tours, offers } = props
+  const [showEntireReport, setShowEntireReport] = useState(false)
+
+  const switchFullReport = () => {
+    setShowEntireReport(!showEntireReport)
+  }
+
   return (
     <Box className={styles.container}>
       <Image src={iconStars} width='56px' height='56px' />
@@ -50,12 +53,21 @@ export const WhatWeDid = ({ hours, activities, tours, offers }: Props) => {
         </Grid>
       </Grid>
 
-      <LongButton color="report">
-        <Text variant="rayse-16700">View entire report</Text>
-        <Box alignSelf="stretch">
-          <YellowIcon material="arrow_forward" />
-        </Box>
+      <LongButton color="report" onClick={() => switchFullReport()}>
+        {showEntireReport ? (<>
+          <Text variant="rayse-16700">Hide full report</Text>
+          <Box alignSelf="stretch">
+            <Icon sx={{ color: 'black', 'font-size': 48, paddingTop: '7px', paddingRight: '5px' }}>expand_less</Icon>
+          </Box>
+        </>) : (<>
+          <Text variant="rayse-16700">Show full report</Text>
+          <Box alignSelf="stretch">
+            <Icon sx={{ color: 'black', 'font-size': 48, paddingTop: '7px', paddingRight: '5px' }}>expand_more</Icon>
+          </Box>
+        </>)}
       </LongButton>
+
+      {showEntireReport && <ClosingReport {...props} />}
     </Box>
   )
 }
