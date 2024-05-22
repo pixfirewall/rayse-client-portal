@@ -1,0 +1,17 @@
+.account-input-text-field div::before {
+	all: unset;
+}
+
+.account-input-text-field div::after {
+	all: unset;
+}
+
+.account-input-text-field div {
+	border-radius: 12px;
+	background-color: #fff !important;
+	border: 1px solid #D9D4C8;
+}
+
+.account-input-text-field label {
+	color: #000 !important;
+}

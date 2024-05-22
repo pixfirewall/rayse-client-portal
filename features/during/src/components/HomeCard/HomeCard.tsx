@@ -6,6 +6,7 @@ import { Ribbon } from './Ribbon'
 import { HomeLabel, HomeLabelType } from '../HomeLabel'
 import { CardImage } from './CardImage'
 import { HomeDetails } from '../HomeDetails'
+import { useNavigateToHomeInfo } from '../../navigations'
 
 export interface HomeCardProps {
   ribbon: boolean
@@ -19,8 +20,10 @@ export interface HomeCardProps {
 }
 
 export const HomeCard: FunctionComponent<HomeCardProps> = ({ images, ribbon, label, ...details }) => {
+	const navigateToHomeInfo = useNavigateToHomeInfo({ images, ...details })
+
   return (
-    <Button sx={{ all: 'unset' }}>
+    <Button sx={{ all: 'unset' }} onClick={() => navigateToHomeInfo()}>
       <MainPaper padding="0" width="301px">
         <Group dir="vertical" padding="20px" gap={12} className="Home-Card-Container">
           <Box>

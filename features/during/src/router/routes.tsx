@@ -1,6 +1,6 @@
 import React from 'react'
 import { type RouteObject } from '@rayseinc-core/types'
-import { Home12, Home34, Consultation, Milestone, AgentActivity } from '../screens'
+import { Home12, Home34, Consultation, Milestone, HomeInfo, AgentActivity, Account, YourAgent } from '../screens'
 
 export const routes: RouteObject[] = [
   {
@@ -22,5 +22,17 @@ export const routes: RouteObject[] = [
   {
     path: '/during/agent-activity',
     element: <AgentActivity />,
+  },
+  {
+    path: '/during/home-info',
+    element: <HomeInfo />,
+  },
+  {
+    path: '/during/your-agent',
+    element: <YourAgent />,
+  },
+  {
+    path: '/during/account',
+    element: <Account />,
   },
 ]

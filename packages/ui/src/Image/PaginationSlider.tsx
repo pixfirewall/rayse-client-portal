@@ -9,20 +9,34 @@ import styles from './paginationSlider.module.css'
 
 import { Image } from './Image'
 
-interface PropsPaginationSlider {
+interface PaginationSliderProps {
   images: string[]
   ribbon?: React.ReactNode
+  borderRadius?: string
+  loop?: boolean
+  pagination?: boolean
+  onSlideChange?: (i: number) => void
 }
 
-export const PaginationSlider: FunctionComponent<PropsPaginationSlider> = ({ images, ribbon }) => {
+export const PaginationSlider: FunctionComponent<PaginationSliderProps> = ({
+  images,
+  ribbon,
+  borderRadius = '24px',
+  loop = true,
+  pagination = true,
+  onSlideChange,
+}) => {
   return (
     <Swiper
       pagination={{
         bulletActiveClass: clsx('swiper-pagination-bullet-active', styles.swiperBulletActive),
-        bulletClass: clsx('swiper-pagination-bullet', styles.swiperBullet)
+        bulletClass: clsx('swiper-pagination-bullet', styles.swiperBullet),
+        enabled: pagination,
       }}
       modules={[Pagination]}
       className="mySwiper"
+      loop={loop}
+      onSlideChange={s => onSlideChange && onSlideChange(s.realIndex)}
     >
       {images.map(image => (
         <SwiperSlide key={image}>
@@ -33,7 +47,7 @@ export const PaginationSlider: FunctionComponent<PropsPaginationSlider> = ({ ima
               display: 'block',
               width: '100%',
               height: '400px',
-              borderRadius: '24px',
+              borderRadius,
             }}
           />
         </SwiperSlide>

@@ -12,7 +12,7 @@ export const RejectedHomes: FunctionComponent<RejectedHomesProps> = ({ homes }) 
     <Group dir="vertical" gap={24}>
       <Text variant="rayse-24700">Rejected homes</Text>
       <Group sx={{width: 470}}>
-        <PerViewSlider
+        <PerViewSlider loop
           ns={1.4}
           slides={homes.map(home => (
             <HomeCard {...home} />

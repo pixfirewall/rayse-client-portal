@@ -43,6 +43,7 @@ export const Evaluating: FunctionComponent<EvaluatingProps> = ({ homes }) => {
         <Showif con={value === 0}>
           <Group sx={{width: 470}}>
             <PerViewSlider
+						loop
 						ns={1.4}
               slides={homes.map(home => (
                 <HomeCard {...home} />

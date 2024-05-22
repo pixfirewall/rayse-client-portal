@@ -29,6 +29,7 @@ export const Progress: FunctionComponent<ProgressProps> = ({ p = 0, data }) => {
         </Group>
         <Group sx={{ width: 470, boxSizing: 'border-box', flexShrink: 1, flexGrow: 0 }}>
           <PerViewSlider
+					loop
             ns={3}
             slides={data.map(d => (
               <ProgressCard {...d} />
