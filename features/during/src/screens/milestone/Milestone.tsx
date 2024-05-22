@@ -1,7 +1,10 @@
 import React, { FunctionComponent } from 'react'
+import { ScrollRestoration } from 'react-router-dom'
+
 import { Group, Text, MainPaper, Image, PageLayout } from '@rayseinc-packages/ui'
-import { ActivityHead, BrandFooter, Footer, NavBar, Progress } from '../../components'
+
 import { progressData } from '../../fixtures'
+import { ActivityHead, BrandFooter, Footer, NavBar, Progress } from '../../components'
 
 import home from '../../fixtures/assets/hand-home.jpg'
 
@@ -11,6 +14,7 @@ interface MilestoneProps {}
 export const Milestone: FunctionComponent<MilestoneProps> = () => {
   return (
     <PageLayout>
+      <ScrollRestoration />
       <Group
         dir="vertical"
         gap={72}

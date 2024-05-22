@@ -1,7 +1,10 @@
 import React, { FunctionComponent, useState } from 'react'
-import { Group, Text, Button, Avatar, Showif, PageLayout } from '@rayseinc-packages/ui'
-import { NavBar } from '../../components'
+import { ScrollRestoration } from 'react-router-dom'
 import { Badge, FilledInput, FormControl, InputLabel, styled } from '@mui/material'
+
+import { Group, Text, Button, Avatar, Showif, PageLayout } from '@rayseinc-packages/ui'
+
+import { NavBar } from '../../components'
 import { SaveButton } from './SaveButton'
 
 import edit from '../../fixtures/assets/edit.png'
@@ -33,6 +36,7 @@ export const Account: FunctionComponent<AccountProps> = () => {
 
   return (
     <PageLayout>
+      <ScrollRestoration />
       <Group
         dir="vertical"
         gap={24}

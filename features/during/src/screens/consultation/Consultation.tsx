@@ -1,8 +1,10 @@
 import React, { FunctionComponent } from 'react'
+import { ScrollRestoration } from 'react-router-dom'
+
 import { Group, PageLayout, Text } from '@rayseinc-packages/ui'
 
-import { Footer, BrandFooter, Matrix, ActivityList, NavBar } from '../../components'
 import { consultationActivities } from '../../fixtures'
+import { Footer, BrandFooter, Matrix, ActivityList, NavBar } from '../../components'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface ConsultationProps {}
@@ -10,6 +12,7 @@ interface ConsultationProps {}
 export const Consultation: FunctionComponent<ConsultationProps> = () => {
   return (
     <PageLayout>
+      <ScrollRestoration />
       <Group
         dir="vertical"
         gap={72}

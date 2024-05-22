@@ -1,9 +1,11 @@
 import React from 'react'
+import { ScrollRestoration, useLocation } from 'react-router-dom'
+
 import { Group, MainPaper, PageLayout } from '@rayseinc-packages/ui'
-import { BrandFooter, Footer, HomeDetails, HomeSlider, NavBar, Progress } from '../../components'
-import { HomeLabel, HomeLabelType } from '../../components/HomeLabel'
-import { useLocation } from 'react-router-dom'
+
 import { progressData } from '../../fixtures'
+import { HomeLabel, HomeLabelType } from '../../components/HomeLabel'
+import { BrandFooter, Footer, HomeDetails, HomeSlider, NavBar, Progress } from '../../components'
 
 export interface HomeInfoProps {
   images: string[]
@@ -21,6 +23,7 @@ export const HomeInfo = () => {
 
   return (
     <PageLayout>
+      <ScrollRestoration />
       <Group
         dir="vertical"
         gap={72}

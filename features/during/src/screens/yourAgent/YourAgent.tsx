@@ -1,5 +1,8 @@
 import React, { FunctionComponent } from 'react'
+import { ScrollRestoration } from 'react-router-dom'
+
 import { Group, Image, PageLayout } from '@rayseinc-packages/ui'
+
 import { AgentBio, AgentReviews, BrandFooter, ContactInfo, Footer, NavBar } from '../../components'
 
 import agent from '../../fixtures/assets/agent.png'
@@ -10,6 +13,7 @@ export interface YourAgentProps {}
 export const YourAgent: FunctionComponent<YourAgentProps> = () => {
   return (
     <PageLayout>
+      <ScrollRestoration />
       <Group
         dir="vertical"
         gap={72}
