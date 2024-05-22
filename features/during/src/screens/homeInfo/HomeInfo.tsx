@@ -32,7 +32,7 @@ export const HomeInfo = () => {
       >
         <Group dir="vertical" gap={32}>
           <Group>
-            <NavBar title="Termite inspection" />
+            <NavBar title={details.address} />
           </Group>
           <Group dir="vertical" gap={12}>
             <HomeSlider images={images} ribbon />
