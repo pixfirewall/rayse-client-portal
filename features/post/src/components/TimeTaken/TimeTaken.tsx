@@ -17,14 +17,23 @@ export const TimeTaken: FunctionComponent<TimeLeftProps> = ({ days }) => {
           display: 'flex',
           flexDirection: 'column'
         }}>
-          <Text variant="rayse-24700" alignSelf="flex-start">It only took us</Text>
+          <Box style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: '6px'
+          }}>
+            <Text variant="rayse-24700" alignSelf="flex-start">It took us a total</Text>
+            <Text variant="rayse-24700" color="rayse-green.main">{days}</Text>
+          </Box>
+          
           <Box style={{
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'center'
           }}>
             <Text variant="rayse-24700" color="rayse-green.main">
-              {days} days
+              days
             </Text>
             <Space />
             <Text variant="rayse-24700">to close</Text>

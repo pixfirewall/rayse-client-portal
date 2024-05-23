@@ -6,3 +6,9 @@ export const useNavigateToPost = () => {
 
   return useCallback(() => navigate(`/post`, { replace: false }), [])
 }
+
+export const useNavigateToClosingReport = () => {
+  const navigate = useNavigate()
+
+  return useCallback(() => navigate(`/closing-report`, { replace: false }), [])
+}

@@ -9,7 +9,8 @@ import {
   WhatWeDid,
   Footer,
   BrandFooter,
-  OtherHomes
+  OtherHomes,
+  ContactInfo
 } from '../components'
 import { MenuProvider } from '../contexts'
 
@@ -41,7 +42,7 @@ export const Closing = () => {
 
         <Grid item xs={12}>
           <HomeInfo
-            title="Welcome Home!"
+            title=""
             address="731 Kettner Ave"
             price="$799,000"
             discount="-6%"
@@ -51,34 +52,29 @@ export const Closing = () => {
               { value: '4', feature: 'bath' },
               { value: '4.6k', feature: 'sqft' }
             ]}
+            seenStatus='SEEN 4 DAYS AGO'
           />
         </Grid>
 
         <Grid item xs={12}>
           <WhatWeDid
-            hours={34}
-            activities={42}
+            outcomes={42}
+            activities={34}
             tours={15}
             offers={1}
-            days={47}
-            escrowClosed={'40 days'}
-            homesToured={10}
-            offersMade={3}
-            purchaseDate={'09/14/22'}
-            closingDate={'10/24/22'}
-            listPrice={'$799,000'}
-            purchasePrice={'$750,000'}
-            purchaseVsListPrice={'-7%'}
-            closingCredits={'+$6,500'}
-            milestones={21}
-            completedActivities={105}
-            totalHours={81.5}
-            totalMileage={'396 miles'}
           />
         </Grid>
 
         <Grid item xs={12}>
           <OtherHomes />
+        </Grid>
+
+        <Grid item xs={12}>
+          <ContactInfo
+            picture=""
+            email="email@gmail.com"
+            phone="(512) 123 - 1234"
+          />
         </Grid>
 
         <Grid item xs={12}>

@@ -45,7 +45,7 @@ export type MatchSizes = {
 }
 
 export const Main = () => {
-  const theme = useTheme();
+  const theme = useTheme()
   const matchSize: MatchSizes = {
     xs: useMediaQuery(theme.breakpoints.up('xs')),
     mobile: useMediaQuery(theme.breakpoints.up('mobile')),

@@ -1,22 +1,24 @@
-import React, { useState } from 'react'
-import { Box, Text, Grid, RayseDivider, Image, LongButton, Icon } from '@rayseinc-packages/ui'
+import React from 'react'
+import { Box, Text, Grid, RayseDivider, Image, LongButton, YellowIcon } from '@rayseinc-packages/ui'
+import { useNavigateToClosingReport } from '../../navigations'
 
 import { DataInfo } from './DataInfo'
-import { ClosingReport } from './ClosingReport'
 
 import styles from './WhatWeDid.module.css'
 
 import iconStars from './stars.png'
 
-import type { ReportProps } from './WhatWeDid.types'
+type Props = {
+  outcomes: number
+  activities: number
+  tours: number
+  offers: number
+}
 
-export const WhatWeDid = (props: ReportProps) => {
-  const { hours, activities, tours, offers } = props
-  const [showEntireReport, setShowEntireReport] = useState(false)
+export const WhatWeDid = (props: Props) => {
+  const { outcomes, activities, tours, offers } = props
 
-  const switchFullReport = () => {
-    setShowEntireReport(!showEntireReport)
-  }
+  const navigateToClosingReport = useNavigateToClosingReport()
 
   return (
     <Box className={styles.container}>
@@ -27,13 +29,13 @@ export const WhatWeDid = (props: ReportProps) => {
 
       <Grid container spacing={1.5}>
         <Grid item xs={5.5}>
-          <DataInfo badge={hours} text="Hours" icon={1} />
+          <DataInfo badge={activities} text="Activities" icon={1} />
         </Grid>
         <Grid item xs={0}>
           <RayseDivider color="#ADA08A" size={56} dir="vertical" />
         </Grid>
         <Grid item xs={5.5}>
-          <DataInfo badge={activities} text="Activities" icon={2} />
+          <DataInfo badge={outcomes} text="Outcomes" icon={2} />
         </Grid>
         <Grid item xs={5.5}>
           <RayseDivider color="#ADA08A" size={147} dir="horizontal" />
@@ -53,21 +55,12 @@ export const WhatWeDid = (props: ReportProps) => {
         </Grid>
       </Grid>
 
-      <LongButton color="report" onClick={() => switchFullReport()}>
-        {showEntireReport ? (<>
-          <Text variant="rayse-16700">Hide full report</Text>
-          <Box alignSelf="stretch">
-            <Icon sx={{ color: 'black', 'font-size': 48, paddingTop: '7px', paddingRight: '5px' }}>expand_less</Icon>
-          </Box>
-        </>) : (<>
-          <Text variant="rayse-16700">Show full report</Text>
-          <Box alignSelf="stretch">
-            <Icon sx={{ color: 'black', 'font-size': 48, paddingTop: '7px', paddingRight: '5px' }}>expand_more</Icon>
-          </Box>
-        </>)}
+      <LongButton color="report" onClick={() => navigateToClosingReport()}>
+        <Text variant="rayse-16700">View entire report</Text>
+        <Box alignSelf="stretch">
+          <YellowIcon material="arrow_forward" />
+        </Box>
       </LongButton>
-
-      {showEntireReport && <ClosingReport {...props} />}
     </Box>
   )
 }

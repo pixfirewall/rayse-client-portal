@@ -30,6 +30,17 @@
 .specsRow {
   display: flex;
   flex-direction: row;
-  alignItems: center;
+  align-items: center;
   gap: 6px;
+}
+
+.seenStatus {
+  display: flex;
+  padding: 8px;
+  align-items: center;
+  gap: 6px;
+  
+  border-radius: 6px;
+  background: #D9D4C8;
+  backdrop-filter: blur(20px);
 }

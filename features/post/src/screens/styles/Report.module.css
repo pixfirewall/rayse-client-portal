@@ -1,3 +1,16 @@
+.topContainer {
+	max-width: 740px;
+	margin: auto;
+	justify-content: flex-start;
+	align-items: center;
+	background: linear-gradient(180deg, #FFF 0.01%, #EEECE6 66.41%);
+	gap: 24px;
+	padding-top: 16px;
+	padding-bottom: 24px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
 .mainContainer {
   display: flex;
   width: 100%;
@@ -42,4 +55,16 @@
   gap: 24px;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.headerContainer {
+  display: flex;
+  flex-direction: row;
+  padding: 16px 16px 16px 8px;
+  align-items: center;
+  //justify-content: space-between;
+
+  border-radius: 20px;
+  border: 1px solid #EEECE6;
+  background: #EEECE6; 
 }

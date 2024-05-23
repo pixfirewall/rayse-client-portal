@@ -12,6 +12,7 @@ type HomeInfoProps = {
   discount?: string
   finalFee?: string
   specs: Array<HouseSpec>
+  seenStatus?: string
 }
 
 export const HomeInfo = ({
@@ -20,7 +21,8 @@ export const HomeInfo = ({
   price,
   discount,
   finalFee,
-  specs
+  specs,
+  seenStatus
 }: HomeInfoProps) => {
   return (
     <Box className={styles.container}>
@@ -54,6 +56,12 @@ export const HomeInfo = ({
               <RenderSpec spec={spec} />
             </>))
           }
+        </Box>
+      )}
+
+      {seenStatus && (
+        <Box className={styles.seenStatus}>
+          <Text variant="rayse-12600" color="#2B241F">{seenStatus}</Text>
         </Box>
       )}
     </Box>

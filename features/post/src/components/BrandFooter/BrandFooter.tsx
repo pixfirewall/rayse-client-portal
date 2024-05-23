@@ -14,7 +14,7 @@ export const BrandFooter = () => {
             <YellowIcon material="arrow_forward" />
           </WhiteButton>
         </Group>
-        <RayseDivider center dir="horizontal" size={330} color="rgba(0, 0, 0, 0.32)" />
+        <RayseDivider center dir="horizontal" stretch color="rgba(0, 0, 0, 0.32)" />
         <Group dir="vertical">
           <Text variant="rayse-24700" color="#FFFFFF">
             25% of buyers end up
