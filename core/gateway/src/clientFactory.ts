@@ -1,14 +1,38 @@
 import { v4 as uuidv4 } from 'uuid'
 import forge, { Middleware, ResourceTypeConstraint } from 'mappersmith'
 
-import { ClientApis, ClientIdValues } from './types'
+import { ClientApis, ClientIdValueItems, ClientIdValues } from './types'
+
+type UpstreamAuthResponse = { bearerToken: string; refreshToken: string; changePasswordToken: string }
+
+const authClient = forge({
+  clientId: ClientIdValueItems.AuthClient,
+  host: ClientApis[ClientIdValueItems.AuthClient] as string,
+  resources: {
+    Auth: {
+      login: { path: '/api/user/login', method: 'POST' },
+    },
+  },
+})
 
 const getAccessTokenMiddleware = () => {
   const AccessToken: Middleware = () => {
     let accessToken: string | null = null
     return {
       async request(request) {
-        return request
+        if (accessToken === null) {
+          const authresponse = await authClient.Auth.login({
+            body: {
+              email: 'email',
+              password: 'password',
+            },
+          })
+          const { bearerToken } = authresponse.data() as UpstreamAuthResponse
+          accessToken = bearerToken
+        }
+        return request.enhance({
+          headers: { Authorization: `Bearer ${accessToken}` },
+        })
       },
       response(next, renew) {
         return next().catch(response => {
@@ -16,7 +40,6 @@ const getAccessTokenMiddleware = () => {
             accessToken = null
             return renew()
           }
-
           return next()
         })
       },
@@ -25,14 +48,14 @@ const getAccessTokenMiddleware = () => {
   return AccessToken
 }
 
-export const createClient = ({
+export const createClient = <T extends ResourceTypeConstraint>({
   host,
   clientId,
   resources,
 }: {
   host?: string
   clientId: ClientIdValues
-  resources: ResourceTypeConstraint
+  resources: T
 }) =>
   forge({
     clientId: `${clientId}-${uuidv4()}`,

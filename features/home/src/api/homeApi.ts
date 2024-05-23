@@ -27,4 +27,4 @@ export const homeApi = createApi({
   }),
 })
 
-export const { useGetHomeListQuery } = homeClient
+export const { useGetHomeListQuery } = homeApi
