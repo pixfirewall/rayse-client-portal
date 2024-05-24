@@ -1,5 +1,14 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { useLocation } from 'react-router-dom'
+import queryString from 'query-string'
+
 import { useTheme } from '@mui/material/styles'
+
+import { useGetAgentInfoQuery } from '../../api'
+import { setAgentId } from '../../data'
+import { usePreSelector } from '../../hooks'
+
 import { clsx } from 'clsx'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import {
@@ -12,7 +21,8 @@ import {
   LongButton,
   WhiteIcon,
   RayseIcon,
-  Grid
+  Grid,
+  Skeleton
 } from '@rayseinc-packages/ui'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -44,7 +54,21 @@ export type MatchSizes = {
   min860: boolean
 }
 
+const DEFAULT_AGENT_ID = 80224
+
 export const Main = () => {
+  const location = useLocation()
+  const agentId = Number(queryString.parse(location.search)?.['agent'])
+
+  if (isNaN(agentId)) {
+    return (<Box>
+      * ERROR: Please provide the agent id in the url. Example: /pre?agent={DEFAULT_AGENT_ID}
+    </Box>)
+  }
+
+  const dispatch = useDispatch()
+  dispatch(setAgentId(agentId))
+
   const theme = useTheme()
   const matchSize: MatchSizes = {
     xs: useMediaQuery(theme.breakpoints.up('xs')),
@@ -55,6 +79,12 @@ export const Main = () => {
     min600: useMediaQuery('(min-width:600px)'),
     min860: useMediaQuery('(min-width:860px)')
   }
+
+  const {
+    data: agentInfo,
+    error,
+    isLoading
+  } = useGetAgentInfoQuery({ id: agentId as number })
 
   const dutySectionIconSize = matchSize.tablet ? '64px' : '56px'
 
@@ -165,7 +195,7 @@ export const Main = () => {
       </Grid>
 
       <Grid item className={styles.sectionContainer} xs={12}>
-        <AgentProfile matchSize={matchSize} />
+        <AgentProfile matchSize={matchSize} data={agentInfo} isLoading={isLoading} />
       </Grid>
 
       <Grid item className={styles.sectionContainer} xs={12}>

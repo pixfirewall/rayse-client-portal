@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Box, Text, Pagination, Stack } from '@rayseinc-packages/ui'
+import { Box, Text, Pagination } from '@rayseinc-packages/ui'
 import { useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
 

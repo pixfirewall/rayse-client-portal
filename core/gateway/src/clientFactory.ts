@@ -57,14 +57,16 @@ export const createClient = <T extends ResourceTypeConstraint>({
   host,
   clientId,
   resources,
+  isPublic = false
 }: {
   host?: string
   clientId: ClientIdValues
-  resources: T
+  resources: T,
+  isPublic?: boolean
 }) =>
   forge({
     clientId: `${clientId}-${uuidv4()}`,
     host: host ? host : (ClientApis[clientId] as string),
-    middleware: [getAccessTokenMiddleware()],
+    middleware: isPublic ? [] : [getAccessTokenMiddleware()],
     resources,
   })

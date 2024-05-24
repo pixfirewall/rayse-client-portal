@@ -4,6 +4,7 @@ export const ClientIdValueItems = {
   DefaultClient: 'default-client',
   AuthClient: 'auth-client',
   DuringClient: 'during-client',
+  PreClient: 'pre-client'
 } as const
 
 export const ClientIdValuesSchema = z.nativeEnum(ClientIdValueItems)
@@ -18,4 +19,5 @@ export const ClientApis: ClientIds = {
   [ClientIdValueItems.DefaultClient]: devServerAddress,
   [ClientIdValueItems.AuthClient]: devServerAddress,
   [ClientIdValueItems.DuringClient]: devServerAddress,
+  [ClientIdValueItems.PreClient]: devServerAddress,
 }

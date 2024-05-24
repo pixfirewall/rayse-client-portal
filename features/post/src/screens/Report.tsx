@@ -1,4 +1,6 @@
 import React from 'react'
+import { ScrollRestoration } from 'react-router-dom'
+
 import { Box, Text, Divider, Image, Grid, Icon, Button } from '@rayseinc-packages/ui'
 import { useNavigateToPost } from '../navigations'
 
@@ -63,7 +65,8 @@ export const Report = () => {
 
   return (
     <Grid container className={styles.topContainer}>
-
+      <ScrollRestoration />
+      
       <Grid item xs={12}>
         <Box className={styles.headerContainer}>
           <Button onClick={() => navigateToPost()}>

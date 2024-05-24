@@ -31,7 +31,7 @@
 	background-blend-mode: luminosity;
 	margin: auto;
 	objectPosition: '50% 50%';
-	background: url('./profile-pic.jpg') lightgray 50% / cover no-repeat;
+	background: lightgray 50% / cover no-repeat;
 }
 
 .profileImageMobile {
@@ -41,7 +41,7 @@
 	background-blend-mode: luminosity;
 	margin: auto;
 	padding-bottom: 100%;
-	background: url('./profile-pic.jpg') lightgray 50% / cover no-repeat;
+	background: lightgray 50% / cover no-repeat;
 }
 
 .profileDetailsContainer {
