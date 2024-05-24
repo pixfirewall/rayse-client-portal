@@ -28,8 +28,8 @@ const getAccessTokenMiddleware = () => {
         if (accessToken === null) {
           const authresponse = await authClient.Auth.login({
             body: {
-              email,
-              password,
+              email: 'michaelf+francoeur+client@rayse.com',
+              password: 'Password1!',
             },
           })
           const { bearerToken } = authresponse.data() as UpstreamAuthResponse
@@ -57,11 +57,11 @@ export const createClient = <T extends ResourceTypeConstraint>({
   host,
   clientId,
   resources,
-  isPublic = false
+  isPublic = false,
 }: {
   host?: string
   clientId: ClientIdValues
-  resources: T,
+  resources: T
   isPublic?: boolean
 }) =>
   forge({
