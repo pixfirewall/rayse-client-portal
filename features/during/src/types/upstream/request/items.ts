@@ -9,6 +9,11 @@ export const UpstreamMyJourneyListRequestParamsSchema = z.object({
 export type UpstreamMyJourneyListRequestParams = z.infer<typeof UpstreamMyJourneyListRequestParamsSchema>
 
 export const UpstreamMyJourneyRequestParamsSchema = z.object({
-  journeyId: z.number().optional(),
+  journeyId: z.number(),
 })
 export type UpstreamMyJourneyRequestParams = z.infer<typeof UpstreamMyJourneyRequestParamsSchema>
+
+export const UpstreamMyJourneyDataRequestParamsSchema = z.object({
+  journeyId: z.number(),
+})
+export type UpstreamMyJourneyDataRequestParams = z.infer<typeof UpstreamMyJourneyDataRequestParamsSchema>

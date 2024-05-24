@@ -12,13 +12,15 @@ export enum State {
 export const JourneyCard = ({
   info,
   onClick,
-  state = State.Done,
-  order = 1,
+  state,
+  order,
+  outcomes,
 }: {
   info: string
   onClick?: () => void
-  state?: State
-  order?: number
+  state: State
+  order: number
+  outcomes: number
 }) => {
   return (
     <MainPaper>
@@ -40,7 +42,7 @@ export const JourneyCard = ({
             {state !== 'todo' ? (
               <Group gap={2}>
                 <Image src={logo} style={{ width: 11, height: 15 }} />
-                <Text variant="caption"># Outcomes</Text>
+                <Text variant="caption">{outcomes} Outcomes</Text>
               </Group>
             ) : null}
           </Group>

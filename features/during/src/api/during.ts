@@ -3,15 +3,18 @@ import { createApi, fetchBaseQuery } from '@rayseinc-core/redux'
 import {
   UpstreamMyJourneyListResponse,
   UpstreamMyJourneyListRequestParams,
-  UpstreamMyJourneyRequestParams,
   UpstreamMyJourneyResponse,
+  UpstreamMyJourneyRequestParams,
+  UpstreamMyJourneyDataResponse,
+  UpstreamMyJourneyDataRequestParams,
 } from '../types'
 import { DURING_API_REDUCER_PATH } from '../constants'
 
 const resources = {
   During: {
     getMyJourneyList: { path: '/api/my-journey/list' },
-    getMyJourneyById: { path: 'api/my-journey/{journeyId}' },
+    getMyJourneyById: { path: '/api/my-journey/{journeyId}' },
+    getMyJourneyData: { path: '/api/my-journey/{journeyId}/data' },
   },
 }
 
@@ -35,7 +38,14 @@ export const duringApi = createApi({
         return { data }
       },
     }),
+    getMyJourneyData: builder.query<UpstreamMyJourneyDataResponse, UpstreamMyJourneyDataRequestParams>({
+      async queryFn({ journeyId }) {
+        const response = await duringClient.During.getMyJourneyData({ journeyId })
+        const data = response.data<UpstreamMyJourneyDataResponse>()
+        return { data }
+      },
+    }),
   }),
 })
 
-export const { useGetMyJourneyListQuery, useGetMuJourneyByIdQuery } = duringApi
+export const { useGetMyJourneyListQuery, useGetMuJourneyByIdQuery, useGetMyJourneyDataQuery } = duringApi

@@ -1,11 +1,16 @@
-import React from 'react'
+import React, { FunctionComponent } from 'react'
 import { Group, MainPaper, Text, Grid } from '@rayseinc-packages/ui'
 
 import { JourneyCard, State } from './JourneyCard'
 import { useNavigateToConsultation } from '../../navigations'
 
-export const Journey = () => {
-	  const navigateToConsultation = useNavigateToConsultation()
+export type JourneyData = { order: number; outcomes: number; info: string; state: State; onClick?: () => void }
+interface JourneyProps {
+  data?: JourneyData[]
+}
+
+export const Journey: FunctionComponent<JourneyProps> = ({ data }) => {
+  const navigateToConsultation = useNavigateToConsultation()
 
   return (
     <MainPaper bgcolor="#3F947D" padding="20px 16px">
@@ -14,18 +19,17 @@ export const Journey = () => {
           Your journey progess
         </Text>
         <Grid container spacing={2}>
-          <Grid item xs={6}>
-            <JourneyCard info="Consultation" onClick={navigateToConsultation} />
-          </Grid>
-          <Grid item xs={6}>
-            <JourneyCard info="Touring & Offers" state={State.Inprogres} order={2} />
-          </Grid>
-          <Grid item xs={6}>
-            <JourneyCard info="Escrow" state={State.Todo} order={3} />
-          </Grid>
-          <Grid item xs={6}>
-            <JourneyCard info="Closing" state={State.Todo} order={4} />
-          </Grid>
+          {data?.map(j => (
+            <Grid key={j.info} item xs={6}>
+              <JourneyCard
+                info={j.info}
+                onClick={navigateToConsultation}
+                order={j.order}
+                outcomes={j.outcomes}
+                state={j.state}
+              />
+            </Grid>
+          ))}
         </Grid>
       </Group>
     </MainPaper>

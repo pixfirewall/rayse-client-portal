@@ -15,15 +15,16 @@ import {
 } from '../../components'
 import { setJourneyId } from '../../data'
 import { MenuProvider } from '../../contexts'
-import { useDuringSelector } from '../../hooks'
 import { homeData } from '../../fixtures/homeData'
-import { useGetMyJourneyListQuery, useGetMuJourneyByIdQuery } from '../../api/during'
+import { useDuringSelector, usePrepareJourneyData } from '../../hooks'
+import { useGetMyJourneyListQuery, useGetMuJourneyByIdQuery, useGetMyJourneyDataQuery } from '../../api/during'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Home12Props {}
 
 export const Home12: FunctionComponent<Home12Props> = () => {
   const [journeySkip, setJourneySkip] = useState(true)
+  const [journeyDataSkip, setJourneyDataSkip] = useState(true)
   const [journeyListSkip, setJourneyListSkip] = useState(true)
 
   const menuRef = useRef<MenuRef>(null)
@@ -41,11 +42,19 @@ export const Home12: FunctionComponent<Home12Props> = () => {
     error: journeyError,
     isLoading: journeyLoading,
   } = useGetMuJourneyByIdQuery({ journeyId }, { skip: journeySkip })
+  const {
+    data: journeyData,
+    error: journeyDataError,
+    isLoading: journeyDataLoading,
+  } = useGetMyJourneyDataQuery({ journeyId }, { skip: journeyDataSkip })
+
+	const myJourneyData = usePrepareJourneyData(journeyData?.steps || [])
 
   useEffect(() => {
-		if (journeySkip && journeyListSkip) {
-			if (journeyId) {
-				setJourneySkip(false)
+    if (journeySkip && journeyListSkip && journeyDataSkip) {
+      if (journeyId) {
+        setJourneySkip(false)
+        setJourneyDataSkip(false)
       } else {
         setJourneyListSkip(false)
       }
@@ -53,10 +62,11 @@ export const Home12: FunctionComponent<Home12Props> = () => {
   }, [])
 
   useEffect(() => {
-    if (journeyList?.length) {
+    if (journeyList?.length && !journeyId) {
       dispatch(setJourneyId(journeyList[0].id))
       if (journeySkip) {
         setJourneySkip(false)
+        setJourneyDataSkip(false)
       }
     }
   }, [journeyList])
@@ -64,6 +74,10 @@ export const Home12: FunctionComponent<Home12Props> = () => {
   useEffect(() => {
     // do something if required
   }, [journey])
+
+  useEffect(() => {
+    // do something if required
+  }, [journeyData])
 
   return (
     <MenuProvider menuRef={menuRef}>
@@ -90,7 +104,7 @@ export const Home12: FunctionComponent<Home12Props> = () => {
               tours={15}
               offers={1}
             />
-            <Journey />
+            <Journey data={myJourneyData} />
             <BrandFooter />
             <Footer />
           </Group>
