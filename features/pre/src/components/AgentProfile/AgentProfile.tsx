@@ -1,15 +1,16 @@
-import React from 'react'
-import { Box, Text, Grid, Image, YellowIconPre, PlainHoverButton, Skeleton } from '@rayseinc-packages/ui'
+import React, { useState, useRef } from 'react'
+import { Box, Text, Grid, Modal, YellowIconPre, PlainHoverButton, Skeleton } from '@rayseinc-packages/ui'
+import { clsx } from 'clsx'
 
-import { Swiper, SwiperSlide, useSwiper } from 'swiper/react'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import type { Swiper as SwiperType } from 'swiper'
 import 'swiper/css'
 
 import { SocialContact } from '../'
 import type { AgentPublicInfoRecord } from '../../types'
 
 import styles from './AgentProfile.module.css'
-
-import avatar0 from './avatar0.png'
+import emptyImage from '../../assets/checkered.png'
 
 import type { MatchSizes } from '../../screens/pre/index'
 
@@ -21,29 +22,32 @@ type Props = {
 
 export const AgentProfile = ({ matchSize, data, isLoading }: Props) => {
 
-  /*const reviewTexts = [
-    `Julie was so clear on everything on the path to finding our dream home (we did!) that…`,
-    `As first-time homeowners we didn’t know what to expect. But Julie always made sure
-    what whatever we did as customers never escaped the attention of the employers in god knows where!`,
-    `10/10. I tell everyone who will listen: Julie Capinstand! Julie Capinstand!`,
-    `Julie was so clear on everything on the path to finding our dream home (we did!) that…`,
-    `As first-time homeowners we didn’t know what to expect. But Julie always made sure`,
-    `10/10. I tell everyone who will listen: Julie Capinstand! Julie Capinstand!`,
-    `Julie was so clear on everything on the path to finding our dream home (we did!) that…`
-  ]*/
-  const reviewTexts = data?.testimonials?.map(record => record.text)
+  const [modalOpen, setModalOpen] = useState(false)
+  const [modalText, setModalText] = useState('')
 
-  let swiper = useSwiper()
+  const swiperRef = useRef<SwiperType>()
+
+  const handleModalOpen = (text: string) => {
+    setModalText(text)
+    setModalOpen(true)
+  }
+  const handleModalClose = () => setModalOpen(false)
 
   return (
     <Box className={styles.profileContainer} margin="auto">
       <Box className={matchSize.tablet ? styles.profileTopSection : styles.profileTopSectionMobile}>
-        <Box
-          className={matchSize.tablet ? styles.profileImage : styles.profileImageMobile}
-          style={{
-            backgroundImage: `url(${data?.user?.imagePath})`
-          }}
-        />
+        {data?.headshotImagePath ? (
+          <Box
+            className={matchSize.tablet ? styles.profileImage : styles.profileImageMobile}
+            style={{
+              backgroundImage: `url(${data.headshotImagePath})`
+            }}
+          />
+        ) : (
+          <Box
+            className={clsx(matchSize.tablet ? styles.profileImage : styles.profileImageMobile, styles.checkeredImage)}
+          />
+        )}
 
         <Box
           className={styles.profileDetailsContainer}
@@ -133,20 +137,24 @@ export const AgentProfile = ({ matchSize, data, isLoading }: Props) => {
                 loop
                 spaceBetween={10}
                 className={styles.reviewSwiperContainer}
-                onSwiper={swp => swiper = swp}
+                onSwiper={swp => swiperRef.current = swp}
               >
-                {reviewTexts?.map((value, index) => (
+                {data?.testimonials?.map((value, index) => (
                   <SwiperSlide key={index}>
                     <Box className={styles.reviewBox}>
-                      <Text className={styles.reviewText} variant="rayse-20400">
-                        {value}
+                      <Box onClick={() => handleModalOpen(value?.text)} style={{ cursor: 'pointer' }}>
+                        <Text className={styles.reviewText} variant="rayse-20400">
+                          {value?.text}
+                        </Text>
+                      </Box>
+                      <Text className={styles.reviewText} variant="rayse-16400">
+                        - {value?.clientName}
                       </Text>
-                      <Image src={avatar0} width="40px" height="40px" />
                     </Box>
                   </SwiperSlide>
                 ))}
 
-                <PlainHoverButton onClick={() => swiper.slideNext()} style={{
+                <PlainHoverButton onClick={() => swiperRef.current?.slideNext()} style={{
                   position: 'absolute',
                   right: '0px',
                   top: '40%',
@@ -159,8 +167,23 @@ export const AgentProfile = ({ matchSize, data, isLoading }: Props) => {
             ) : <Skeleton variant="rounded" width="180px" height="248px" />
           }
 
+          <Modal
+            open={modalOpen}
+            onClose={handleModalClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box className={styles.modalStyle}>
+              <Text variant="rayse-20400">
+                {modalText}
+              </Text>
+            </Box>
+          </Modal>
         </Box>
       </Box>
     </Box>
   )
 }
+////////////////////
+/////////
+////////////////////////////////////////

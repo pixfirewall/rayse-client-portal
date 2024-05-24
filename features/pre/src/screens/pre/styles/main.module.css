@@ -167,7 +167,7 @@
 	border: 2px solid #FFF;
 	background-blend-mode: luminosity;
 
-	background: url('../slide1.jpg') lightgray -13.571px -8.538px / 152.467% 220.686% no-repeat;
+	background: lightgray 50% / cover no-repeat;
 }
 
 .topNavBar {

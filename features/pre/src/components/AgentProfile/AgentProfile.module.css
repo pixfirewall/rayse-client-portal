@@ -131,3 +131,19 @@
 .reviewSwiperContainer {
 	background: #2A6656;
 }
+
+.modalStyle {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 340px;
+	background: #FFF;
+	border: 2px solid #000;
+	boxShadow: 24px;
+	padding: 4px;
+}
+
+.checkeredImage {
+	background-image: url('./checkered.png');
+}

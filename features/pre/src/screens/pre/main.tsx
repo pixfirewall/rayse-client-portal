@@ -21,8 +21,7 @@ import {
   LongButton,
   WhiteIcon,
   RayseIcon,
-  Grid,
-  Skeleton
+  Grid
 } from '@rayseinc-packages/ui'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -40,7 +39,7 @@ import shieldPlus from './shield-plus.png'
 import rayseLogo from './rayse-logo.png'
 import checkeredImage from './assets/checkered.png'
 
-import slide1 from './slide01.png'
+import emptyImage from '../../assets/checkered.png'
 import slide2 from './slide02.png'
 import slide3 from './slide03.png'
 
@@ -88,7 +87,7 @@ export const Main = () => {
 
   const dutySectionIconSize = matchSize.tablet ? '64px' : '56px'
 
-  const sliderImages = [slide1, slide2, slide3]
+  const sliderImages = [slide2, slide3]
   const sliderCaptions = [
     'Because having an expert is key(s).',
     'Because homeowning > homescrolling.',
@@ -104,7 +103,12 @@ export const Main = () => {
         </Grid>
         <Grid item>
           <LongButton color="darkGreen">
-            <Box className={styles.agentButtonIcon} />
+            <Box
+              className={styles.agentButtonIcon}
+              style={{
+                backgroundImage: `url(${agentInfo?.user?.imagePath})`
+              }}
+            />
             <Text variant="rayse-20700">
               Get started
             </Text>
@@ -140,7 +144,10 @@ export const Main = () => {
               modules={[Pagination]}
               className={styles.imageSwiperContainer}
             >
-              {sliderImages.map((value, index) => (
+              {(agentInfo?.headshotImagePath
+                ? [agentInfo.headshotImagePath, ...sliderImages]
+                : [emptyImage, ...sliderImages])
+              .map((value, index) => (
                 <SwiperSlide key={index}>
                   <Image src={value}
                     width="100%"
