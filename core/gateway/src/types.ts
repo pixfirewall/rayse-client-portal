@@ -17,4 +17,5 @@ export const devServerAddress = 'https://api.dev.rayse.com'
 export const ClientApis: ClientIds = {
   [ClientIdValueItems.DefaultClient]: devServerAddress,
   [ClientIdValueItems.AuthClient]: devServerAddress,
+  [ClientIdValueItems.DuringClient]: devServerAddress,
 }

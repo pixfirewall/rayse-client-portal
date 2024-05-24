@@ -32,8 +32,8 @@ export const PerViewSlider: FunctionComponent<PerViewSliderProps> = ({ slides, n
       onSwiper={swp => (swiper = swp)}
       loop={loop}
     >
-      {slides.map(slide => (
-        <SwiperSlide>{slide}</SwiperSlide>
+      {slides.map((slide, index) => (
+        <SwiperSlide key={index}>{slide}</SwiperSlide>
       ))}
       <Showif con={pgr}>
         <PlainHoverButton

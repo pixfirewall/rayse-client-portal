@@ -1,5 +1,7 @@
 # Build Stage
 FROM node:18-alpine as builder
+ARG VITE_AUTH_USERNAME
+ARG VITE_AUTH_PASSWORD
 WORKDIR /app
 COPY package.json .
 COPY yarn.lock .

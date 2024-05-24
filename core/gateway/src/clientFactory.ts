@@ -2,12 +2,17 @@ import { v4 as uuidv4 } from 'uuid'
 import forge, { Middleware, ResourceTypeConstraint } from 'mappersmith'
 
 import { ClientApis, ClientIdValueItems, ClientIdValues } from './types'
+import { EncodeJsonMiddleware } from 'mappersmith/middleware'
+
+const email = import.meta.env.VITE_AUTH_USERNAME
+const password = import.meta.env.VITE_AUTH_PASSWORD
 
 type UpstreamAuthResponse = { bearerToken: string; refreshToken: string; changePasswordToken: string }
 
 const authClient = forge({
   clientId: ClientIdValueItems.AuthClient,
   host: ClientApis[ClientIdValueItems.AuthClient] as string,
+  middleware: [EncodeJsonMiddleware],
   resources: {
     Auth: {
       login: { path: '/api/user/login', method: 'POST' },
@@ -23,8 +28,8 @@ const getAccessTokenMiddleware = () => {
         if (accessToken === null) {
           const authresponse = await authClient.Auth.login({
             body: {
-              email: 'email',
-              password: 'password',
+              email,
+              password,
             },
           })
           const { bearerToken } = authresponse.data() as UpstreamAuthResponse

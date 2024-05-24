@@ -1,7 +1,7 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "module": "commonjs",
+    // "module": "commonjs",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitOverride": true,
@@ -10,7 +10,7 @@
     "noFallthroughCasesInSwitch": true
   },
   "files": [],
-  "include": [],
+  "include": ["../../typings/*.d.ts"],
   "references": [
     {
       "path": "./tsconfig.lib.json"

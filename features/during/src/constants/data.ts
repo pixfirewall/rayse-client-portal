@@ -1,0 +1,2 @@
+export const DURING_REDUCER_PATH = 'DURING_REDUCER_PATH'
+export const DURING_API_REDUCER_PATH = 'duringApi'

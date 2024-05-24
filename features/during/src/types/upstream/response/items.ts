@@ -17,9 +17,9 @@ export const PhonesSchema = z.object({
   createdOn: z.string(),
   updatedBy: z.number(),
   updatedOn: z.string(),
-  phoneType: z.string(),
-  number: z.string(),
-  description: z.string(),
+  phoneType: z.string().nullable(),
+  number: z.string().nullable(),
+  description: z.string().nullable(),
 })
 
 export const BrokerageSchema = z.object({
@@ -28,16 +28,16 @@ export const BrokerageSchema = z.object({
   createdOn: z.string(),
   updatedBy: z.number(),
   updatedOn: z.string(),
-  name: z.string(),
-  logoImagePath: z.string(),
-  websiteUrl: z.string(),
-  email: z.string(),
-  phoneNumber: z.string(),
-  doingBusinessAs: z.string(),
+  name: z.string().nullable(),
+  logoImagePath: z.string().nullable(),
+  websiteUrl: z.string().nullable(),
+  email: z.string().nullable(),
+  phoneNumber: z.string().nullable(),
+  doingBusinessAs: z.string().nullable(),
   isActive: z.boolean(),
   teamCount: z.number(),
-  theme: z.string(),
-  realStaqId: z.string(),
+  theme: z.string().nullable(),
+  realStaqId: z.string().nullable(),
 })
 
 export const TeamSchema = z.object({
@@ -47,14 +47,14 @@ export const TeamSchema = z.object({
   updatedBy: z.number(),
   updatedOn: z.string(),
   brokerage: BrokerageSchema,
-  email: z.string(),
-  imagePath: z.string(),
+  email: z.string().nullable(),
+  imagePath: z.string().nullable(),
   isActive: z.boolean(),
-  name: z.string(),
-  phoneNumber: z.string(),
-  websiteUrl: z.string(),
-  theme: z.string(),
-  realStaqId: z.string(),
+  name: z.string().nullable(),
+  phoneNumber: z.string().nullable(),
+  websiteUrl: z.string().nullable(),
+  theme: z.string().nullable(),
+  realStaqId: z.string().nullable(),
 })
 
 export const BaseUserSchema = z.object({
@@ -63,16 +63,31 @@ export const BaseUserSchema = z.object({
   createdOn: z.string(),
   updatedBy: z.number(),
   updatedOn: z.string(),
-  emailAddress: z.string(),
-  firstName: z.string(),
-  imagePath: z.string(),
+  emailAddress: z.string().nullable(),
+  firstName: z.string().nullable(),
+  imagePath: z.string().nullable(),
   isActive: z.boolean(),
-  lastName: z.string(),
-  timezone: z.string(),
+  lastName: z.string().nullable(),
+  timezone: z.string().nullable(),
   phones: z.array(PhonesSchema),
-  title: z.string(),
-  registeredOn: z.string(),
-  invitedOn: z.string(),
+  title: z.string().nullable(),
+  registeredOn: z.string().nullable(),
+  invitedOn: z.string().nullable(),
+})
+
+export const UserTypeItems = {
+  Agent: 'Agent',
+  Admin: 'Admin',
+  NotSet: 'NotSet',
+  Client: 'Client',
+} as const
+export const UserTypeSchema = z.nativeEnum(UserTypeItems)
+
+export const UserSchema = BaseUserSchema.extend({
+  agentId: z.number().nullable(),
+  clientId: z.number().nullable(),
+  isParentActive: z.boolean().nullable(),
+  userTypes: UserTypeSchema.nullable(),
 })
 
 export const PrimaryAgentSchema = z.object({
@@ -90,15 +105,7 @@ export const PrimaryAgentSchema = z.object({
   brokerageAgentId: z.string(),
 })
 
-export const UserTypeItems = {
-  Agent: 'Agent',
-  Admin: 'Admin',
-  NotSet: 'NotSet',
-  Client: 'Client',
-} as const
-export const UserTypeSchema = z.nativeEnum(UserTypeItems)
-
-export const UserJourneySchema = z.object({
+export const MyJourneyListSchema = z.object({
   id: z.number(),
   createdBy: z.number(),
   createdOn: z.string(),
@@ -112,15 +119,201 @@ export const UserJourneySchema = z.object({
   isActive: z.boolean(),
   primaryAgent: PrimaryAgentSchema,
   startDate: z.string(),
-  users: z.array(
-    BaseUserSchema.extend({
-      agentId: z.number(),
-      clientId: z.number(),
-      isParentActive: z.boolean(),
-      userTypes: UserTypeSchema,
-    }),
-  ),
+  users: z.array(UserSchema),
 })
 
-export const UpstreamUserJourneyResponseSchema = z.array(UserJourneySchema)
-export type UpstreamUserJourneyResponse = z.infer<typeof UpstreamUserJourneyResponseSchema>
+export const UpstreamMyJourneyListResponseSchema = z.array(MyJourneyListSchema)
+export type UpstreamMyJourneyListResponse = z.infer<typeof UpstreamMyJourneyListResponseSchema>
+
+export const StatisticsSchema = z.object({
+  hoursWorked: z.number(),
+  activities: z.number(),
+  homesToured: z.number(),
+  offers: z.number(),
+  daysWorked: z.number(),
+  milesTraveled: z.number(),
+  milestonesFinished: z.number(),
+  outcomesFinished: z.number(),
+})
+
+export const UsStateItems = {
+  AL: 'AL',
+  AK: 'AK',
+  AZ: 'AZ',
+  AR: 'AR',
+  CA: 'CA',
+  CO: 'CO',
+  CT: 'CT',
+  DE: 'DE',
+  FL: 'FL',
+  GA: 'GA',
+  HI: 'HI',
+  ID: 'ID',
+  IL: 'IL',
+  IN: 'IN',
+  IA: 'IA',
+  KS: 'KS',
+  KY: 'KY',
+  LA: 'LA',
+  ME: 'ME',
+  MD: 'MD',
+  MA: 'MA',
+  MI: 'MI',
+  MN: 'MN',
+  MS: 'MS',
+  MO: 'MO',
+  MT: 'MT',
+  NE: 'NE',
+  NV: 'NV',
+  NH: 'NH',
+  NJ: 'NJ',
+  NM: 'NM',
+  NY: 'NY',
+  NC: 'NC',
+  ND: 'ND',
+  OH: 'OH',
+  OK: 'OK',
+  OR: 'OR',
+  PA: 'PA',
+  RI: 'RI',
+  SC: 'SC',
+  SD: 'SD',
+  TN: 'TN',
+  TX: 'TX',
+  UT: 'UT',
+  VT: 'VT',
+  VA: 'VA',
+  WA: 'WA',
+  WV: 'WV',
+  WI: 'WI',
+  WY: 'WY',
+  NA: 'NA',
+} as const
+export const UsStateEnum = z.nativeEnum(UsStateItems)
+
+export const ListStatusItems = {
+  Active: 'Active',
+  ActiveUnderContract: 'ActiveUnderContract',
+  Canceled: 'Canceled',
+  Closed: 'Closed',
+  ComingSoon: 'ComingSoon',
+  Delete: 'Delete',
+  Expired: 'Expired',
+  Hold: 'Hold',
+  Incomplete: 'Incomplete',
+  Pending: 'Pending',
+  Withdrawn: 'Withdrawn',
+  Unknown: 'Unknown',
+}
+export const ListStatusEnum = z.nativeEnum(ListStatusItems)
+
+export const AddressSchema = z.object({
+  id: z.number(),
+  createdBy: z.number(),
+  createdOn: z.string(),
+  updatedBy: z.number(),
+  updatedOn: z.string(),
+  radarGeofenceId: z.string().nullable(),
+  address1: z.string().nullable(),
+  address2: z.string().nullable(),
+  city: z.string().nullable(),
+  latitude: z.number().nullable(),
+  longitude: z.number().nullable(),
+  state: UsStateEnum,
+  zip: z.string().nullable(),
+})
+
+export const PropertyImagesSchema = z.object({
+  id: z.number(),
+  createdBy: z.number(),
+  createdOn: z.string(),
+  updatedBy: z.number(),
+  updatedOn: z.string(),
+  caption: z.string().nullable(),
+  imagePath: z.string().nullable(),
+  isHero: z.boolean(),
+  large: z.string().nullable(),
+  listOrder: z.number(),
+  medium: z.string().nullable(),
+  small: z.string().nullable(),
+  sourceUrl: z.string().nullable(),
+  tags: z.string().nullable(),
+  xlarge: z.string().nullable(),
+})
+
+export const PropertySchema = z.object({
+  id: z.number(),
+  createdBy: z.number(),
+  createdOn: z.string(),
+  updatedBy: z.number(),
+  updatedOn: z.string(),
+  address: AddressSchema,
+  bathroomCount: z.number().nullable(),
+  bedroomCount: z.number().nullable(),
+  listPrice: z.number().nullable(),
+  mlsId: z.string().nullable(),
+  mlsName: z.string().nullable(),
+  listStatus: ListStatusEnum,
+  squareFootage: z.number().nullable(),
+  propertyImages: z.array(PropertyImagesSchema),
+  isActive: z.boolean().nullable(),
+})
+
+export const OffersSchema = z.object({
+  id: z.number(),
+  createdBy: z.number(),
+  createdOn: z.string(),
+  updatedBy: z.number(),
+  updatedOn: z.string(),
+  listPrice: z.number(),
+  offerPrice: z.number(),
+  offerStatus: z.string(),
+  submissionDate: z.string(),
+})
+
+export const PropertyEvaluationsSchema = z.object({
+  id: z.number(),
+  createdBy: z.number(),
+  createdOn: z.string(),
+  updatedBy: z.number(),
+  updatedOn: z.string(),
+  journeyPropertyId: z.number(),
+  property: PropertySchema,
+  user: BaseUserSchema,
+})
+
+export const PropertyEvaluationStatusItems = {
+  PendingReview: 'PendingReview',
+  Rejected: 'Rejected',
+  UnderEvaluation: 'UnderEvaluation',
+}
+export const propertyEvaluationStatusEnum = z.nativeEnum(PropertyEvaluationStatusItems)
+
+export const PropertyRootSchema = z.object({
+  id: z.number(),
+  createdBy: z.number(),
+  createdOn: z.string(),
+  updatedBy: z.number(),
+  updatedOn: z.string(),
+  journeyId: z.number(),
+  offers: z.array(OffersSchema),
+  property: PropertySchema,
+  propertyEvaluations: z.array(PropertyEvaluationsSchema),
+  propertyEvaluationStatus: propertyEvaluationStatusEnum,
+})
+
+export const UpstreamMyJourneyResponseSchema = z.object({
+  id: z.number(),
+  createdBy: z.number(),
+  createdOn: z.string(),
+  updatedBy: z.number(),
+  updatedOn: z.string(),
+  isActive: z.boolean(),
+  primaryAgent: PrimaryAgentSchema,
+  properties: z.array(PropertyRootSchema),
+  startDate: z.string(),
+  users: z.array(UserSchema),
+  statistics: StatisticsSchema,
+  milestoneStatus: z.string().nullable(),
+})
+export type UpstreamMyJourneyResponse = z.infer<typeof UpstreamMyJourneyResponseSchema>
