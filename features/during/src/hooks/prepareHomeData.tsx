@@ -35,16 +35,19 @@ export const usePrepareHomeData = (properties: PropertyRoot[] = []) => {
 
 const propertyFilter = (item: PropertyEvaluationStatus) => (p: PropertyRoot) => p.propertyEvaluationStatus === item
 
-const propertyMapper = (p: PropertyRoot): HomeCardProps => ({
-  ribbon: true,
-  label: p.propertyEvaluationStatus === PropertyEvaluationStatusEnum.Enum.Rejected ? true : false,
-  images: p.property.propertyImages.map(i => i.imagePath ?? zeroHome),
-  address: p.property.address.address1 ?? '',
-  price: formatter.format(p.property.listPrice ?? 0),
-  bed: p.property.bedroomCount ?? 0,
-  bath: p.property.bathroomCount ?? 0,
-  sqft: p.property.squareFootage?.toString() ?? '0',
-})
+const propertyMapper = (p: PropertyRoot): HomeCardProps => {
+	const images = p.property.propertyImages.length > 0 ? p.property.propertyImages : [zeroHome]
+	return {
+    ribbon: true,
+    label: p.propertyEvaluationStatus === PropertyEvaluationStatusEnum.Enum.Rejected ? true : false,
+    images: images.map(i => i.imagePath ?? zeroHome),
+    address: p.property.address.address1 ?? '',
+    price: formatter.format(p.property.listPrice ?? 0),
+    bed: p.property.bedroomCount ?? 0,
+    bath: p.property.bathroomCount ?? 0,
+    sqft: p.property.squareFootage?.toString() ?? '0',
+  }
+}
 
 const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',

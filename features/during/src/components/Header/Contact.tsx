@@ -1,18 +1,18 @@
-import React from 'react'
+import React, { FunctionComponent } from 'react'
 import styled from '@emotion/styled'
 import { Avatar, Button, Text } from '@rayseinc-packages/ui'
 import { useNavigateToYourAgent } from '../../navigations'
 
-import avatar from './icons/avatar.png'
+interface ContactProps {
+  image?: string
+}
 
-type ContactProps = object
-
-export const Contact = (props: ContactProps) => {
+export const Contact: FunctionComponent<ContactProps> = ({ image }) => {
   const navigateToYourAgent = useNavigateToYourAgent({})
 
   return (
     <MainButton onClick={navigateToYourAgent}>
-      <Avatar src={avatar} />
+      <Avatar src={image} />
       <Text variant="rayse-16700">Contact</Text>
     </MainButton>
   )

@@ -16,7 +16,7 @@ import {
 import { setJourneyId } from '../../data'
 import { MenuProvider } from '../../contexts'
 import { useDuringSelector, usePrepareHomeData, usePrepareJourneyData } from '../../hooks'
-import { useGetMyJourneyListQuery, useGetMuJourneyByIdQuery, useGetMyJourneyDataQuery } from '../../api/during'
+import { useGetMyJourneyListQuery, useGetMyJourneyByIdQuery, useGetMyJourneyDataQuery } from '../../api/during'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Home12Props {}
@@ -40,7 +40,7 @@ export const Home12: FunctionComponent<Home12Props> = () => {
     data: journey,
     error: journeyError,
     isLoading: journeyLoading,
-  } = useGetMuJourneyByIdQuery({ journeyId }, { skip: journeySkip })
+  } = useGetMyJourneyByIdQuery({ journeyId }, { skip: journeySkip })
   const {
     data: journeyData,
     error: journeyDataError,
@@ -64,7 +64,7 @@ export const Home12: FunctionComponent<Home12Props> = () => {
   useEffect(() => {
     if (journeyList?.length && !journeyId) {
       dispatch(setJourneyId(journeyList[0].id))
-      if (journeySkip) {
+      if (journeySkip && journeyDataSkip) {
         setJourneySkip(false)
         setJourneyDataSkip(false)
       }
@@ -92,7 +92,7 @@ export const Home12: FunctionComponent<Home12Props> = () => {
             overflow: 'hidden',
           }}
         >
-          <Header review={true} />
+          <Header agentImage={journey?.primaryAgent.user.imagePath ?? ''} review={true} />
           <Evaluating evaluating={homeData?.evaluating} offers={homeData?.offers} />
           <RejectedHomes homes={homeData?.rejected} />
           <Group dir="vertical" gap={12}>

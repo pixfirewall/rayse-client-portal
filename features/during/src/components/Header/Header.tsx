@@ -8,13 +8,14 @@ import { Contact } from './Contact'
 
 interface HeaderProps {
   review?: boolean
+  agentImage?: string
 }
 
-export const Header: FunctionComponent<HeaderProps> = ({ review = false }) => {
+export const Header: FunctionComponent<HeaderProps> = ({ agentImage, review = false }) => {
   return (
     <Box className="Header-Container">
       <Group alignH="space-between">
-        <Contact />
+        <Contact image={agentImage} />
         <Menu />
       </Group>
       <Review show={review} />

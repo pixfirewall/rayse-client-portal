@@ -23,6 +23,7 @@ const duringClient = createClient({ clientId: ClientIdValueItems.DuringClient, r
 export const duringApi = createApi({
   reducerPath: DURING_API_REDUCER_PATH,
   baseQuery: fetchBaseQuery(),
+  keepUnusedDataFor: 300,
   endpoints: builder => ({
     getMyJourneyList: builder.query<UpstreamMyJourneyListResponse, UpstreamMyJourneyListRequestParams>({
       async queryFn({ Take = 10, Skip = 0, ...rest }) {
@@ -31,7 +32,7 @@ export const duringApi = createApi({
         return { data }
       },
     }),
-    getMuJourneyById: builder.query<UpstreamMyJourneyResponse, UpstreamMyJourneyRequestParams>({
+    getMyJourneyById: builder.query<UpstreamMyJourneyResponse, UpstreamMyJourneyRequestParams>({
       async queryFn({ journeyId }) {
         const response = await duringClient.During.getMyJourneyById({ journeyId })
         const data = response.data<UpstreamMyJourneyResponse>()
@@ -48,4 +49,4 @@ export const duringApi = createApi({
   }),
 })
 
-export const { useGetMyJourneyListQuery, useGetMuJourneyByIdQuery, useGetMyJourneyDataQuery } = duringApi
+export const { useGetMyJourneyListQuery, useGetMyJourneyByIdQuery, useGetMyJourneyDataQuery } = duringApi
