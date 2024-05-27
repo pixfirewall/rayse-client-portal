@@ -63,7 +63,7 @@
 	border-radius: 24px 24px 0 0;
 	background-blend-mode: luminosity;
 	
-	background: url('../slide1.jpg') lightgray 0px -140.194px / 100% 270.192% no-repeat;
+	background: lightgray 0px -140.194px / 100% 270.192% no-repeat;
 }
 
 .sectionTwo {
@@ -89,7 +89,7 @@
 	justify-content: center;
 
 	border-radius: 24px;
-	background: url('../blur.jpg') lightgray 50% / cover no-repeat;
+	background: url('../assets/blur.jpg') lightgray 50% / cover no-repeat;
 }
 
 .collaborationContainer {

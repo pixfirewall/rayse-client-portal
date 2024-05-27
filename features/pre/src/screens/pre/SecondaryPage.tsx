@@ -1,4 +1,8 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { useLocation } from 'react-router-dom'
+import queryString from 'query-string'
+
 import {
   Box,
   Text,
@@ -7,30 +11,54 @@ import {
   WhiteIcon,
   RayseIcon,
   RoundCard,
-  Image,
   Paragraph,
   WhiteButton,
-  YellowIcon
+  YellowIcon,
+  Link
 } from '@rayseinc-packages/ui'
 
 import styles from './styles/secondary.module.css'
 
-import iconNotificationMessage from './assets/icon-notification-message.png'
-import iconStars from './assets/icon-stars.png'
-import iconCalendarCheck from './assets/icon-calendar-check.png'
-import iconHomeSmile from './assets/icon-home-smile.png'
-import phoneScreen from './assets/phone-screen.png'
+import { useGetAgentInfoQuery } from '../../api'
+import { setAgentId } from '../../data'
+import { useNavigateToPre } from '../../'
+
+const DEFAULT_AGENT_ID = 80224
 
 export const SecondaryPage = () => {
+  const location = useLocation()
+  const agentId = Number(queryString.parse(location.search)?.['agent'])
+
+  if (isNaN(agentId)) {
+    return (<Box>
+      * ERROR: Please provide the agent id in the url. Example: <Link href={`/pre-2nd?agent=${DEFAULT_AGENT_ID}`} color="primary">
+        /pre-2nd?agent={DEFAULT_AGENT_ID}
+      </Link>
+    </Box>)
+  }
+
+  const navigateToPre = useNavigateToPre(agentId)
+  const dispatch = useDispatch()
+  dispatch(setAgentId(agentId))
+
+  const {
+    data: agentInfo
+  } = useGetAgentInfoQuery({ id: agentId as number })
+
   return (
     <Box className={styles.topContainer}>
       <Box className={styles.topNavBar}>
-        <LongButton color="purple">
+        <LongButton color="purple" onClick={() => navigateToPre()}>
           <WhiteIcon material="arrow_back" />
           <Text variant="rayse-20700">
-            Back to Julie
+            Back to {agentInfo?.user?.firstName}
           </Text>
-          <Box className={styles.agentButtonIcon} />
+          <Box
+            className={styles.agentButtonIcon}
+            style={{
+              backgroundImage: `url(${agentInfo?.user?.imagePath})`
+            }}
+          />
         </LongButton>
 
         <RayseIcon size={56} iconSize={40} />
@@ -45,43 +73,48 @@ export const SecondaryPage = () => {
       </Box>
 
       <Box className={styles.subSection}>
-        <Box display="flex" justifyContent="center">
-          <Text variant="rayse-68700">Meet Rayse</Text>
-          <Text variant="rayse-68700" color="#FFCE31">.</Text>
-        </Box>
+        <Text variant="rayse-68700">I see you. And,</Text>
+        <Text variant="rayse-68700">I Rayse you.</Text>
 
-        <Text variant="rayse-44700">
-          Let’s raise the standard for buying a home, one step at a time
-        </Text>
+        <Text variant="rayse-40700" paddingTop="16px">I can make it appear effortless.</Text>
+        <Text variant="rayse-40700">Rayse makes my efforts appear.</Text>
       </Box>
 
-      <CardSection />
+      <Box className={styles.cardSection}>
 
-      <Box className={styles.subSection}>
-        <Text variant="rayse-44700">
-          Let’s raise the standard for buying a home, one step at a time
-        </Text>
+        <RoundCard dir="horizontal" color='#F8F7F4' hPadding='36px' vPadding='36px'
+          height='240px' gap='40px' align='center'>
+
+          <Box width="80%">
+            <Text variant="rayse-24700" color="#171717">Clarity. </Text>
+            <Text variant="rayse-24400" color="#171717">
+              What does the process look like? You’ll always know where we are and what’s next.
+            </Text>
+          </Box>
+          <Box className={styles.clarityImage}>
+            <Box className={styles.clarityBlur} />
+          </Box>
+
+        </RoundCard>
+
       </Box>
-
-      <CardSection />
     </Box>
   )
 }
 
-const CardSection = () => (
+// Kept temporarily for reference
+const OldCardSection = () => (
   <Grid container spacing={2} width="740px">
     <Grid item xs={12}>
 
       <RoundCard dir="horizontal" color='#F8F7F4' hPadding='36px' vPadding='36px'
         height='260px' gap='40px' align='center'>
 
-        <Box display='flex' flexDirection='column' justifyContent='space-between' width='100%' height='100%'>
-          <Image src={iconNotificationMessage} width='56px' height='56px' />
-          <Paragraph gap='14px' titleVariant='rayse-24700' bodyVariant='rayse-20400' color='#171717'
-            title={`Transparency`}
-            body={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                  incididunt utlabore et dolore magna aliqua.`}
-          />
+        <Box>
+          <Text variant="rayse-24700" color="#171717">Clarity. </Text>
+          <Text variant="rayse-24400" color="#171717">
+            What does the process look like? You’ll always know where we are and what’s next.
+          </Text>
         </Box>
 
         <Box width='100%' alignSelf='flex-start'>
@@ -104,12 +137,11 @@ const CardSection = () => (
         </Box>
 
       </RoundCard>
-
     </Grid>
     <Grid item xs={6}>
 
       <RoundCard color='#EEECE6' hPadding='36px' vPadding='36px' height='360px' gap='80px' align='flex-start'>
-        <Image src={iconStars} width='56px' height='56px' />
+
         <Paragraph gap='14px' titleVariant='rayse-24700' bodyVariant='rayse-20400' color='#171717'
           title={`Something about Rayse`}
           body={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
@@ -121,7 +153,7 @@ const CardSection = () => (
     <Grid item xs={6}>
 
       <RoundCard color='#D9D4C8' hPadding='36px' vPadding='36px' height='360px' gap='80px' align='flex-start'>
-        <Image src={iconCalendarCheck} width='56px' height='56px' />
+
         <Paragraph gap='14px' titleVariant='rayse-24700' bodyVariant='rayse-20400' color='#171717'
           title={`Something about Rayse`}
           body={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
@@ -136,7 +168,7 @@ const CardSection = () => (
         height='260px' gap='40px' align='center'>
 
         <Box display='flex' flexDirection='column' justifyContent='space-between' width='100%' height='100%'>
-          <Image src={iconHomeSmile} width='56px' height='56px' />
+
           <Paragraph gap='14px' titleVariant='rayse-24700' bodyVariant='rayse-20400' color='#171717'
             title={`Closing report`}
             body={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
@@ -144,7 +176,7 @@ const CardSection = () => (
           />
         </Box>
         <Box position='relative' top='10px'>
-          <Image src={phoneScreen} width="285px" />
+
         </Box>
       </RoundCard>
 

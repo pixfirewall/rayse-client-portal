@@ -1,14 +1,16 @@
 import { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-export const useNavigateToPre = () => {
+export const useNavigateToPre = (agentId?: number) => {
   const navigate = useNavigate()
 
-  return useCallback(() => navigate(`/pre`, { replace: false }), [])
+  const url = `/pre` + (agentId ? `?agent=${agentId}` : '')
+  return useCallback(() => navigate(url, { replace: false }), [])
 }
 
-export const useNavigateToPreSecondaryPage = () => {
+export const useNavigateToPreSecondaryPage = (agentId?: number) => {
   const navigate = useNavigate()
 
-  return useCallback(() => navigate(`/meet-rayse`, { replace: false }), [])
+  const url = `/pre-2nd` + (agentId ? `?agent=${agentId}` : '')
+  return useCallback(() => navigate(url, { replace: false }), [])
 }

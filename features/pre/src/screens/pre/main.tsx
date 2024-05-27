@@ -7,6 +7,7 @@ import { useTheme } from '@mui/material/styles'
 
 import { useGetAgentInfoQuery } from '../../api'
 import { setAgentId } from '../../data'
+import { useNavigateToPreSecondaryPage } from '../../'
 
 import { clsx } from 'clsx'
 import useMediaQuery from '@mui/material/useMediaQuery'
@@ -33,14 +34,14 @@ import { AgentProfile } from '../../components'
 
 import styles from './styles/main.module.css'
 
-import graduationHat from './graduation-hat.png'
-import shieldPlus from './shield-plus.png'
-import rayseLogo from './rayse-logo.png'
+import graduationHat from './assets/graduation-hat.png'
+import shieldPlus from './assets/shield-plus.png'
+import rayseLogo from './assets/rayse-logo.png'
 import checkeredImage from './assets/checkered.png'
 
 import emptyImage from '../../assets/checkered.png'
-import slide2 from './slide02.png'
-import slide3 from './slide03.png'
+import slide2 from './assets/slide02.png'
+import slide3 from './assets/slide03.png'
 
 export type MatchSizes = {
   xs: boolean
@@ -61,10 +62,13 @@ export const Main = () => {
 
   if (isNaN(agentId)) {
     return (<Box>
-      * ERROR: Please provide the agent id in the url. Example: /pre?agent={DEFAULT_AGENT_ID}
+      * ERROR: Please provide the agent id in the url. Example: <Link href={`/pre?agent=${DEFAULT_AGENT_ID}`} color="primary">
+        /pre?agent={DEFAULT_AGENT_ID}
+      </Link>
     </Box>)
   }
 
+  const navigateToPreSecondaryPage = useNavigateToPreSecondaryPage(agentId)
   const dispatch = useDispatch()
   dispatch(setAgentId(agentId))
 
@@ -102,7 +106,7 @@ export const Main = () => {
           <RayseIcon size={56} iconSize={40} />
         </Grid>
         <Grid item>
-          <LongButton color="darkGreen">
+          <LongButton color="darkGreen" onClick={() => navigateToPreSecondaryPage()}>
             <Box
               className={styles.agentButtonIcon}
               style={{

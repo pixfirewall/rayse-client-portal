@@ -16,6 +16,7 @@ export declare module '@mui/material/styles' {
     'rayse-32400': React.CSSProperties
     'rayse-32700': React.CSSProperties
     'rayse-36700': React.CSSProperties
+    'rayse-40700': React.CSSProperties
     'rayse-44700': React.CSSProperties
     'rayse-68700': React.CSSProperties
   }
@@ -36,6 +37,7 @@ export declare module '@mui/material/styles' {
     'rayse-32400'?: React.CSSProperties
     'rayse-32700'?: React.CSSProperties
     'rayse-36700'?: React.CSSProperties
+    'rayse-40700'?: React.CSSProperties
     'rayse-44700'?: React.CSSProperties
     'rayse-68700'?: React.CSSProperties
   }
@@ -58,6 +60,7 @@ export declare module '@mui/material/Typography' {
     'rayse-32400': true
     'rayse-32700': true
     'rayse-36700': true
+    'rayse-40700': true
     'rayse-44700': true
     'rayse-68700': true
   }

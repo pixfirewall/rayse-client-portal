@@ -8,7 +8,7 @@ export const routes: RouteObject[] = [
     element: <Main />
   },
   {
-    path: '/meet-rayse',
+    path: '/pre-2nd',
     element: <SecondaryPage />
   }
 ]
