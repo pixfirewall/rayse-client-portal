@@ -36,7 +36,7 @@ export const Home34: FunctionComponent<Home34Props> = () => {
             <TimeLeft value={24} />
             <HomeSlider images={[home01, home02, home03]} />
             <MainPaper>
-              <HomeDetails address="731 kettner Ave" price="$8,400,000" bed="2" bath="4" sqft="4,660" />
+              <HomeDetails address="731 kettner Ave" price="$8,400,000" bed={2} bath={4} sqft="4,660" />
             </MainPaper>
             <ActivityList activities={activities} />
           </Group>

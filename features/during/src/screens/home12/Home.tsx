@@ -15,8 +15,7 @@ import {
 } from '../../components'
 import { setJourneyId } from '../../data'
 import { MenuProvider } from '../../contexts'
-import { homeData } from '../../fixtures/homeData'
-import { useDuringSelector, usePrepareJourneyData } from '../../hooks'
+import { useDuringSelector, usePrepareHomeData, usePrepareJourneyData } from '../../hooks'
 import { useGetMyJourneyListQuery, useGetMuJourneyByIdQuery, useGetMyJourneyDataQuery } from '../../api/during'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -48,7 +47,8 @@ export const Home12: FunctionComponent<Home12Props> = () => {
     isLoading: journeyDataLoading,
   } = useGetMyJourneyDataQuery({ journeyId }, { skip: journeyDataSkip })
 
-	const myJourneyData = usePrepareJourneyData(journeyData?.steps || [])
+	const homeData = usePrepareHomeData(journey?.properties)
+	const myJourneyData = usePrepareJourneyData(journeyData?.steps)
 
   useEffect(() => {
     if (journeySkip && journeyListSkip && journeyDataSkip) {
@@ -93,16 +93,16 @@ export const Home12: FunctionComponent<Home12Props> = () => {
           }}
         >
           <Header review={true} />
-          <Evaluating homes={homeData} />
-          <RejectedHomes homes={homeData.map(home => ({ ...home, label: true }))} />
+          <Evaluating evaluating={homeData?.evaluating} offers={homeData?.offers} />
+          <RejectedHomes homes={homeData?.rejected} />
           <Group dir="vertical" gap={12}>
             <Matrix
               title="This is what Julie has been up to on your behalf"
               agentName="Julie"
-              activities={34}
-              outcomes={42}
-              tours={15}
-              offers={1}
+              activities={journey?.statistics.activities ?? 0}
+              outcomes={journey?.statistics.outcomesFinished ?? 0}
+              tours={journey?.statistics.homesToured ?? 0}
+              offers={journey?.statistics.offers ?? 0}
             />
             <Journey data={myJourneyData} />
             <BrandFooter />

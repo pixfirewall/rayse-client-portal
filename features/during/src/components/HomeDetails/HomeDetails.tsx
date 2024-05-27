@@ -4,15 +4,26 @@ import { Box, RayseDivider, Group, Text } from '@rayseinc-packages/ui'
 interface HomeDetailsProps {
   address: string
   price: string
-  bed: string
-  bath: string
+  bed: number
+  bath: number
   sqft: string
 }
 
 export const HomeDetails: FunctionComponent<HomeDetailsProps> = ({ address, price, bed, bath, sqft }) => {
   return (
     <Group dir="vertical" gap={2}>
-      <Text variant="rayse-20700">{address}</Text>
+      <Text
+        variant="rayse-20700"
+        sx={{
+          display: '-webkit-box',
+          overflow: 'hidden',
+          WebkitBoxOrient: 'vertical',
+          WebkitLineClamp: 1,
+          lineHeight: '28px',
+        }}
+      >
+        {address}
+      </Text>
       <Text variant="rayse-16700">{price}</Text>
       <Group>
         <Box>

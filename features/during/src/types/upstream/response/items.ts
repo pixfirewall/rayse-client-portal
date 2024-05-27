@@ -282,12 +282,8 @@ export const PropertyEvaluationsSchema = z.object({
   user: BaseUserSchema,
 })
 
-export const PropertyEvaluationStatusItems = {
-  PendingReview: 'PendingReview',
-  Rejected: 'Rejected',
-  UnderEvaluation: 'UnderEvaluation',
-}
-export const propertyEvaluationStatusEnum = z.nativeEnum(PropertyEvaluationStatusItems)
+export const PropertyEvaluationStatusEnum = z.enum(['PendingReview', 'Rejected', 'UnderEvaluation'])
+export type PropertyEvaluationStatus = z.infer<typeof PropertyEvaluationStatusEnum>
 
 export const PropertyRootSchema = z.object({
   id: z.number(),
@@ -299,8 +295,9 @@ export const PropertyRootSchema = z.object({
   offers: z.array(OffersSchema),
   property: PropertySchema,
   propertyEvaluations: z.array(PropertyEvaluationsSchema),
-  propertyEvaluationStatus: propertyEvaluationStatusEnum,
+  propertyEvaluationStatus: PropertyEvaluationStatusEnum,
 })
+export type PropertyRoot = z.infer<typeof PropertyRootSchema>
 
 export const UpstreamMyJourneyResponseSchema = z.object({
   id: z.number(),

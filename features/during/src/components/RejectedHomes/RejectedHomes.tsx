@@ -4,13 +4,13 @@ import { HomeCard, HomeCardProps } from '../HomeCard'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface RejectedHomesProps {
-  homes: HomeCardProps[]
+  homes?: HomeCardProps[]
 }
 
-export const RejectedHomes: FunctionComponent<RejectedHomesProps> = ({ homes }) => {
+export const RejectedHomes: FunctionComponent<RejectedHomesProps> = ({ homes = [] }) => {
   return (
     <Group dir="vertical" gap={24}>
-      <Text variant="rayse-24700">Rejected homes</Text>
+      <Text variant="rayse-24700">Rejected homes ({homes.length})</Text>
       <Group sx={{width: 470}}>
         <PerViewSlider loop
           ns={1.4}

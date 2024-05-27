@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { OffersSchema, propertyEvaluationStatusEnum, PropertySchema, UserSchema } from './items'
+import { OffersSchema, PropertyEvaluationStatusEnum, PropertySchema, UserSchema } from './items'
 
 export const OutcomesStatusEnum = z.enum(['Checked', 'Unchecked', 'NotApplicable'])
 export const ActivityTypeEnum = z.enum([
@@ -140,7 +140,7 @@ export const JourneyPropertiesSchema = z.object({
   journeyId: z.number(),
   offerId: z.number().nullable(),
   property: PropertySchema,
-  propertyEvaluationStatus: propertyEvaluationStatusEnum,
+  propertyEvaluationStatus: PropertyEvaluationStatusEnum,
 })
 
 const UpstreamMyJourneyDataResponseSchema = z.object({

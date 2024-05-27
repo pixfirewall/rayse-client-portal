@@ -11,8 +11,8 @@ export interface HomeInfoProps {
   images: string[]
   address: string
   price: string
-  bed: string
-  bath: string
+  bed: number
+  bath: number
   sqft: string
 }
 

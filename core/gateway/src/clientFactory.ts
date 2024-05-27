@@ -20,9 +20,10 @@ const authClient = forge({
   },
 })
 
+let accessToken: string | null = null
+
 const getAccessTokenMiddleware = () => {
   const AccessToken: Middleware = () => {
-    let accessToken: string | null = null
     return {
       async request(request) {
         if (accessToken === null) {
@@ -67,6 +68,6 @@ export const createClient = <T extends ResourceTypeConstraint>({
   forge({
     clientId: `${clientId}-${uuidv4()}`,
     host: host ? host : (ClientApis[clientId] as string),
-    middleware: isPublic ? [] : [getAccessTokenMiddleware()],
+    middleware: isPublic ? [EncodeJsonMiddleware] : [getAccessTokenMiddleware(), EncodeJsonMiddleware],
     resources,
   })

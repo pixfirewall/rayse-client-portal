@@ -4,7 +4,7 @@ import { Steps } from "../types"
 import { JourneyData } from "../components"
 import { State } from "../components/Journey/JourneyCard"
 
-export const usePrepareJourneyData = (stepsData: Steps[]) => {
+export const usePrepareJourneyData = (stepsData: Steps[] = []) => {
   const [data, setData] = useState<JourneyData[]>([])
 
   const processData = useCallback(() => {
