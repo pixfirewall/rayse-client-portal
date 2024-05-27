@@ -59,7 +59,7 @@ export const Evaluating: FunctionComponent<EvaluatingProps> = ({ evaluating = []
           <Showif con={!ifZero}>
             <Group sx={{ width: 470 }}>
               <PerViewSlider
-                loop
+                // loop
                 ns={1.4}
                 slides={evaluating.map(home => (
                   <HomeCard {...home} />
@@ -82,7 +82,7 @@ export const Evaluating: FunctionComponent<EvaluatingProps> = ({ evaluating = []
           <Showif con={!ifZero}>
             <Group sx={{ width: 470 }}>
               <PerViewSlider
-                loop
+                // loop
                 ns={1.4}
                 slides={offers.map(home => (
                   <HomeCard {...home} />

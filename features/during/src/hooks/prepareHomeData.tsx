@@ -3,6 +3,8 @@ import { useCallback, useEffect, useState } from 'react'
 import { HomeCardProps } from '../components'
 import { PropertyEvaluationStatusEnum, PropertyRoot, PropertyEvaluationStatus } from '../types'
 
+import zeroHome from '../fixtures/assets/zero-home.png';
+
 export interface HomeData {
   offers: HomeCardProps[]
   evaluating: HomeCardProps[]
@@ -36,7 +38,7 @@ const propertyFilter = (item: PropertyEvaluationStatus) => (p: PropertyRoot) => 
 const propertyMapper = (p: PropertyRoot): HomeCardProps => ({
   ribbon: true,
   label: p.propertyEvaluationStatus === PropertyEvaluationStatusEnum.Enum.Rejected ? true : false,
-  images: p.property.propertyImages.map(i => i.imagePath ?? ''),
+  images: p.property.propertyImages.map(i => i.imagePath ?? zeroHome),
   address: p.property.address.address1 ?? '',
   price: formatter.format(p.property.listPrice ?? 0),
   bed: p.property.bedroomCount ?? 0,
