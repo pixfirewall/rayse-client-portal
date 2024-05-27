@@ -10,7 +10,6 @@ import { SocialContact } from '../'
 import type { AgentPublicInfoRecord } from '../../types'
 
 import styles from './AgentProfile.module.css'
-import emptyImage from '../../assets/checkered.png'
 
 import type { MatchSizes } from '../../screens/pre/index'
 
@@ -76,42 +75,21 @@ export const AgentProfile = ({ matchSize, data, isLoading }: Props) => {
               DRE #02095311
             </Text>
             <Text variant={matchSize.tablet ? "rayse-24400" : "rayse-20400"} color="#FFF" textAlign="left">
-              (555) 654-6675
+              {Boolean(data?.user?.phones?.length) && data?.user.phones[0].number}
             </Text>
             <Text variant={matchSize.tablet ? "rayse-24400" : "rayse-20400"} color="#FFF" textAlign="left">
-              jcapinstand@eliotpark.com
+              {data?.user?.emailAddress}
             </Text>
           </Box>
 
           <Grid container style={{ padding: '0 40px 40px 40px' }} rowSpacing={2} columnSpacing={4}>
-            <Grid item xs={12} tablet={6}>
-              {matchSize.tablet ? (
-                <SocialContact socialNetwork="linkedin" infoText="@13579" variant="rayse-32400" size="52px" />
-              ) : (
-                <SocialContact socialNetwork="linkedin" infoText="@13579" variant="rayse-20400" size="36px" />
-              )}
-            </Grid>
-            <Grid item xs={12} tablet={6}>
-              {matchSize.tablet ? (
-                <SocialContact socialNetwork="facebook" infoText="@13579" variant="rayse-32400" size="52px" />
-              ) : (
-                <SocialContact socialNetwork="facebook" infoText="@13579" variant="rayse-20400" size="36px" />
-              )}
-            </Grid>
-            <Grid item xs={12} tablet={6}>
-              {matchSize.tablet ? (
-                <SocialContact socialNetwork="instagram" infoText="@13579" variant="rayse-32400" size="52px" />
-              ) : (
-                <SocialContact socialNetwork="instagram" infoText="@13579" variant="rayse-20400" size="36px" />
-              )}
-            </Grid>
-            <Grid item xs={12} tablet={6}>
-              {matchSize.tablet ? (
-                <SocialContact socialNetwork="tiktok" infoText="@13579" variant="rayse-32400" size="52px" />
-              ) : (
-                <SocialContact socialNetwork="tiktok" infoText="@13579" variant="rayse-20400" size="36px" />
-              )}
-            </Grid>
+            {data?.agentLinks?.length && data.agentLinks.map((record, index) => (
+              <Grid key={index} item xs={12} tablet={6}>
+                {matchSize.tablet
+                  ? <SocialContact url={record.url} variant="rayse-32400" size="52px" />
+                  : <SocialContact url={record.url} variant="rayse-20400" size="36px" />}
+              </Grid>
+            ))}
           </Grid>
         </Box>
       </Box>
@@ -134,7 +112,6 @@ export const AgentProfile = ({ matchSize, data, isLoading }: Props) => {
                 slidesPerView={
                   matchSize.min860 ? 3 : (matchSize.min600 ? 2 : 1)
                 }
-                loop
                 spaceBetween={10}
                 className={styles.reviewSwiperContainer}
                 onSwiper={swp => swiperRef.current = swp}

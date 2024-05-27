@@ -7,6 +7,7 @@ export const theme = createTheme({
       xs: 0,
       mobile: 360,
       sm: 480,
+      md: 640,
       tablet: 1024,
       desktop: 1440,
     },

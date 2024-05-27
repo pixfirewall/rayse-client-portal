@@ -194,19 +194,22 @@
 }
 
 .companyLogo {
-	width: 351px;
-	height: 68px;
+	max-width: 360px;
+	max-height: 70px;
+	background-size: contain;
 }
 
+/* Set the same as the one above (might need changing later) */
 .companyLogoMobile {
-	width: 96px;
-	height: 96px;
-	background-size: cover;
+	max-width: 360px;
+	max-height: 70px;
+	background-size: contain;
 }
 
 .companyLogoTiny {
-	width: 48px;
-	height: 48px;
+	max-width: 48px;
+	max-height: 48px;
+	background-size: contain;
 }
 
 .rayseLogo {
@@ -217,6 +220,18 @@
 .rayseLogoMobile {
 	width: 103px;
 	height: 32px;
+}
+
+.brokerageIdSection {
+	display: flex;
+	flex-direction: row;
+	gap: 18px;
+}
+
+.brokerageIdSectionSmall {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
 }
 
 @media screen and (max-width: 440px) {

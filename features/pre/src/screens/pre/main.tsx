@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useDispatch } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import queryString from 'query-string'
@@ -7,7 +7,6 @@ import { useTheme } from '@mui/material/styles'
 
 import { useGetAgentInfoQuery } from '../../api'
 import { setAgentId } from '../../data'
-import { usePreSelector } from '../../hooks'
 
 import { clsx } from 'clsx'
 import useMediaQuery from '@mui/material/useMediaQuery'
@@ -21,7 +20,8 @@ import {
   LongButton,
   WhiteIcon,
   RayseIcon,
-  Grid
+  Grid,
+  Link
 } from '@rayseinc-packages/ui'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -33,7 +33,6 @@ import { AgentProfile } from '../../components'
 
 import styles from './styles/main.module.css'
 
-import berkshireImage from './berkshire.png'
 import graduationHat from './graduation-hat.png'
 import shieldPlus from './shield-plus.png'
 import rayseLogo from './rayse-logo.png'
@@ -47,6 +46,7 @@ export type MatchSizes = {
   xs: boolean
   mobile: boolean
   sm: boolean
+  md: boolean
   tablet: boolean
   desktop: boolean
   min600: boolean
@@ -73,6 +73,7 @@ export const Main = () => {
     xs: useMediaQuery(theme.breakpoints.up('xs')),
     mobile: useMediaQuery(theme.breakpoints.up('mobile')),
     sm: useMediaQuery(theme.breakpoints.up('sm')),
+    md: useMediaQuery(theme.breakpoints.up('md')),
     tablet: useMediaQuery(theme.breakpoints.up('tablet')),
     desktop: useMediaQuery(theme.breakpoints.up('desktop')),
     min600: useMediaQuery('(min-width:600px)'),
@@ -81,7 +82,6 @@ export const Main = () => {
 
   const {
     data: agentInfo,
-    error,
     isLoading
   } = useGetAgentInfoQuery({ id: agentId as number })
 
@@ -135,7 +135,6 @@ export const Main = () => {
           <Box display="flex" alignItems="center" justifyContent="center" margin="10px">
             <Swiper
               slidesPerView={1}
-              loop
               spaceBetween={20}
               pagination={{
                 bulletActiveClass: clsx('swiper-pagination-bullet-active', styles.swiperBulletActive),
@@ -147,26 +146,26 @@ export const Main = () => {
               {(agentInfo?.headshotImagePath
                 ? [agentInfo.headshotImagePath, ...sliderImages]
                 : [emptyImage, ...sliderImages])
-              .map((value, index) => (
-                <SwiperSlide key={index}>
-                  <Image src={value}
-                    width="100%"
-                    height="414.428px"
-                    style={{
-                      borderRadius: '24px 24px 0 0',
-                      objectPosition: '50% 50%',
-                      objectFit: 'cover'
-                    }}
-                  />
-                  <Text
-                    variant={matchSize.sm ? "rayse-32700" : "rayse-24700"}
-                    className={styles.imageSlideCaption}
-                    height="50px"
-                  >
-                    {sliderCaptions[index]}
-                  </Text>
-                </SwiperSlide>
-              ))}
+                .map((value, index) => (
+                  <SwiperSlide key={index}>
+                    <Image src={value}
+                      width="100%"
+                      height="414.428px"
+                      style={{
+                        borderRadius: '24px 24px 0 0',
+                        objectPosition: '50% 50%',
+                        objectFit: 'cover'
+                      }}
+                    />
+                    <Text
+                      variant={matchSize.sm ? "rayse-32700" : "rayse-24700"}
+                      className={styles.imageSlideCaption}
+                      height="50px"
+                    >
+                      {sliderCaptions[index]}
+                    </Text>
+                  </SwiperSlide>
+                ))}
             </Swiper>
           </Box>
         </Grid>
@@ -190,12 +189,14 @@ export const Main = () => {
         <Grid item xs={12}>
           <Box display="flex" alignItems="center" justifyContent="center">
             <Box className={styles.meetRayseContainer}>
-              <WhiteButton>
-                <Text variant="rayse-32700">
-                  Meet Rayse
-                </Text>
-                <YellowIcon material="arrow_forward" />
-              </WhiteButton>
+              <Link href={'https://www.rayse.com/'} target="_blank" style={{ cursor: 'pointer' }}>
+                <WhiteButton>
+                  <Text variant="rayse-32700">
+                    Meet Rayse
+                  </Text>
+                  <YellowIcon material="arrow_forward" />
+                </WhiteButton>
+              </Link>
             </Box>
           </Box>
         </Grid>
@@ -208,18 +209,40 @@ export const Main = () => {
       <Grid item className={styles.sectionContainer} xs={12}>
         <Box className={styles.collaborationContainer} margin="auto">
           <Box className={styles.collabTop}>
-            <Image
-              src={matchSize.tablet ? berkshireImage : checkeredImage}
-              className={matchSize.tablet ? styles.companyLogo
-                : (matchSize.sm ? styles.companyLogoMobile : styles.companyLogoTiny)}
-            />
-
-            <WhiteButton>
-              <Text variant="rayse-20700">
-                Learn more
+            <Box className={
+              matchSize.md
+                ? styles.brokerageIdSection
+                : styles.brokerageIdSectionSmall
+            }>
+              <Image
+                src={agentInfo?.team?.brokerage?.logoImagePath || checkeredImage}
+                className={matchSize.tablet ? styles.companyLogo
+                  : (matchSize.sm ? styles.companyLogoMobile : styles.companyLogoTiny)}
+              />
+              <Divider className={styles.collabDivider} orientation="vertical" flexItem />
+              <Text
+                variant={matchSize.tablet ? "rayse-24700" : "rayse-18400"}
+                color="#FFF"
+                align="left"
+                maxWidth="10vw"
+                style={{
+                  paddingTop: matchSize.sm ? 0 : '48px'
+                }}
+              >
+                {agentInfo?.team?.brokerage?.name}
               </Text>
-              <YellowIcon material="arrow_forward" />
-            </WhiteButton>
+            </Box>
+
+            <Box paddingTop={matchSize.md ? '32px' : '0'}>
+              <Link href={agentInfo?.team?.brokerage?.websiteUrl} target="_blank" style={{ cursor: 'pointer' }}>
+                <WhiteButton>
+                  <Text variant="rayse-20700">
+                    Learn more
+                  </Text>
+                  <YellowIcon material="arrow_forward" />
+                </WhiteButton>
+              </Link>
+            </Box>
           </Box>
 
           <Divider className={styles.collabDivider} orientation="horizontal" flexItem />
@@ -265,7 +288,12 @@ export const Main = () => {
             <Image src={rayseLogo} className={matchSize.tablet ? styles.rayseLogo : styles.rayseLogoMobile} />
 
             <LongButton color="lightGreen">
-              <Box className={styles.agentButtonIcon} />
+              <Box
+                className={styles.agentButtonIcon}
+                style={{
+                  backgroundImage: `url(${agentInfo?.user?.imagePath})`
+                }}
+              />
               <Text variant="rayse-20700">
                 Get started
               </Text>
