@@ -2,6 +2,8 @@ import React from 'react'
 
 export declare module '@mui/material/styles' {
   interface TypographyVariants {
+    'rayse-36': React.CSSProperties
+    'rayse-16': React.CSSProperties
     'rayse-14400': React.CSSProperties
     'rayse-14700': React.CSSProperties
     'rayse-16400': React.CSSProperties
@@ -23,6 +25,8 @@ export declare module '@mui/material/styles' {
 
   // allow configuration using `createTheme`
   interface TypographyVariantsOptions {
+    'rayse-36'?: React.CSSProperties
+    'rayse-16'?: React.CSSProperties
     'rayse-14400'?: React.CSSProperties
     'rayse-14700'?: React.CSSProperties
     'rayse-16400'?: React.CSSProperties
@@ -46,6 +50,8 @@ export declare module '@mui/material/styles' {
 // Update the Typography's variant prop options
 export declare module '@mui/material/Typography' {
   interface TypographyPropsVariantOverrides {
+    'rayse-36': true
+    'rayse-16': true
     'rayse-14400': true
     'rayse-14700': true
     'rayse-16400': true

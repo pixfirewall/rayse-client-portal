@@ -32,5 +32,26 @@ When QA has passed all of the tickets in the sprint, the release may be promoted
 
 Once the product team has approved the current state of UAT, the release may be promoted to Production.
 
+## Getting started
 
-test
+### Local development environment
+* It is recommended to use NVM to install node 18.
+* run `yarn install` to install dependencies
+* To start only the front-end: `yarn start:web`
+* You can also start the application by compiling the assets (`yarn build:web` and starting the server `yarn start` which will run the app on localhost:80, but you will get CORS error when trying to hit the Rayse API. It is recommended for local development to run the app using the `yarn start:web` script.
+
+### Docker
+### To do: dockerize local development environment
+* In the meantime, you can run the application in a docker container by running the following commands from the root directory:
+```
+docker build -t rayse-client-portal .
+docker run -p 80:80 rayse-client-portal
+```
+
+* You can access the application at localhost:80
+
+## Additional documentation
+
+* API Documentation: https://api.dev.rayse.com/swagger/index.html
+* Link to Confluence: https://rayseinc.atlassian.net/wiki/spaces/DevOps/pages/112328706/Developer+Info
+

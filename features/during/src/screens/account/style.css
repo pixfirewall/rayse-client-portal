@@ -6,7 +6,7 @@
 	all: unset;
 }
 
-.account-input-text-field div {
+.account-input-text-field > div {
 	border-radius: 12px;
 	background-color: #fff !important;
 	border: 1px solid #D9D4C8;

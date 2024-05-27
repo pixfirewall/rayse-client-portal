@@ -4,8 +4,8 @@ import forge, { Middleware, ResourceTypeConstraint } from 'mappersmith'
 import { ClientApis, ClientIdValueItems, ClientIdValues } from './types'
 import { EncodeJsonMiddleware } from 'mappersmith/middleware'
 
-const email = import.meta.env.VITE_AUTH_USERNAME
-const password = import.meta.env.VITE_AUTH_PASSWORD
+const ACCESS_TOKEN_KEY = 'rayseAccessToken'
+const REFRESH_TOKEN_KEY = 'rayseRefreshToken'
 
 type UpstreamAuthResponse = { bearerToken: string; refreshToken: string; changePasswordToken: string }
 
@@ -16,35 +16,48 @@ const authClient = forge({
   resources: {
     Auth: {
       login: { path: '/api/user/login', method: 'POST' },
+      refresh: { path: 'api/user/refresh-token', method: 'POST' },
     },
   },
 })
 
 let accessToken: string | null = null
+export const setAccessToken = (token: string) => {
+  setToken(ACCESS_TOKEN_KEY, token)
+}
+
+export const setRefreshToken = (token: string) => {
+  setToken(REFRESH_TOKEN_KEY, token)
+}
+
+const setToken = (key: string, token: string) => {
+  localStorage.setItem(key, token)
+}
+
+const getToken = (key: string): string | null => {
+  return localStorage.getItem(key)
+}
+
+const removeToken = (key: string) => {
+  localStorage.removeItem(key)
+}
 
 const getAccessTokenMiddleware = () => {
   const AccessToken: Middleware = () => {
     return {
       async request(request) {
         if (accessToken === null) {
-          const authresponse = await authClient.Auth.login({
-            body: {
-              email: 'michaelf+francoeur+client@rayse.com',
-              password: 'Password1!',
-            },
-          })
-          const { bearerToken } = authresponse.data() as UpstreamAuthResponse
-          accessToken = bearerToken
+          accessToken = getToken(ACCESS_TOKEN_KEY)
         }
         return request.enhance({
           headers: { Authorization: `Bearer ${accessToken}` },
         })
       },
-      response(next, renew) {
+      response(next) {
         return next().catch(response => {
           if (response.status() === 401) {
             accessToken = null
-            return renew()
+            // TODO: make call to refresh endpoint with refresh token
           }
           return next()
         })
@@ -68,6 +81,6 @@ export const createClient = <T extends ResourceTypeConstraint>({
   forge({
     clientId: `${clientId}-${uuidv4()}`,
     host: host ? host : (ClientApis[clientId] as string),
-    middleware: isPublic ? [EncodeJsonMiddleware] : [getAccessTokenMiddleware(), EncodeJsonMiddleware],
+    middleware: isPublic ? [EncodeJsonMiddleware] : [EncodeJsonMiddleware, getAccessTokenMiddleware()],
     resources,
   })

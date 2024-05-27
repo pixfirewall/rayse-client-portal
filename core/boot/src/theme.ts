@@ -13,6 +13,14 @@ export const theme = createTheme({
     },
   },
   typography: {
+    'rayse-36': {
+      fontSize: 36,
+      fontFamily: 'inter',
+    },
+    'rayse-16': {
+      fontSize: 16,
+      fontFamily: 'inter',
+    },
     'rayse-12600': {
       fontSize: 12,
       fontWeight: 600,
