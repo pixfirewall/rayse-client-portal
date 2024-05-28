@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { useLocation } from 'react-router-dom'
+import { useLocation, ScrollRestoration } from 'react-router-dom'
 import queryString from 'query-string'
 
 import { useTheme } from '@mui/material/styles'
@@ -8,6 +8,8 @@ import { useTheme } from '@mui/material/styles'
 import { useGetAgentInfoQuery } from '../../api'
 import { setAgentId } from '../../data'
 import { useNavigateToPreSecondaryPage } from '../../'
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import { useNavigateToLogin } from '@rayseinc-features/home'
 
 import { clsx } from 'clsx'
 import useMediaQuery from '@mui/material/useMediaQuery'
@@ -69,6 +71,8 @@ export const Main = () => {
   }
 
   const navigateToPreSecondaryPage = useNavigateToPreSecondaryPage(agentId)
+  const navigateToLogin = useNavigateToLogin()
+
   const dispatch = useDispatch()
   dispatch(setAgentId(agentId))
 
@@ -100,13 +104,14 @@ export const Main = () => {
 
   return (
     <Grid container className={styles.topContainer}>
-
+      <ScrollRestoration />
+      
       <Grid container item className={styles.topNavBar} xs={12}>
         <Grid item>
           <RayseIcon size={56} iconSize={40} />
         </Grid>
         <Grid item>
-          <LongButton color="darkGreen" onClick={() => navigateToPreSecondaryPage()}>
+          <LongButton color="darkGreen" onClick={() => navigateToLogin()}>
             <Box
               className={styles.agentButtonIcon}
               style={{
@@ -193,14 +198,12 @@ export const Main = () => {
         <Grid item xs={12}>
           <Box display="flex" alignItems="center" justifyContent="center">
             <Box className={styles.meetRayseContainer}>
-              <Link href={'https://www.rayse.com/'} target="_blank" style={{ cursor: 'pointer' }}>
-                <WhiteButton>
-                  <Text variant="rayse-32700">
-                    Meet Rayse
-                  </Text>
-                  <YellowIcon material="arrow_forward" />
-                </WhiteButton>
-              </Link>
+              <WhiteButton onClick={() => navigateToPreSecondaryPage()}>
+                <Text variant="rayse-32700">
+                  Meet Rayse
+                </Text>
+                <YellowIcon material="arrow_forward" />
+              </WhiteButton>
             </Box>
           </Box>
         </Grid>
@@ -291,7 +294,7 @@ export const Main = () => {
           <Box className={styles.bottomSectionLower}>
             <Image src={rayseLogo} className={matchSize.tablet ? styles.rayseLogo : styles.rayseLogoMobile} />
 
-            <LongButton color="lightGreen">
+            <LongButton color="lightGreen" onClick={() => navigateToLogin()}>
               <Box
                 className={styles.agentButtonIcon}
                 style={{

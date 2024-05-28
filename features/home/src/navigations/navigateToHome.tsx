@@ -6,3 +6,9 @@ export const useNavigateToHome = () => {
 
   return useCallback(() => navigate(`/test`, { replace: false }), [])
 }
+
+export const useNavigateToLogin = () => {
+  const navigate = useNavigate()
+
+  return useCallback(() => navigate(`/login`, { replace: false }), [])
+}
