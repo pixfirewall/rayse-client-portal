@@ -1,9 +1,9 @@
 import React, { FunctionComponent } from 'react'
-import { ScrollRestoration } from 'react-router-dom'
-
+import { ScrollRestoration, useLocation } from 'react-router-dom'
 import { Group, Text, MainPaper, Image, PageLayout } from '@rayseinc-packages/ui'
 
-import { progressData } from '../../fixtures'
+import { useGetMyJourneyDataQuery } from '../../api'
+import { useDuringSelector, usePrepareProgressData } from '../../hooks'
 import { ActivityHead, BrandFooter, Footer, NavBar, Progress } from '../../components'
 
 import home from '../../fixtures/assets/hand-home.jpg'
@@ -12,6 +12,22 @@ import home from '../../fixtures/assets/hand-home.jpg'
 interface MilestoneProps {}
 
 export const Milestone: FunctionComponent<MilestoneProps> = () => {
+  const {
+    state: { title, description, milestoneId, date },
+  } = useLocation()
+
+  const journeyId = useDuringSelector(state => state.DURING_REDUCER_PATH.journeyId)
+
+  const {
+    data: journeyData,
+    error: journeyDataError,
+    isLoading: journeyDataLoading,
+  } = useGetMyJourneyDataQuery({ journeyId })
+
+  const progressData = usePrepareProgressData(
+    journeyData?.steps.flatMap(s => s.milestones).find(m => m.id === milestoneId)?.outcomes || [],
+  )
+
   return (
     <PageLayout>
       <ScrollRestoration />
@@ -23,20 +39,15 @@ export const Milestone: FunctionComponent<MilestoneProps> = () => {
       >
         <Group dir="vertical" gap={24}>
           <Group>
-            <NavBar title="Termite inspection" />
+            <NavBar title={title} />
           </Group>
           <Image src={home} style={{ borderRadius: 25, border: '1px solid #EEECE6' }} />
-          <ActivityHead />
+          <ActivityHead title={title} date={date} />
           <Progress data={progressData} />
           <MainPaper style={{ boxShadow: 'none' }}>
             <Group dir="vertical">
               <Text variant="rayse-24700">Important information</Text>
-              <Text variant="rayse-18400">
-                Having a termite inspection done before buying a home can give the buyer peace of mind and protect them
-                from costly surprises down the road. It can also give the buyer leverage in negotiations if any termite
-                damage is found, as they can ask the seller to address the issue before closing or adjust the sale price
-                accordingly.
-              </Text>
+              <Text variant="rayse-18400">{description}</Text>
             </Group>
           </MainPaper>
         </Group>

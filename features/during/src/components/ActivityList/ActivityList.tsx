@@ -3,12 +3,13 @@ import { Group, Text, MainPaper } from '@rayseinc-packages/ui'
 import { Activity, ActivityProps } from './Activity'
 import { useNavigateToMilestone } from '../../navigations'
 
+export type Activity = ActivityProps & { clickable: boolean; description: string; milestoneId: number, date: string }
 interface ActivityListProps {
-  activities: (ActivityProps & { clickable: boolean })[]
+  activities: Activity[]
 }
 
 export const ActivityList: FunctionComponent<ActivityListProps> = ({ activities }) => {
-	const navigateToMilestone = useNavigateToMilestone()
+  const navigateToMilestone = useNavigateToMilestone()
   return (
     <MainPaper>
       <Group dir="vertical" gap={24}>
@@ -18,10 +19,19 @@ export const ActivityList: FunctionComponent<ActivityListProps> = ({ activities 
             <Activity
               title={activity.title}
               subtitle={activity?.subtitle}
-              progress={activity?.progress}
+              date={activity?.date}
               status={activity.status}
               line={!(index + 1 === activities.length)}
-              onClick={activity.clickable ? navigateToMilestone : undefined}
+              onClick={() =>
+                activity.clickable
+                  ? navigateToMilestone({
+                      title: activity.title,
+                      description: activity.description,
+                      milestoneId: activity.milestoneId,
+                      date: activity.date,
+                    })
+                  : undefined
+              }
             />
           ))}
         </Group>

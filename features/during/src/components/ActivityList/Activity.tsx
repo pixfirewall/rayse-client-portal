@@ -1,16 +1,16 @@
 import React, { FunctionComponent } from 'react'
 import { Group, Box, Text, Space, Icon, Showif, YellowIcon, Button } from '@rayseinc-packages/ui'
 
-export enum Statu {
+export enum ActivityStatus {
   Done = 'done',
   Inprogres = 'inprogres',
   Todo = 'todo',
 }
 export interface ActivityProps {
-  status: Statu
+  status: ActivityStatus
   title: string
   subtitle?: string
-  progress?: string
+  date?: string
   line?: boolean
   onClick?: () => void
 }
@@ -19,7 +19,7 @@ export const Activity: FunctionComponent<ActivityProps> = ({
   status,
   title,
   subtitle,
-  progress,
+  date,
   onClick,
   line = true,
 }) => {
@@ -31,14 +31,14 @@ export const Activity: FunctionComponent<ActivityProps> = ({
       >
         <Group dir="vertical" gap={4}>
           <Text variant="rayse-18400">{title}</Text>
-          <Showif con={subtitle !== undefined && progress !== undefined}>
+          <Showif con={subtitle !== undefined && date !== undefined}>
             <Group>
               <Text variant="rayse-14700" color="rayse-blue.main">
                 {subtitle}
               </Text>
               <Space />
               <Text variant="rayse-14400" color="rayse-blue.main">
-                {progress}
+                {date}
               </Text>
             </Group>
           </Showif>

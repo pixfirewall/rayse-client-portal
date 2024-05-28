@@ -1,5 +1,7 @@
-import React, { FunctionComponent, useRef } from 'react'
+import { useDispatch } from 'react-redux'
 import { Group, MainPaper, PageLayout } from '@rayseinc-packages/ui'
+import React, { FunctionComponent, useEffect, useRef, useState } from 'react'
+
 import {
   Footer,
   BrandFooter,
@@ -13,8 +15,10 @@ import {
   Menu,
   type MenuRef,
 } from '../../components'
-import { activities } from '../../fixtures'
+import { setJourneyId } from '../../data'
 import { MenuProvider } from '../../contexts'
+import { useDuringSelector, usePrepareActivityData, usePrepareJourneyData } from '../../hooks'
+import { useGetMyJourneyByIdQuery, useGetMyJourneyDataQuery, useGetMyJourneyListQuery } from '../../api'
 
 import home01 from '../../fixtures/assets/home-01.png'
 import home02 from '../../fixtures/assets/home-02.png'
@@ -24,14 +28,60 @@ import home03 from '../../fixtures/assets/home-03.png'
 interface Home34Props {}
 
 export const Home34: FunctionComponent<Home34Props> = () => {
+  const [journeySkip, setJourneySkip] = useState(true)
+  const [journeyDataSkip, setJourneyDataSkip] = useState(true)
+  const [journeyListSkip, setJourneyListSkip] = useState(true)
+
   const menuRef = useRef<MenuRef>(null)
 
+  const journeyId = useDuringSelector(state => state.DURING_REDUCER_PATH.journeyId)
+  const dispatch = useDispatch()
+
+  const {
+    data: journeyList,
+    error: journeyListError,
+    isLoading: journeyListLoading,
+  } = useGetMyJourneyListQuery({}, { skip: journeyListSkip })
+  const {
+    data: journey,
+    error: journeyError,
+    isLoading: journeyLoading,
+  } = useGetMyJourneyByIdQuery({ journeyId }, { skip: journeySkip })
+  const {
+    data: journeyData,
+    error: journeyDataError,
+    isLoading: journeyDataLoading,
+  } = useGetMyJourneyDataQuery({ journeyId }, { skip: journeyDataSkip })
+
+  const activities = usePrepareActivityData(journeyData?.steps.find(s => s.id === 3)?.milestones)
+  const myJourneyData = usePrepareJourneyData(journeyData?.steps)
+
+  useEffect(() => {
+    if (journeySkip && journeyListSkip && journeyDataSkip) {
+      if (journeyId) {
+        setJourneySkip(false)
+        setJourneyDataSkip(false)
+      } else {
+        setJourneyListSkip(false)
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+    if (journeyList?.length && !journeyId) {
+      dispatch(setJourneyId(journeyList[0].id))
+      if (journeySkip && journeyDataSkip) {
+        setJourneySkip(false)
+        setJourneyDataSkip(false)
+      }
+    }
+  }, [journeyList])
   return (
     <MenuProvider menuRef={menuRef}>
       <PageLayout>
         <Group dir="vertical" gap={48} padding="12px">
           <Menu ref={menuRef} />
-          <Header />
+          <Header agentImage={journey?.primaryAgent.user.imagePath ?? ''} />
           <Group dir="vertical" gap={12}>
             <TimeLeft value={24} />
             <HomeSlider images={[home01, home02, home03]} />
@@ -44,12 +94,12 @@ export const Home34: FunctionComponent<Home34Props> = () => {
             <Matrix
               title="This is what Julie has been up to on your behalf"
               agentName="Julie"
-              activities={34}
-              outcomes={42}
-              tours={15}
-              offers={1}
+              activities={journey?.statistics.activities ?? 0}
+              outcomes={journey?.statistics.outcomesFinished ?? 0}
+              tours={journey?.statistics.homesToured ?? 0}
+              offers={journey?.statistics.offers ?? 0}
             />
-            <Journey />
+            <Journey data={myJourneyData}/>
             <BrandFooter />
             <Footer />
           </Group>

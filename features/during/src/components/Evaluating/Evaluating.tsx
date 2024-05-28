@@ -30,6 +30,12 @@ export const Evaluating: FunctionComponent<EvaluatingProps> = ({ evaluating = []
     }
   }, [evaluating, offers])
 
+	useEffect(() => {
+		if (evaluating.length === 0) {
+			setValue(1)
+    }
+	}, [])
+
   return (
     <Group dir="vertical" gap={24}>
       <Group dir="vertical" gap={6} padding="0 10px 0 0">
@@ -56,7 +62,7 @@ export const Evaluating: FunctionComponent<EvaluatingProps> = ({ evaluating = []
           </Tabs>
         </CustomTheme>
         <Showif con={value === 0}>
-          <Showif con={!ifZero}>
+          <Showif con={evaluating.length > 0}>
             <Group sx={{ width: 470 }}>
               <PerViewSlider
                 // loop
@@ -67,7 +73,7 @@ export const Evaluating: FunctionComponent<EvaluatingProps> = ({ evaluating = []
               />
             </Group>
           </Showif>
-          <Showif con={ifZero}>
+          <Showif con={evaluating.length === 0}>
             <MainPaper style={{ boxShadow: 'none', border: 'none' }}>
               <Group dir="vertical" gap={14} alignV="center" padding="40px 0">
                 <Image size={36} src={homeSmile} />
@@ -79,7 +85,7 @@ export const Evaluating: FunctionComponent<EvaluatingProps> = ({ evaluating = []
           </Showif>
         </Showif>
         <Showif con={value === 1}>
-          <Showif con={!ifZero}>
+          <Showif con={offers.length > 0}>
             <Group sx={{ width: 470 }}>
               <PerViewSlider
                 // loop
@@ -90,7 +96,7 @@ export const Evaluating: FunctionComponent<EvaluatingProps> = ({ evaluating = []
               />
             </Group>
           </Showif>
-          <Showif con={ifZero}>
+          <Showif con={offers.length === 0}>
             <MainPaper style={{ boxShadow: 'none', border: 'none' }}>
               <Group dir="vertical" gap={14} alignV="center" padding="40px 0">
                 <Image size={36} src={homeSmile} />

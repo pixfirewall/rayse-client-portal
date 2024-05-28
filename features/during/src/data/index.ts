@@ -4,7 +4,7 @@ import { DuringState, duringSlice } from './duringSlice'
 export const reducers = { [DURING_REDUCER_PATH]: duringSlice.reducer }
 export { duringSlice }
 
-export const { setJourneyId } = duringSlice.actions
+export const { setJourneyId, setActiveStep } = duringSlice.actions
 
 export type DuringStore = {
   [DURING_REDUCER_PATH]: DuringState

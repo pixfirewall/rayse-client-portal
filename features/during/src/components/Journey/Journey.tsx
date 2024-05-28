@@ -4,7 +4,15 @@ import { Group, MainPaper, Text, Grid } from '@rayseinc-packages/ui'
 import { JourneyCard, State } from './JourneyCard'
 import { useNavigateToConsultation } from '../../navigations'
 
-export type JourneyData = { order: number; outcomes: number; info: string; state: State; onClick?: () => void }
+export type JourneyData = {
+  order: number
+  description: string
+  outcomes: number
+  info: string
+  state: State
+  clickable: boolean
+}
+
 interface JourneyProps {
   data?: JourneyData[]
 }
@@ -23,7 +31,11 @@ export const Journey: FunctionComponent<JourneyProps> = ({ data }) => {
             <Grid key={j.info} item xs={6}>
               <JourneyCard
                 info={j.info}
-                onClick={navigateToConsultation}
+                onClick={
+                  j.clickable
+                    ? () => navigateToConsultation({ title: j.info, description: j.description, stepId: j.order })
+                    : undefined
+                }
                 order={j.order}
                 outcomes={j.outcomes}
                 state={j.state}

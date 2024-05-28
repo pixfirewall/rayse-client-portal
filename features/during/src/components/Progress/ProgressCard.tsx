@@ -38,19 +38,28 @@ export enum CardIcons {
 interface ProgressCardProps {
   image: CardIcons
   title: string
-  progress: string
+  date: string
 }
 
-export const ProgressCard: FunctionComponent<ProgressCardProps> = ({ image, title, progress }) => {
+export const ProgressCard: FunctionComponent<ProgressCardProps> = ({ image, title, date }) => {
   return (
-    <MainPaper style={{ boxShadow: 'none', width: '100px', height: 130, position: 'relative' }}>
+    <MainPaper style={{ boxShadow: 'none', width: '100px', height: 150, position: 'relative' }}>
       <Group dir="vertical" alignV="center" gap={12}>
         <Image size={56} src={Icons[image]} />
-        <Text variant="rayse-14700" sx={{ textAlign: 'center' }}>
+        <Text
+          variant="rayse-14700"
+          sx={{
+						textAlign: 'center',
+            display: '-webkit-box',
+            overflow: 'hidden',
+            WebkitBoxOrient: 'vertical',
+            WebkitLineClamp: 3,
+          }}
+        >
           {title}
         </Text>
         <Group sx={{ position: 'absolute', bottom: 20 }}>
-          <Text variant="rayse-14400">{progress}</Text>
+          <Text variant="rayse-14400">{date}</Text>
         </Group>
       </Group>
     </MainPaper>

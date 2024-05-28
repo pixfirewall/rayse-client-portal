@@ -3,8 +3,9 @@ import { ScrollRestoration, useLocation } from 'react-router-dom'
 
 import { Group, MainPaper, PageLayout } from '@rayseinc-packages/ui'
 
-import { progressData } from '../../fixtures'
+import { useGetMyJourneyDataQuery } from '../../api'
 import { HomeLabel, HomeLabelType } from '../../components/HomeLabel'
+import { useDuringSelector, usePrepareProgressData } from '../../hooks'
 import { BrandFooter, Footer, HomeDetails, HomeSlider, NavBar, Progress } from '../../components'
 
 export interface HomeInfoProps {
@@ -20,6 +21,18 @@ export const HomeInfo = () => {
   const {
     state: { images, ...details },
   } = useLocation()
+
+  const journeyId = useDuringSelector(state => state.DURING_REDUCER_PATH.journeyId)
+
+  const {
+    data: journeyData,
+    error: journeyDataError,
+    isLoading: journeyDataLoading,
+  } = useGetMyJourneyDataQuery({ journeyId })
+
+  const progressData = usePrepareProgressData(
+    journeyData?.steps.filter(s => s.id === 1 || s.id === 2).flatMap(s => s.milestones).flatMap(m => m.outcomes) || [],
+  )
 
   return (
     <PageLayout>

@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux'
-import { Group, PageLayout } from '@rayseinc-packages/ui'
+import { Group, MainPaper, PageLayout, Showif } from '@rayseinc-packages/ui'
 import React, { FunctionComponent, useEffect, useRef, useState } from 'react'
 
 import {
@@ -12,11 +12,21 @@ import {
   RejectedHomes,
   MenuRef,
   Menu,
+  TimeLeft,
+  HomeSlider,
+  HomeDetails,
+  ActivityList,
 } from '../../components'
-import { setJourneyId } from '../../data'
+import { setActiveStep, setJourneyId } from '../../data'
 import { MenuProvider } from '../../contexts'
-import { useDuringSelector, usePrepareHomeData, usePrepareJourneyData } from '../../hooks'
+import { useDuringSelector, usePrepareActivityData, usePrepareHomeData, usePrepareJourneyData } from '../../hooks'
 import { useGetMyJourneyListQuery, useGetMyJourneyByIdQuery, useGetMyJourneyDataQuery } from '../../api/during'
+import { State } from '../../components/Journey/JourneyCard'
+
+import home01 from '../../fixtures/assets/home-01.png'
+import home02 from '../../fixtures/assets/home-02.png'
+import home03 from '../../fixtures/assets/home-03.png'
+// import { StepId } from '../../data/duringSlice'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Home12Props {}
@@ -29,6 +39,7 @@ export const Home12: FunctionComponent<Home12Props> = () => {
   const menuRef = useRef<MenuRef>(null)
 
   const journeyId = useDuringSelector(state => state.DURING_REDUCER_PATH.journeyId)
+  const activeStep = useDuringSelector(state => state.DURING_REDUCER_PATH.activeStep)
   const dispatch = useDispatch()
 
   const {
@@ -47,8 +58,11 @@ export const Home12: FunctionComponent<Home12Props> = () => {
     isLoading: journeyDataLoading,
   } = useGetMyJourneyDataQuery({ journeyId }, { skip: journeyDataSkip })
 
-	const homeData = usePrepareHomeData(journey?.properties)
-	const myJourneyData = usePrepareJourneyData(journeyData?.steps)
+  const homeData = usePrepareHomeData(journey?.properties)
+  const myJourneyData = usePrepareJourneyData(journeyData?.steps)
+  const activities = usePrepareActivityData(
+    journeyData?.steps.filter(s => activeStep.includes(s.id)).flatMap(s => s.milestones),
+  )
 
   useEffect(() => {
     if (journeySkip && journeyListSkip && journeyDataSkip) {
@@ -76,7 +90,23 @@ export const Home12: FunctionComponent<Home12Props> = () => {
   }, [journey])
 
   useEffect(() => {
-    // do something if required
+    const steps =
+      journeyData?.steps.reduce<{ stepId: number; state: State }[]>((acc, curr) => {
+        let state: State = curr.isComplete ? State.Done : State.Inprogres
+        if (!curr.isComplete && curr.milestones.length === 0) {
+          state = State.Todo
+        }
+        acc.push({ stepId: curr.id, state })
+        return acc
+      }, []) ?? []
+    const stepIds = steps?.filter(s => s.state === State.Inprogres).map(s => s.stepId)
+    const maxStepIds = Math.max(...stepIds)
+    if (maxStepIds === 1 || maxStepIds === 2) {
+      dispatch(setActiveStep([1, 2]))
+    }
+    if (maxStepIds === 3 || maxStepIds === 4) {
+      dispatch(setActiveStep([3, 4]))
+    }
   }, [journeyData])
 
   return (
@@ -93,8 +123,20 @@ export const Home12: FunctionComponent<Home12Props> = () => {
           }}
         >
           <Header agentImage={journey?.primaryAgent.user.imagePath ?? ''} review={true} />
-          <Evaluating evaluating={homeData?.evaluating} offers={homeData?.offers} />
-          <RejectedHomes homes={homeData?.rejected} />
+          <Showif con={activeStep.reduce((a, b) => a + b) === 7}>
+            <Group dir="vertical" gap={12}>
+              <TimeLeft value={24} />
+              <HomeSlider images={[home01, home02, home03]} />
+              <MainPaper>
+                <HomeDetails address="731 kettner Ave" price="$8,400,000" bed={2} bath={4} sqft="4,660" />
+              </MainPaper>
+              <ActivityList activities={activities} />
+            </Group>
+          </Showif>
+          <Showif con={activeStep.reduce((a, b) => a + b) === 3}>
+            <Evaluating evaluating={homeData?.evaluating} offers={homeData?.offers} />
+            <RejectedHomes homes={homeData?.rejected} />
+          </Showif>
           <Group dir="vertical" gap={12}>
             <Matrix
               title="This is what Julie has been up to on your behalf"

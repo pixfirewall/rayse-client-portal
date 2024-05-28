@@ -79,7 +79,7 @@ export const JourneyActivitiesSchema = z.object({
   updatedOn: z.string(),
 })
 
-export const OutcomesSchema = z.object({
+export const OutcomeSchema = z.object({
   id: z.number(),
   createdBy: z.number(),
   createdOn: z.string(),
@@ -104,12 +104,13 @@ export const OutcomesSchema = z.object({
   outcomeClientShortDescription: z.string().nullable(),
   outcomeClientLongDescription: z.string().nullable(),
 })
+export type Outcome = z.infer<typeof OutcomeSchema>
 
-export const MilestonesSchema = z.object({
+export const MilestoneSchema = z.object({
   id: z.number(),
   listOrder: z.number(),
   name: z.string().nullable(),
-  outcomes: z.array(OutcomesSchema),
+  outcomes: z.array(OutcomeSchema),
   isComplete: z.boolean(),
   agentShortDescription: z.string().nullable(),
   agentLongDescription: z.string().nullable(),
@@ -121,11 +122,12 @@ export const MilestonesSchema = z.object({
   outcomeClientShortDescription: z.string().nullable(),
   outcomeClientLongDescription: z.string().nullable(),
 })
+export type Milestone = z.infer<typeof MilestoneSchema>
 
-export const StepsSchema = z.object({
+export const StepSchema = z.object({
   id: z.number(),
   listOrder: z.number(),
-  milestones: z.array(MilestonesSchema),
+  milestones: z.array(MilestoneSchema),
   name: z.string().nullable(),
   isComplete: z.boolean(),
   agentShortDescription: z.string().nullable(),
@@ -133,7 +135,7 @@ export const StepsSchema = z.object({
   clientShortDescription: z.string().nullable(),
   clientLongDescription: z.string().nullable(),
 })
-export type Steps = z.infer<typeof StepsSchema>
+export type Step = z.infer<typeof StepSchema>
 
 export const JourneyPropertiesSchema = z.object({
   id: z.number(),
@@ -146,7 +148,7 @@ export const JourneyPropertiesSchema = z.object({
 const UpstreamMyJourneyDataResponseSchema = z.object({
   journeyActivities: z.array(JourneyActivitiesSchema),
   journeyProperties: z.array(JourneyPropertiesSchema),
-  steps: z.array(StepsSchema),
+  steps: z.array(StepSchema),
   offers: z.array(OffersSchema).optional(),
 })
 export type UpstreamMyJourneyDataResponse = z.infer<typeof UpstreamMyJourneyDataResponseSchema>

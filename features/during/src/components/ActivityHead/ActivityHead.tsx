@@ -1,14 +1,16 @@
 import React, { FunctionComponent } from 'react'
 import { Group, Box, MainPaper, Text, Space } from '@rayseinc-packages/ui'
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface ActivityHeadProps {}
+interface ActivityHeadProps {
+  title: string
+  date: string
+}
 
-export const ActivityHead: FunctionComponent<ActivityHeadProps> = () => {
+export const ActivityHead: FunctionComponent<ActivityHeadProps> = ({ title, date }) => {
   return (
     <MainPaper style={{ boxShadow: 'none' }}>
       <Group dir="vertical" gap={9}>
-        <Text variant="rayse-24700">Termite inspection</Text>
+        <Text variant="rayse-24700">{title}</Text>
         <Group>
           <Box
             sx={{
@@ -25,7 +27,7 @@ export const ActivityHead: FunctionComponent<ActivityHeadProps> = () => {
           </Text>
           <Space />
           <Text variant="rayse-18400" color="#0E8345">
-            04/12
+            {date}
           </Text>
         </Group>
       </Group>
