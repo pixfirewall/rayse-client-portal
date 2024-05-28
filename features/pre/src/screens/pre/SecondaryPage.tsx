@@ -83,7 +83,7 @@ export const SecondaryPage = () => {
 
       <Box className={styles.cardSection}>
 
-        <Link href={'#'} target="_blank"
+        <Link href={`/clarity?agent=${agentId}`}
           style={{
             cursor: 'pointer'
           }}>
@@ -103,7 +103,7 @@ export const SecondaryPage = () => {
         </Link>
 
         <Box className={styles.twoColumnSection}>
-          <Link href={'#'} target="_blank"
+          <Link href={'#'}
             style={{
               cursor: 'pointer'
             }}>
@@ -141,7 +141,7 @@ export const SecondaryPage = () => {
             </RoundCard>
           </Link>
 
-          <Link href={'#'} target="_blank"
+          <Link href={'#'}
             style={{
               cursor: 'pointer'
             }}>
@@ -172,7 +172,7 @@ export const SecondaryPage = () => {
           </Link>
         </Box>
 
-        <Link href={'#'} target="_blank"
+        <Link href={'#'}
           style={{
             cursor: 'pointer',
             width: '100%'

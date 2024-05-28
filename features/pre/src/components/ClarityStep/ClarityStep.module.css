@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  gap: 16px;
+  width: 100%;
+  color: #171717;
+}
+
+.detailContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  gap: 8px;
+  width: 100%;
+  color: #171717;
+}
