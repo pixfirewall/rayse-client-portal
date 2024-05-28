@@ -1,40 +1,10 @@
-import './styles/App.css'
 import React from 'react'
-import { Button, Box, Image } from '@rayseinc-packages/ui'
+import { Main } from '@rayseinc-features/pre'
 
-import { useNavigateToPre, useNavigateToPreSecondaryPage } from '@rayseinc-features/pre'
-import { useNavigateToDuringHome12, useNavigateToDuringHome34 } from '@rayseinc-features/during'
-import { useNavigateToPost } from '@rayseinc-features/post'
-
-import logo from './logo.svg'
+const HARDCODED_AGENT_ID = 80223
 
 export const App = () => {
-  const navigateToDuringHome12 = useNavigateToDuringHome12()
-  const navigateToPre = useNavigateToPre()
-  const navigateToPreSecondaryPage = useNavigateToPreSecondaryPage()
-  const navigateToDuringHome34 = useNavigateToDuringHome34()
-  const navigateToPost = useNavigateToPost()
-
   return (
-    <Box className="App">
-      <Box className="App-header">
-        <Image src={logo} className="App-logo" alt="logo" />
-        <Button variant="contained" onClick={() => navigateToPre()}>
-          Open the PRE page
-        </Button>
-        <Button variant="contained" onClick={() => navigateToPreSecondaryPage()}>
-          Open the PRE SECONDARY page
-        </Button>
-        <Button variant="contained" onClick={() => navigateToDuringHome12()}>
-          Open the DURING Home 1/2
-        </Button>
-        <Button variant="contained" onClick={() => navigateToDuringHome34()}>
-          Open the DURING Home 3/4
-        </Button>
-        <Button variant="contained" onClick={() => navigateToPost()}>
-          Open the CLOSING (Post) page
-        </Button>
-      </Box>
-    </Box>
+    <Main demoAgentId={HARDCODED_AGENT_ID} />
   )
 }

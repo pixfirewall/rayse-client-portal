@@ -8,8 +8,6 @@ import { useTheme } from '@mui/material/styles'
 import { useGetAgentInfoQuery } from '../../api'
 import { setAgentId } from '../../data'
 import { useNavigateToPreSecondaryPage } from '../../'
-// eslint-disable-next-line @nx/enforce-module-boundaries
-import { useNavigateToLogin } from '@rayseinc-features/home'
 
 import { clsx } from 'clsx'
 import useMediaQuery from '@mui/material/useMediaQuery'
@@ -56,11 +54,11 @@ export type MatchSizes = {
   min860: boolean
 }
 
-const DEFAULT_AGENT_ID = 80224
+const DEFAULT_AGENT_ID = 80223
 
-export const Main = () => {
+export const Main = ({ demoAgentId }: { demoAgentId?: number }) => {
   const location = useLocation()
-  const agentId = Number(queryString.parse(location.search)?.['agent'])
+  const agentId = Number(queryString.parse(location.search)?.['agent'] || demoAgentId)
 
   if (isNaN(agentId)) {
     return (<Box>
@@ -71,7 +69,6 @@ export const Main = () => {
   }
 
   const navigateToPreSecondaryPage = useNavigateToPreSecondaryPage(agentId)
-  const navigateToLogin = useNavigateToLogin()
 
   const dispatch = useDispatch()
   dispatch(setAgentId(agentId))
@@ -105,25 +102,27 @@ export const Main = () => {
   return (
     <Grid container className={styles.topContainer}>
       <ScrollRestoration />
-      
+
       <Grid container item className={styles.topNavBar} xs={12}>
         <Grid item>
           <RayseIcon size={56} iconSize={40} />
         </Grid>
         <Grid item>
-          <LongButton color="darkGreen" onClick={() => navigateToLogin()}>
-            <Box
-              className={styles.agentButtonIcon}
-              style={{
-                backgroundImage: `url(${agentInfo?.user?.imagePath})`
-              }}
-            />
-            <Text variant="rayse-20700">
-              Get started
-            </Text>
-            {matchSize.sm && <Box style={{ width: '24px' }} />}
-            <WhiteIcon material="arrow_forward" />
-          </LongButton>
+          <Link href="/login">
+            <LongButton color="darkGreen">
+              <Box
+                className={styles.agentButtonIcon}
+                style={{
+                  backgroundImage: `url(${agentInfo?.user?.imagePath})`
+                }}
+              />
+              <Text variant="rayse-20700">
+                Get started
+              </Text>
+              {matchSize.sm && <Box style={{ width: '24px' }} />}
+              <WhiteIcon material="arrow_forward" />
+            </LongButton>
+          </Link>
         </Grid>
       </Grid>
 
@@ -294,19 +293,21 @@ export const Main = () => {
           <Box className={styles.bottomSectionLower}>
             <Image src={rayseLogo} className={matchSize.tablet ? styles.rayseLogo : styles.rayseLogoMobile} />
 
-            <LongButton color="lightGreen" onClick={() => navigateToLogin()}>
-              <Box
-                className={styles.agentButtonIcon}
-                style={{
-                  backgroundImage: `url(${agentInfo?.user?.imagePath})`
-                }}
-              />
-              <Text variant="rayse-20700">
-                Get started
-              </Text>
-              {matchSize.sm && <Box style={{ width: '24px' }} />}
-              <WhiteIcon material="arrow_forward" />
-            </LongButton>
+            <Link href="/login">
+              <LongButton color="lightGreen">
+                <Box
+                  className={styles.agentButtonIcon}
+                  style={{
+                    backgroundImage: `url(${agentInfo?.user?.imagePath})`
+                  }}
+                />
+                <Text variant="rayse-20700">
+                  Get started
+                </Text>
+                {matchSize.sm && <Box style={{ width: '24px' }} />}
+                <WhiteIcon material="arrow_forward" />
+              </LongButton>
+            </Link>
 
           </Box>
         </Box>

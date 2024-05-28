@@ -18,7 +18,7 @@ export const Register = () => {
     confirmPassword: '',
   })
   const location = useLocation()
-  const code = queryString.parse(location.search)?.['code']
+  const code = String(queryString.parse(location.search)?.['code'])
 
   const [triggerRegister, { data: registerResponse, error: registerError, isLoading: registerListLoading }] =
     useLazyRegisterQuery()
