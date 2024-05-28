@@ -104,6 +104,7 @@ export const PrimaryAgentSchema = z.object({
   team: TeamSchema,
   brokerageAgentId: z.string(),
 })
+export type PrimaryAgent = z.infer<typeof PrimaryAgentSchema>
 
 export const MyJourneyListSchema = z.object({
   id: z.number(),

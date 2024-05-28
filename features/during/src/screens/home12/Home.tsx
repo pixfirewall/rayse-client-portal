@@ -17,7 +17,7 @@ import {
   HomeDetails,
   ActivityList,
 } from '../../components'
-import { setActiveStep, setJourneyId } from '../../data'
+import { setActiveStep, setAgentId, setJourneyId } from '../../data'
 import { MenuProvider } from '../../contexts'
 import { useDuringSelector, usePrepareActivityData, usePrepareHomeData, usePrepareJourneyData } from '../../hooks'
 import { useGetMyJourneyListQuery, useGetMyJourneyByIdQuery, useGetMyJourneyDataQuery } from '../../api/during'
@@ -26,7 +26,6 @@ import { State } from '../../components/Journey/JourneyCard'
 import home01 from '../../fixtures/assets/home-01.png'
 import home02 from '../../fixtures/assets/home-02.png'
 import home03 from '../../fixtures/assets/home-03.png'
-// import { StepId } from '../../data/duringSlice'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Home12Props {}
@@ -39,6 +38,7 @@ export const Home12: FunctionComponent<Home12Props> = () => {
   const menuRef = useRef<MenuRef>(null)
 
   const journeyId = useDuringSelector(state => state.DURING_REDUCER_PATH.journeyId)
+  const agentId = useDuringSelector(state => state.DURING_REDUCER_PATH.agentId)
   const activeStep = useDuringSelector(state => state.DURING_REDUCER_PATH.activeStep)
   const dispatch = useDispatch()
 
@@ -86,7 +86,9 @@ export const Home12: FunctionComponent<Home12Props> = () => {
   }, [journeyList])
 
   useEffect(() => {
-    // do something if required
+		if (!agentId && journey?.primaryAgent.id) {
+      dispatch(setAgentId(journey?.primaryAgent.id))
+    }
   }, [journey])
 
   useEffect(() => {
@@ -140,7 +142,8 @@ export const Home12: FunctionComponent<Home12Props> = () => {
           <Group dir="vertical" gap={12}>
             <Matrix
               title="This is what Julie has been up to on your behalf"
-              agentName="Julie"
+              agentName={journey?.primaryAgent.user.firstName ?? ''}
+              agentImage={journey?.primaryAgent.user.imagePath ?? ''}
               activities={journey?.statistics.activities ?? 0}
               outcomes={journey?.statistics.outcomesFinished ?? 0}
               tours={journey?.statistics.homesToured ?? 0}

@@ -17,3 +17,8 @@ export const UpstreamMyJourneyDataRequestParamsSchema = z.object({
   journeyId: z.number(),
 })
 export type UpstreamMyJourneyDataRequestParams = z.infer<typeof UpstreamMyJourneyDataRequestParamsSchema>
+
+export const UpstreamAgentDataRequestParamsSchema = z.object({
+  agentId: z.number(),
+})
+export type UpstreamAgentDataRequestParams = z.infer<typeof UpstreamAgentDataRequestParamsSchema>
