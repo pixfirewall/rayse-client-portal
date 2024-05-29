@@ -22,7 +22,7 @@ export const LongButton = (props: PropsWithChildren<Props>) => {
 const LightGreenStyle = styled(Button)({
   display: 'flex',
   justifyContent: 'space-between',
-  width: '280px',
+  //width: '280px',
   textAlign: 'left',
   backgroundColor: "#3F947D",
   color: '#FFF',

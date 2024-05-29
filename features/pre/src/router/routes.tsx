@@ -1,6 +1,6 @@
 import React from 'react'
 import { type RouteObject } from '@rayseinc-core/types'
-import { Main, SecondaryPage, Clarity } from '../screens'
+import { Main, SecondaryPage, Clarity, Accountability } from '../screens'
 
 export const routes: RouteObject[] = [
   {
@@ -14,5 +14,9 @@ export const routes: RouteObject[] = [
   {
     path: '/clarity',
     element: <Clarity />
+  },
+  {
+    path: '/accountability',
+    element: <Accountability />
   }
 ]

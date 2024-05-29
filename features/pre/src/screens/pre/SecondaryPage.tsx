@@ -103,7 +103,7 @@ export const SecondaryPage = () => {
         </Link>
 
         <Box className={styles.twoColumnSection}>
-          <Link href={'#'}
+          <Link href={`/accountability?agent=${agentId}`}
             style={{
               cursor: 'pointer'
             }}>
