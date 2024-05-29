@@ -1,11 +1,14 @@
 import React, { useState, forwardRef, useImperativeHandle } from 'react'
 import { Group, Box, Link, Text, WhiteButton, CustomTheme, Colors } from '@rayseinc-packages/ui'
 
+import { useNavigateToPreSecondaryPage } from '@rayseinc-features/pre'
+
 import { Backdrop, IconButton } from '@mui/material'
 import { Close, Portrait, ImportContacts, Task } from '@mui/icons-material'
 
 import styles from './Menu.module.css'
 import { useNavigateToAgentActivity, useNavigateToAccount } from '../../navigations'
+import { useDuringSelector } from '../../hooks'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface MenuProps {}
@@ -22,8 +25,11 @@ export const Menu = forwardRef<MenuRef, MenuProps>((props, ref) => {
     handleClose,
   }))
 
-	const navigateToAgentActivity = useNavigateToAgentActivity()
-	const navigateToAccount = useNavigateToAccount()
+  const agentId = useDuringSelector(state => state.DURING_REDUCER_PATH.agentId)
+
+  const navigateToAgentActivity = useNavigateToAgentActivity()
+  const navigateToAccount = useNavigateToAccount()
+  const navigateToPreSecondaryPage = useNavigateToPreSecondaryPage()
 
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
@@ -50,7 +56,7 @@ export const Menu = forwardRef<MenuRef, MenuProps>((props, ref) => {
             <Text>Agent activities</Text>
           </WhiteButton>
           <Box className={styles.divider} />
-          <WhiteButton>
+          <WhiteButton onClick={() => navigateToPreSecondaryPage(agentId)}>
             <ImportContacts />
             <Text>How it works</Text>
           </WhiteButton>

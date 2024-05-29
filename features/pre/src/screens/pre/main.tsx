@@ -68,7 +68,7 @@ export const Main = ({ demoAgentId }: { demoAgentId?: number }) => {
     </Box>)
   }
 
-  const navigateToPreSecondaryPage = useNavigateToPreSecondaryPage(agentId)
+  const navigateToPreSecondaryPage = useNavigateToPreSecondaryPage()
 
   const dispatch = useDispatch()
   dispatch(setAgentId(agentId))
@@ -197,7 +197,7 @@ export const Main = ({ demoAgentId }: { demoAgentId?: number }) => {
         <Grid item xs={12}>
           <Box display="flex" alignItems="center" justifyContent="center">
             <Box className={styles.meetRayseContainer}>
-              <WhiteButton onClick={() => navigateToPreSecondaryPage()}>
+              <WhiteButton onClick={() => navigateToPreSecondaryPage(agentId)}>
                 <Text variant="rayse-32700">
                   Meet Rayse
                 </Text>

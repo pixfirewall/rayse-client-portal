@@ -8,9 +8,11 @@ export const useNavigateToPre = (agentId?: number) => {
   return useCallback(() => navigate(url, { replace: false }), [])
 }
 
-export const useNavigateToPreSecondaryPage = (agentId?: number) => {
+export const useNavigateToPreSecondaryPage = () => {
   const navigate = useNavigate()
 
-  const url = `/pre-2nd` + (agentId ? `?agent=${agentId}` : '')
-  return useCallback(() => navigate(url, { replace: false }), [])
+  return useCallback((agentId?: number) => {
+    const url = `/pre-2nd` + (agentId ? `?agent=${agentId}` : '')
+    navigate(url, { replace: false })
+  }, [])
 }
