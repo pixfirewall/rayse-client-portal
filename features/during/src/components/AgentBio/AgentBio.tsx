@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react'
-import { Group, MainPaper, Text, Image } from '@rayseinc-packages/ui'
+import { Group, MainPaper, Text, Image, Link } from '@rayseinc-packages/ui'
 
 import LinkedIn from '../../fixtures/assets/LinkedIn.png'
 import Facebook from '../../fixtures/assets/Facebook.png'
@@ -35,27 +35,35 @@ export const AgentBio: FunctionComponent<AgentBioProps> = ({
         <Group dir="vertical" gap={12}>
           <Group alignV="center" gap={8}>
             <Image size={36} src={LinkedIn} />
-            <Text color="white" variant="rayse-18400">
-              {linkedIn}
-            </Text>
+            <Link href={linkedIn} target="_blank">
+              <Text color="white" variant="rayse-18400">
+                LinkedIn
+              </Text>
+            </Link>
           </Group>
           <Group alignV="center" gap={8}>
             <Image size={36} src={Facebook} />
-            <Text color="white" variant="rayse-18400">
-              {facebook}
-            </Text>
+            <Link href={facebook} target="_blank">
+              <Text color="white" variant="rayse-18400">
+                Facebook
+              </Text>
+            </Link>
           </Group>
           <Group alignV="center" gap={8}>
             <Image size={36} src={Instagram} />
-            <Text color="white" variant="rayse-18400">
-              {instagram}
-            </Text>
+            <Link href={instagram} target="_blank">
+              <Text color="white" variant="rayse-18400">
+                Instagram
+              </Text>
+            </Link>
           </Group>
           <Group alignV="center" gap={8}>
             <Image size={36} src={TikTok} />
-            <Text color="white" variant="rayse-18400">
-              {website}
-            </Text>
+            <Link href={website} target="_blank">
+              <Text color="white" variant="rayse-18400">
+                Website
+              </Text>
+            </Link>
           </Group>
         </Group>
       </Group>

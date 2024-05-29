@@ -6,7 +6,7 @@ import avatar from '../../fixtures/assets/agent.png'
 
 export interface AgentReviewsProps {
   agentName?: string
-  reviews?: { text: string }[]
+  reviews?: { text: string; name: string }[]
 }
 
 export const AgentReviews: FunctionComponent<AgentReviewsProps> = ({ agentName, reviews }) => {
@@ -19,9 +19,7 @@ export const AgentReviews: FunctionComponent<AgentReviewsProps> = ({ agentName, 
         <PerViewSlider
           pgr
           loop
-          slides={reviews?.map(review => (
-            <ReviewCard text={review.text} image={avatar} />
-          )) ?? []}
+          slides={reviews?.map(review => <ReviewCard text={review.text} name={review.name} />) ?? []}
           ns={1.2}
         />
       </Group>

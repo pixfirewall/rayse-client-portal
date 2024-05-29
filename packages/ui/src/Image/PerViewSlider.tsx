@@ -1,5 +1,5 @@
-import React, { FunctionComponent } from 'react'
-import { Swiper, SwiperSlide, useSwiper } from 'swiper/react'
+import React, { FunctionComponent, useMemo, useRef } from 'react'
+import { Swiper, SwiperSlide, SwiperClass, useSwiper } from 'swiper/react'
 import { Pagination } from 'swiper/modules'
 
 import { PlainHoverButton } from '../Button'
@@ -17,7 +17,7 @@ interface PerViewSliderProps {
 }
 
 export const PerViewSlider: FunctionComponent<PerViewSliderProps> = ({ slides, ns, pgr = false, loop = false }) => {
-  let swiper = useSwiper()
+  const swiper = useRef<SwiperClass | null>(null)
 
   return (
     <Swiper
@@ -29,7 +29,7 @@ export const PerViewSlider: FunctionComponent<PerViewSliderProps> = ({ slides, n
         width: '100%',
         height: '100%',
       }}
-      onSwiper={swp => (swiper = swp)}
+      onSwiper={swp => (swiper.current = swp)}
       loop={loop}
     >
       {slides.map((slide, index) => (
@@ -37,7 +37,7 @@ export const PerViewSlider: FunctionComponent<PerViewSliderProps> = ({ slides, n
       ))}
       <Showif con={pgr}>
         <PlainHoverButton
-          onClick={() => swiper.slideNext()}
+          onClick={() => swiper.current?.slideNext()}
           style={{
             position: 'absolute',
             right: '20px',

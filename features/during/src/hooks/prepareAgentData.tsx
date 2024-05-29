@@ -8,7 +8,7 @@ export type AgentData = {
   image: string
   agentName: string
   contact: ContactInfoProps
-  reviews: { text: string }[]
+  reviews: { text: string, name: string }[]
 }
 
 export const usePrepareAgentData = (agent?: UpstreamAgentDataResponse) => {
@@ -30,7 +30,7 @@ export const usePrepareAgentData = (agent?: UpstreamAgentDataResponse) => {
         phone: agent?.user.phones[0].number ?? '',
         email: agent?.user.emailAddress ?? '',
       },
-      reviews: agent?.testimonials.map(t => ({ text: t.text ?? '' })) ?? [],
+      reviews: agent?.testimonials.map(t => ({ text: t.text ?? '', name: t.clientName ?? '' })) ?? [],
       agentName: agent?.user.firstName ?? '',
     })
   }, [agent])
