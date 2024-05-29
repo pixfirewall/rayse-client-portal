@@ -1,4 +1,4 @@
-import type { ClarityStepProps } from "../types"
+import type { ClarityStepProps, ClarityMetrics } from "../types"
 
 export const CLARITY_STEPS: Array<ClarityStepProps> = [
   {
@@ -150,5 +150,38 @@ export const CLARITY_STEPS: Array<ClarityStepProps> = [
           to drop of the keys and celebrate.`
       }
     ]
+  }
+]
+
+export const CLARITY_METRICS: Array<ClarityMetrics> = [
+  {
+    days: 0,
+    hours: 0,
+    activities: 0,
+    outcomes: 0
+  },
+  {
+    days: 2,
+    hours: 6,
+    activities: 18,
+    outcomes: 20
+  },
+  {
+    days: 17,
+    hours: 20,
+    activities: 63,
+    outcomes: 55
+  },
+  {
+    days: 47,
+    hours: 36,
+    activities: 79,
+    outcomes: 80
+  },
+  {
+    days: 53,
+    hours: 44,
+    activities: 95,
+    outcomes: 96
   }
 ]

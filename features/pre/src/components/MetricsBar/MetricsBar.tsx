@@ -1,21 +1,20 @@
 import React from 'react'
 import { Box, Text, Image } from '@rayseinc-packages/ui'
 
+import { ClarityMetrics } from '../../types'
 import styles from './MetricsBar.module.css'
-
-type Props = {
-  days: number
-  hours: number
-  activities: number
-  outcomes: number
-}
 
 import awardIcon from './assets/award.png'
 import calendarHeartIcon from './assets/calendar-heart.png'
 import clockIcon from './assets/clock.png'
 import checkDoneIcon from './assets/check-done.png'
 
-export const MetricsBar = ({ days, hours, activities, outcomes }: Props) => {
+type Props = {
+  metrics: ClarityMetrics
+}
+
+export const MetricsBar = ({ metrics }: Props) => {
+  const { days, hours, activities, outcomes } = metrics
   const icons = [calendarHeartIcon, clockIcon, checkDoneIcon, awardIcon]
   const labels = ['days', 'hours', 'activities', 'outcomes']
   const values = [days, hours, activities, outcomes]

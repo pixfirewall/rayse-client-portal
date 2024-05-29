@@ -1,4 +1,6 @@
 import React from 'react'
+import { useInView } from "react-intersection-observer"
+
 import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component'
 import './timelineComponent.css'
 
@@ -10,12 +12,20 @@ import styles from './ClarityStep.module.css'
 
 type Props = {
   steps: ClarityStepProps
+  onVisibilityChange?: (number: number, visible: boolean) => void
 }
 
-export const ClarityStep = ({ steps }: Props) => {
+export const ClarityStep = ({ steps, onVisibilityChange }: Props) => {
   const {
     number, days, activities, details
   } = steps
+
+  const { ref } = useInView({
+    onChange: inView => {
+      onVisibilityChange && onVisibilityChange(number, inView)
+    },
+    threshold: 0.25
+  })
 
   return (
     <Box className={styles.container}>
@@ -41,7 +51,7 @@ export const ClarityStep = ({ steps }: Props) => {
         </Box>
       </Box>
 
-      <Box style={{ width: '100%' }}>
+      <Box style={{ width: '100%' }} ref={ref}>
         <VerticalTimeline lineColor="#EEECE6">
           {details.map((item, index) => (
             <VerticalTimelineElement

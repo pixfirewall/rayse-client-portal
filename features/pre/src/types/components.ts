@@ -9,3 +9,10 @@ export type ClarityStepProps = {
   activities: number
   details: Array<ParagraphText>
 }
+
+export type ClarityMetrics = {
+  days: number
+  hours: number
+  activities: number
+  outcomes: number
+}

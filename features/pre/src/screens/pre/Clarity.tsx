@@ -1,17 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useInView } from "react-intersection-observer"
+
 import { useLocation, ScrollRestoration } from 'react-router-dom'
 import queryString from 'query-string'
 
 import { Box, Link, WhiteIcon, Text, RayseIcon } from '@rayseinc-packages/ui'
 
 import { NumberCircle, MetricsBar, ClarityStep } from '../../components'
-import { CLARITY_STEPS } from '../../constants'
+
+import { CLARITY_STEPS, CLARITY_METRICS } from '../../constants'
 
 import styles from './styles/clarity.module.css'
 
 const DEFAULT_AGENT_ID = 80224
 
 export const Clarity = () => {
+  const [activeMetric, setActiveMetric] = useState(0)
+
   const location = useLocation()
   const agentId = Number(queryString.parse(location.search)?.['agent'])
 
@@ -21,6 +26,19 @@ export const Clarity = () => {
         /clarity?agent={DEFAULT_AGENT_ID}
       </Link>
     </Box>)
+  }
+
+  const { ref } = useInView({
+    onChange: inView => {
+      inView && setActiveMetric(0)
+    },
+    threshold: 0.25
+  })
+
+  const onStepVisibilityChange = (number: number, visible: boolean) => {
+    if (visible) {
+      setActiveMetric(number)
+    }
   }
 
   return (
@@ -76,21 +94,19 @@ export const Clarity = () => {
         </Box>
       </Box>
 
-      <Box style={{ width: '550px', textAlign: 'center' }} paddingTop="96px">
+      <Box style={{ width: '550px', textAlign: 'center' }} paddingTop="96px" ref={ref}>
         <Text variant="rayse-44700">This is what my work typically looks like</Text>
       </Box>
 
       <Box style={{ width: '100%', position: 'sticky', top: '94px', zIndex: 1 }}>
         <MetricsBar
-          days={0}
-          hours={0}
-          activities={0}
-          outcomes={0}
+          metrics={CLARITY_METRICS[activeMetric]}
         />
       </Box>
 
       <Box paddingTop="64px" />
-      {CLARITY_STEPS.map((entry, index) => <ClarityStep steps={entry} key={index} />)}
+      {CLARITY_STEPS.map((entry, index) =>
+        <ClarityStep steps={entry} key={index} onVisibilityChange={onStepVisibilityChange} />)}
 
       <Box paddingTop="24px" />
       <Text variant="rayse-44700">Welcome Home!</Text>

@@ -64,13 +64,15 @@ export const SecondaryPage = () => {
 
         <RayseIcon size={56} iconSize={40} />
 
-        <LongButton color="black">
-          <Box style={{ width: '1px' }} />
-          <Text variant="rayse-20700">
-            Get started today
-          </Text>
-          <WhiteIcon material="arrow_forward" />
-        </LongButton>
+        <Link href="/login">
+          <LongButton color="black">
+            <Box style={{ width: '1px' }} />
+            <Text variant="rayse-20700">
+              Get started today
+            </Text>
+            <WhiteIcon material="arrow_forward" />
+          </LongButton>
+        </Link>
       </Box>
 
       <Box className={styles.subSection}>
