@@ -141,7 +141,7 @@ export const SecondaryPage = () => {
             </RoundCard>
           </Link>
 
-          <Link href={'#'}
+          <Link href={`/collaboration?agent=${agentId}`}
             style={{
               cursor: 'pointer'
             }}>

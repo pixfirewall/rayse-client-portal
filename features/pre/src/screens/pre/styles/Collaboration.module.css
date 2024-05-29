@@ -42,53 +42,22 @@
   gap: 12px;
   align-self: stretch;
   border-radius: 24px;
-  height: 100%;
 }
 
 .imageCard {
-  display: flex;
-  width: 340px;
-  padding: 40px 40px 0 40px;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  width: 361px;
+  height: 600px;
+  padding: 0;
   border-radius: 24px;
-  background: #EEECE6;
-}
-
-.imageStyle {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-  justify-content: flex-end;
-	width: 337px;
-	height: 563px;
-	background: url('../assets/acc-image.png') 50% / cover no-repeat;
-}
-
-.imageBlur {
-  width: 104px;
-	height: 361px;
-	transform: rotate(90deg);
-	position: relative;
-	bottom: -128px;
-	background: linear-gradient(90deg, rgba(238, 236, 230, 0.00) 0%, #EEECE6 80%);
+  background: url('../assets/home-shot.png') 50% / cover no-repeat;
+  flex-shrink: 0;
 }
 
 .multiColumnSection {
-	display: flex;
   width: 100%;
+	display: flex;
 	flex-direction: row;
 	gap: 20px;
-}
-
-.multiRowSection {
-	display: flex;
-	flex-direction: column;
-  width: 100%;
-  align-items: center;
-	gap: 20px;
-  align-self: stretch;
 }
 
 .logoCard {
