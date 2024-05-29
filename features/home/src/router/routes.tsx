@@ -4,10 +4,6 @@ import { App, Login, Register } from '../screens'
 
 export const routes: RouteObject[] = [
   {
-    path: '/',
-    element: <App />,
-  },
-  {
     path: '/login',
     element: <Login />,
   },

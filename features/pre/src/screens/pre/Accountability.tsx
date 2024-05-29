@@ -13,12 +13,12 @@ const DEFAULT_AGENT_ID = 80224
 
 export const Accountability = () => {
   const location = useLocation()
-  const agentId = Number(queryString.parse(location.search)?.['agent'])
+  const agentId = Number(queryString.parse(location.search)?.['agentId'])
 
   if (isNaN(agentId)) {
     return (<Box>
-      * ERROR: Please provide the agent id in the url. Example: <Link href={`/accountability?agent=${DEFAULT_AGENT_ID}`} color="primary">
-        /accountability?agent={DEFAULT_AGENT_ID}
+      * ERROR: Please provide the agent id in the url. Example: <Link href={`/accountability?agentId=${DEFAULT_AGENT_ID}`} color="primary">
+        /accountability?agentId={DEFAULT_AGENT_ID}
       </Link>
     </Box>)
   }
@@ -32,7 +32,7 @@ export const Accountability = () => {
       <ScrollRestoration />
 
       <Box className={styles.topNavBar}>
-        <Link href={`/pre-2nd?agent=${agentId}`}>
+        <Link href={`/pre-2nd?agentId=${agentId}`}>
           <WhiteIcon material="arrow_back" size={48} />
         </Link>
         <Text variant="rayse-18700">Accountability</Text>

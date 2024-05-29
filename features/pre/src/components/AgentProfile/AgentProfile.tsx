@@ -62,10 +62,7 @@ export const AgentProfile = ({ matchSize, data, isLoading }: Props) => {
             }
           </Text>
           <Text variant={matchSize.tablet ? "rayse-32700" : "rayse-20700"} color="#FFF" padding="0 40px 0 40px" textAlign="left">
-            {isLoading
-              ? <Skeleton width="220px" />
-              : <>{data?.bio}</>
-            }
+            I’m committed to being your advocate on-demand, honoring your trust and partnership through your unique home-buying journey.
           </Text>
           <Box className={styles.profileContactInfoContainer}>
             <Text variant={matchSize.tablet ? "rayse-24400" : "rayse-20400"} color="#FFF" textAlign="left">
@@ -86,8 +83,8 @@ export const AgentProfile = ({ matchSize, data, isLoading }: Props) => {
             {data?.agentLinks?.length && data.agentLinks.map((record, index) => (
               <Grid key={index} item xs={12} tablet={6}>
                 {matchSize.tablet
-                  ? <SocialContact url={record.url} variant="rayse-32400" size="52px" />
-                  : <SocialContact url={record.url} variant="rayse-20400" size="36px" />}
+                  ? <SocialContact name={record.name} url={record.url} variant="rayse-32400" size="52px" />
+                  : <SocialContact name={record.name} url={record.url} variant="rayse-20400" size="36px" />}
               </Grid>
             ))}
           </Grid>

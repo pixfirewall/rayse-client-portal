@@ -26,12 +26,12 @@ const DEFAULT_AGENT_ID = 80224
 
 export const SecondaryPage = () => {
   const location = useLocation()
-  const agentId = Number(queryString.parse(location.search)?.['agent'])
+  const agentId = Number(queryString.parse(location.search)?.['agentId'])
 
   if (isNaN(agentId)) {
     return (<Box>
-      * ERROR: Please provide the agent id in the url. Example: <Link href={`/pre-2nd?agent=${DEFAULT_AGENT_ID}`} color="primary">
-        /pre-2nd?agent={DEFAULT_AGENT_ID}
+      * ERROR: Please provide the agent id in the url. Example: <Link href={`/pre-2nd?agentId=${DEFAULT_AGENT_ID}`} color="primary">
+        /pre-2nd?agentId={DEFAULT_AGENT_ID}
       </Link>
     </Box>)
   }
@@ -85,7 +85,7 @@ export const SecondaryPage = () => {
 
       <Box className={styles.cardSection}>
 
-        <Link href={`/clarity?agent=${agentId}`}
+        <Link href={`/clarity?agentId=${agentId}`}
           style={{
             cursor: 'pointer'
           }}>
@@ -105,7 +105,7 @@ export const SecondaryPage = () => {
         </Link>
 
         <Box className={styles.twoColumnSection}>
-          <Link href={`/accountability?agent=${agentId}`}
+          <Link href={`/accountability?agentId=${agentId}`}
             style={{
               cursor: 'pointer'
             }}>
@@ -143,7 +143,7 @@ export const SecondaryPage = () => {
             </RoundCard>
           </Link>
 
-          <Link href={`/collaboration?agent=${agentId}`}
+          <Link href={`/collaboration?agentId=${agentId}`}
             style={{
               cursor: 'pointer'
             }}>

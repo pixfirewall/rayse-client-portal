@@ -58,12 +58,13 @@ const DEFAULT_AGENT_ID = 80223
 
 export const Main = ({ demoAgentId }: { demoAgentId?: number }) => {
   const location = useLocation()
-  const agentId = Number(queryString.parse(location.search)?.['agent'] || demoAgentId)
+  const agentId = Number(queryString.parse(location.search)?.['agentId'] || demoAgentId)
+  const code = queryString.parse(location.search)?.['code'] || ''
 
   if (isNaN(agentId)) {
     return (<Box>
-      * ERROR: Please provide the agent id in the url. Example: <Link href={`/pre?agent=${DEFAULT_AGENT_ID}`} color="primary">
-        /pre?agent={DEFAULT_AGENT_ID}
+      * ERROR: Please provide the agent id in the url. Example: <Link href={`/pre?agentId=${DEFAULT_AGENT_ID}`} color="primary">
+        /pre?agentId={DEFAULT_AGENT_ID}
       </Link>
     </Box>)
   }
@@ -108,7 +109,7 @@ export const Main = ({ demoAgentId }: { demoAgentId?: number }) => {
           <RayseIcon size={56} iconSize={40} />
         </Grid>
         <Grid item>
-          <Link href="/login">
+          <Link href={`/register?agentId=${agentId}&code=${code}`}>
             <LongButton color="darkGreen">
               <Box
                 className={styles.agentButtonIcon}
@@ -189,8 +190,10 @@ export const Main = ({ demoAgentId }: { demoAgentId?: number }) => {
             The search is only 5% of the process.
           </Text>
         </Grid>
-        <Grid item xs={12}>
-          <Text variant={matchSize.tablet ? "rayse-24400" : "rayse-20400"}>
+        <Grid item xs={12}
+            >
+          <Text variant={matchSize.tablet ? "rayse-24400" : "rayse-20400"}
+          >
             I’ll help you navigate 100 percent of it, all mapped out in advance, with easy information sharing and real-time collaboration.
           </Text>
         </Grid>
@@ -293,7 +296,7 @@ export const Main = ({ demoAgentId }: { demoAgentId?: number }) => {
           <Box className={styles.bottomSectionLower}>
             <Image src={rayseLogo} className={matchSize.tablet ? styles.rayseLogo : styles.rayseLogoMobile} />
 
-            <Link href="/login">
+          <Link href={`/register?agentId=${agentId}&code=${code}`}>
               <LongButton color="lightGreen">
                 <Box
                   className={styles.agentButtonIcon}

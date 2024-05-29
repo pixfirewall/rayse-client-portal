@@ -15,7 +15,7 @@ const socialIcons: { [index: string]: object } = {
   Instagram: instagramIcon,
   LinkedIn: linkedinIcon,
   TikTok: tiktokIcon,
-  unknown: noIcon
+  Website: noIcon
 }
 
 const inferMediaName = (url: string) => {
@@ -32,6 +32,7 @@ type SocialContactProps = {
   size: string
   color?: string
   variant: TypographyOwnProps['variant']
+  name: string
 }
 
 export const SocialContact = (props: SocialContactProps) => {
@@ -39,10 +40,9 @@ export const SocialContact = (props: SocialContactProps) => {
     url,
     size,
     color = '#FFF',
-    variant
+    variant,
+    name
   } = props
-
-  const name = inferMediaName(url)
 
   return (
     <Box style={{

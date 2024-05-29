@@ -18,12 +18,12 @@ export const Clarity = () => {
   const [activeMetric, setActiveMetric] = useState(0)
 
   const location = useLocation()
-  const agentId = Number(queryString.parse(location.search)?.['agent'])
+  const agentId = Number(queryString.parse(location.search)?.['agentId'])
 
   if (isNaN(agentId)) {
     return (<Box>
-      * ERROR: Please provide the agent id in the url. Example: <Link href={`/clarity?agent=${DEFAULT_AGENT_ID}`} color="primary">
-        /clarity?agent={DEFAULT_AGENT_ID}
+      * ERROR: Please provide the agent id in the url. Example: <Link href={`/clarity?agentId=${DEFAULT_AGENT_ID}`} color="primary">
+        /clarity?agentId={DEFAULT_AGENT_ID}
       </Link>
     </Box>)
   }
@@ -46,7 +46,7 @@ export const Clarity = () => {
       <ScrollRestoration />
 
       <Box className={styles.topNavBar}>
-        <Link href={`/pre-2nd?agent=${agentId}`}>
+        <Link href={`/pre-2nd?agentId=${agentId}`}>
           <WhiteIcon material="arrow_back" size={48} />
         </Link>
         <Text variant="rayse-18700">Clarity</Text>
