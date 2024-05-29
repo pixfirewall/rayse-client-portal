@@ -8,6 +8,7 @@ import {
   UpstreamMyJourneyDataResponse,
   UpstreamMyJourneyDataRequestParams,
   UpstreamAgentDataRequestParams,
+  UpstreamUserDataResponse,
 } from '../types'
 import { DURING_API_REDUCER_PATH } from '../constants'
 import { UpstreamAgentDataResponse } from '../types/upstream/response/publicAgentData'
@@ -18,6 +19,7 @@ const resources = {
     getMyJourneyById: { path: '/api/my-journey/{journeyId}' },
     getMyJourneyData: { path: '/api/my-journey/{journeyId}/data' },
     getPublicAgentData: { path: '/api/agent/public/{id}' },
+    getUserData: { path: '/api/user/me' },
   },
 }
 
@@ -56,8 +58,20 @@ export const duringApi = createApi({
         return { data }
       },
     }),
+    getUserData: builder.query<UpstreamUserDataResponse, unknown>({
+      async queryFn() {
+        const response = await duringClient.During.getUserData()
+        const data = response.data<UpstreamUserDataResponse>()
+        return { data }
+      },
+    }),
   }),
 })
 
-export const { useGetMyJourneyListQuery, useGetMyJourneyByIdQuery, useGetMyJourneyDataQuery, useGetAgentDataQuery } =
-  duringApi
+export const {
+  useGetMyJourneyListQuery,
+  useGetMyJourneyByIdQuery,
+  useGetMyJourneyDataQuery,
+  useGetAgentDataQuery,
+  useGetUserDataQuery,
+} = duringApi

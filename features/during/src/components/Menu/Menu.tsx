@@ -9,6 +9,8 @@ import { Group, Box, Link, Text, WhiteButton, CustomTheme, Colors, Button } from
 import styles from './Menu.module.css'
 import { useDuringSelector } from '../../hooks'
 import { useNavigateToAgentActivity, useNavigateToAccount, useNavigateToLogin } from '../../navigations'
+import { useDispatch } from 'react-redux'
+import { duringApi } from '../../api'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface MenuProps {}
@@ -27,12 +29,14 @@ export const Menu = forwardRef<MenuRef, MenuProps>((props, ref) => {
 
   const agentId = useDuringSelector(state => state.DURING_REDUCER_PATH.agentId)
 
+	const dispatch = useDispatch()
   const navigateToLogin = useNavigateToLogin()
   const navigateToAccount = useNavigateToAccount()
   const navigateToAgentActivity = useNavigateToAgentActivity()
   const navigateToPreSecondaryPage = useNavigateToPreSecondaryPage()
 
   const signout = () => {
+		dispatch(duringApi.util.resetApiState())
     removeAccessToken()
     navigateToLogin()
   }

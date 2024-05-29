@@ -6,8 +6,7 @@ import { Group, Text, Button, Avatar, Showif, PageLayout } from '@rayseinc-packa
 
 import { NavBar } from '../../components'
 import { SaveButton } from './SaveButton'
-import { useDuringSelector } from '../../hooks'
-import { useGetAgentDataQuery } from '../../api'
+import { useGetUserDataQuery } from '../../api'
 
 import edit from '../../fixtures/assets/edit.png'
 
@@ -25,9 +24,7 @@ export const Account: FunctionComponent<AccountProps> = () => {
     phone: '',
   })
 
-  const agentId = useDuringSelector(state => state.DURING_REDUCER_PATH.agentId)
-
-  const { data: agentData, error: agentError, isLoading: agentLoading } = useGetAgentDataQuery({ agentId })
+  const { data: userData, error: userError, isLoading: userLoading } = useGetUserDataQuery({})
 
   const onChangeValue = (id: string, value: string) => {
     setIfChanged(true)
@@ -80,7 +77,12 @@ export const Account: FunctionComponent<AccountProps> = () => {
                 </Button>
               }
             >
-              <Avatar alt="Travis Howard" src={agentData?.user.imagePath ?? ''} sx={{ width: 176, height: 176 }} />
+              <Avatar
+                key={userData?.imagePath}
+                src={userData?.imagePath ?? ''}
+                alt="Travis Howard"
+                sx={{ width: 176, height: 176 }}
+              />
             </Badge>
           </Group>
           <Group gap={12} dir="vertical">
@@ -88,7 +90,8 @@ export const Account: FunctionComponent<AccountProps> = () => {
               <InputLabel htmlFor="first-name">First name</InputLabel>
               <FilledInput
                 id="first-name"
-                defaultValue={agentData?.user.firstName ?? ''}
+                key={userData?.firstName}
+                defaultValue={userData?.firstName}
                 onChange={e => onChangeValue('fname', e.target.value)}
               />
             </FormControl>
@@ -96,7 +99,8 @@ export const Account: FunctionComponent<AccountProps> = () => {
               <InputLabel htmlFor="last-name">Last name</InputLabel>
               <FilledInput
                 id="last-name"
-                defaultValue={agentData?.user.lastName ?? ''}
+                key={userData?.lastName}
+                defaultValue={userData?.lastName}
                 onChange={e => onChangeValue('lname', e.target.value)}
               />
             </FormControl>
@@ -104,7 +108,8 @@ export const Account: FunctionComponent<AccountProps> = () => {
               <InputLabel htmlFor="email">Email</InputLabel>
               <FilledInput
                 id="email"
-                defaultValue={agentData?.user.emailAddress ?? ''}
+                key={userData?.emailAddress}
+                defaultValue={userData?.emailAddress}
                 onChange={e => onChangeValue('email', e.target.value)}
                 sx={{ marginBottom: '5px' }}
               />
@@ -116,8 +121,8 @@ export const Account: FunctionComponent<AccountProps> = () => {
               <InputLabel htmlFor="phone-number">Phone number</InputLabel>
               <FilledInput
                 id="phone-number"
-                defaultValue={agentData?.user.phones[0].number?.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3') ?? ''}
-                // defaultValue="+1 (123) 123 - 4567"
+                key={userData?.phones?.[0]?.number}
+                defaultValue={userData?.phones?.[0]?.number?.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3')}
                 onChange={e => onChangeValue('phone', e.target.value)}
                 sx={{ marginBottom: '5px' }}
               />
