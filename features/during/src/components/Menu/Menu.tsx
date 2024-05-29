@@ -61,7 +61,7 @@ export const Menu = forwardRef<MenuRef, MenuProps>((props, ref) => {
             <Text>How it works</Text>
           </WhiteButton>
         </Group>
-        <Link className={styles.linkContainer} underline="always">
+        <Link className={styles.linkContainer} underline="always" href="/login">
           <Text variant="rayse-16700">Sign out</Text>
         </Link>
       </Group>

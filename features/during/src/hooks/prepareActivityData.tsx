@@ -17,7 +17,7 @@ export const usePrepareActivityData = (milestones: Milestone[] = [], clickable =
         status: m.isComplete ? ActivityStatus.Done : ActivityStatus.Todo,
         description: m.clientLongDescription ?? '',
         date,
-        subtitle: m.isComplete ? 'Scheduled' : undefined,
+        // subtitle: m.isComplete ? 'Scheduled' : undefined,
 				milestoneId: m.id
       }
     })

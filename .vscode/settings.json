@@ -6,6 +6,9 @@
     "feature": "windows",
     "boot": "connection",
     "gateway": "global",
-    "store": "database",
+    "store": "database"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "never"
   }
 }
