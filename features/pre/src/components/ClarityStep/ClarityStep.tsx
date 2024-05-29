@@ -1,8 +1,8 @@
 import React from 'react'
 import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component'
-import 'react-vertical-timeline-component/style.min.css'
+import './timelineComponent.css'
 
-import { Box, Text, Divider, Image } from '@rayseinc-packages/ui'
+import { Box, Text, Divider } from '@rayseinc-packages/ui'
 
 import type { ClarityStepProps } from '../../types'
 
