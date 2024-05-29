@@ -22,12 +22,17 @@ const authClient = forge({
 })
 
 let accessToken: string | null = null
+
 export const setAccessToken = (token: string) => {
   setToken(ACCESS_TOKEN_KEY, token)
 }
 
 export const setRefreshToken = (token: string) => {
   setToken(REFRESH_TOKEN_KEY, token)
+}
+
+export const removeAccessToken = () => {
+  removeToken(REFRESH_TOKEN_KEY)
 }
 
 const setToken = (key: string, token: string) => {

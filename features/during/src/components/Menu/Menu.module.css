@@ -19,12 +19,6 @@
 	align-self: center;
 }
 
-.linkContainer {
-	position: absolute;
-	bottom: 70px;
-	align-self: center;
-}
-
 .icon {
 	all: unset;
 	position: absolute;

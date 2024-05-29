@@ -1,14 +1,14 @@
-import React, { useState, forwardRef, useImperativeHandle } from 'react'
-import { Group, Box, Link, Text, WhiteButton, CustomTheme, Colors } from '@rayseinc-packages/ui'
-
-import { useNavigateToPreSecondaryPage } from '@rayseinc-features/pre'
-
 import { Backdrop, IconButton } from '@mui/material'
+import React, { useState, forwardRef, useImperativeHandle } from 'react'
 import { Close, Portrait, ImportContacts, Task } from '@mui/icons-material'
 
+import { removeAccessToken } from '@rayseinc-core/gateway'
+import { useNavigateToPreSecondaryPage } from '@rayseinc-features/pre'
+import { Group, Box, Link, Text, WhiteButton, CustomTheme, Colors, Button } from '@rayseinc-packages/ui'
+
 import styles from './Menu.module.css'
-import { useNavigateToAgentActivity, useNavigateToAccount } from '../../navigations'
 import { useDuringSelector } from '../../hooks'
+import { useNavigateToAgentActivity, useNavigateToAccount, useNavigateToLogin } from '../../navigations'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface MenuProps {}
@@ -27,9 +27,15 @@ export const Menu = forwardRef<MenuRef, MenuProps>((props, ref) => {
 
   const agentId = useDuringSelector(state => state.DURING_REDUCER_PATH.agentId)
 
-  const navigateToAgentActivity = useNavigateToAgentActivity()
+  const navigateToLogin = useNavigateToLogin()
   const navigateToAccount = useNavigateToAccount()
+  const navigateToAgentActivity = useNavigateToAgentActivity()
   const navigateToPreSecondaryPage = useNavigateToPreSecondaryPage()
+
+  const signout = () => {
+    removeAccessToken()
+    navigateToLogin()
+  }
 
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
@@ -61,9 +67,17 @@ export const Menu = forwardRef<MenuRef, MenuProps>((props, ref) => {
             <Text>How it works</Text>
           </WhiteButton>
         </Group>
-        <Link className={styles.linkContainer} underline="always" href="/login">
-          <Text variant="rayse-16700">Sign out</Text>
-        </Link>
+        <Group alignH="center">
+          <Link
+            underline="always"
+            component={Button}
+            onClick={signout}
+            textTransform="none"
+            sx={{ position: 'absolute', bottom: '70px' }}
+          >
+            <Text variant="rayse-16700">Sign out</Text>
+          </Link>
+        </Group>
       </Group>
     </Backdrop>
   )

@@ -6,9 +6,10 @@ import { Group, Text, Button, Avatar, Showif, PageLayout } from '@rayseinc-packa
 
 import { NavBar } from '../../components'
 import { SaveButton } from './SaveButton'
+import { useDuringSelector } from '../../hooks'
+import { useGetAgentDataQuery } from '../../api'
 
 import edit from '../../fixtures/assets/edit.png'
-import user from '../../fixtures/assets/user.png'
 
 import './style.css'
 
@@ -24,15 +25,19 @@ export const Account: FunctionComponent<AccountProps> = () => {
     phone: '',
   })
 
+  const agentId = useDuringSelector(state => state.DURING_REDUCER_PATH.agentId)
+
+  const { data: agentData, error: agentError, isLoading: agentLoading } = useGetAgentDataQuery({ agentId })
+
   const onChangeValue = (id: string, value: string) => {
     setIfChanged(true)
     setFormData(oldData => ({ ...oldData, [id]: value }))
   }
 
-	const onSaveChanges = () => {
-		setIfChanged(false)
-		console.log(formData)
-	}
+  const onSaveChanges = () => {
+    setIfChanged(false)
+    console.log(formData)
+  }
 
   return (
     <PageLayout>
@@ -75,7 +80,7 @@ export const Account: FunctionComponent<AccountProps> = () => {
                 </Button>
               }
             >
-              <Avatar alt="Travis Howard" src={user} sx={{ width: 176, height: 176 }} />
+              <Avatar alt="Travis Howard" src={agentData?.user.imagePath ?? ''} sx={{ width: 176, height: 176 }} />
             </Badge>
           </Group>
           <Group gap={12} dir="vertical">
@@ -83,19 +88,23 @@ export const Account: FunctionComponent<AccountProps> = () => {
               <InputLabel htmlFor="first-name">First name</InputLabel>
               <FilledInput
                 id="first-name"
-                defaultValue="Steven"
+                defaultValue={agentData?.user.firstName ?? ''}
                 onChange={e => onChangeValue('fname', e.target.value)}
               />
             </FormControl>
             <FormControl variant="filled" classes={{ root: 'account-input-text-field' }}>
               <InputLabel htmlFor="last-name">Last name</InputLabel>
-              <FilledInput id="last-name" defaultValue="Aoki" onChange={e => onChangeValue('lname', e.target.value)} />
+              <FilledInput
+                id="last-name"
+                defaultValue={agentData?.user.lastName ?? ''}
+                onChange={e => onChangeValue('lname', e.target.value)}
+              />
             </FormControl>
             <FormControl variant="filled" classes={{ root: 'account-input-text-field' }}>
               <InputLabel htmlFor="email">Email</InputLabel>
               <FilledInput
                 id="email"
-                defaultValue="getcaked@stevenaoki.com"
+                defaultValue={agentData?.user.emailAddress ?? ''}
                 onChange={e => onChangeValue('email', e.target.value)}
                 sx={{ marginBottom: '5px' }}
               />
@@ -107,7 +116,8 @@ export const Account: FunctionComponent<AccountProps> = () => {
               <InputLabel htmlFor="phone-number">Phone number</InputLabel>
               <FilledInput
                 id="phone-number"
-                defaultValue="+1 (123) 123 - 4567"
+                defaultValue={agentData?.user.phones[0].number?.replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3') ?? ''}
+                // defaultValue="+1 (123) 123 - 4567"
                 onChange={e => onChangeValue('phone', e.target.value)}
                 sx={{ marginBottom: '5px' }}
               />
