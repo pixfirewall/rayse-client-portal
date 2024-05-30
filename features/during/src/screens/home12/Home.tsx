@@ -20,7 +20,7 @@ import {
 } from '../../components'
 import { setActiveStep, setAgentId, setJourneyId, setAgentActivityData } from '../../data'
 import { MenuProvider } from '../../contexts'
-import { useDuringSelector, usePrepareActivityData, usePrepareHomeData, usePrepareJourneyData, usePrepareClosingPropertyData } from '../../hooks'
+import { useDuringSelector, usePrepareActivityData, usePrepareHomeData, usePrepareJourneyData, usePrepareDuringPropertyData } from '../../hooks'
 import { useGetMyJourneyListQuery, useGetMyJourneyByIdQuery, useGetMyJourneyDataQuery } from '../../api/during'
 import { State } from '../../components/Journey/JourneyCard'
 
@@ -61,7 +61,7 @@ export const Home12: FunctionComponent<Home12Props> = () => {
 
   const homeData = usePrepareHomeData(journey?.properties)
   const myJourneyData = usePrepareJourneyData(journeyData?.steps)
-  const closingData = usePrepareClosingPropertyData(journey, journeyData);
+  const closingData = usePrepareDuringPropertyData(journey, journeyData);
   const activities = usePrepareActivityData(
     journeyData?.steps.filter(s => activeStep.includes(s.id)).flatMap(s => s.milestones),
   )
@@ -140,9 +140,21 @@ export const Home12: FunctionComponent<Home12Props> = () => {
           <Showif con={activeStep.reduce((a, b) => a + b) === 7}>
             <Group dir="vertical" gap={12}>
               <TimeLeft value={24} />
-              <HomeSlider images={[home01, home02, home03]} />
+              {/* @ts-expect-error resolve this later           */}
+              <HomeSlider images={closingData?.currentProperty?.images || []} />
               <MainPaper>
-                <HomeDetails address="731 kettner Ave" price="$8,400,000" bed={2} bath={4} sqft="4,660" />
+                <HomeDetails 
+                  //@ts-expect-error resolve this later
+                  address={closingData?.currentProperty?.address}
+                  //@ts-expect-error resolve this later
+                  price={closingData?.currentProperty?.price}
+                  //@ts-expect-error resolve this later
+                  bed={closingData?.currentProperty?.bed || 0}
+                  //@ts-expect-error resolve this later
+                  bath={closingData?.currentProperty?.bath || 0}
+                  //@ts-expect-error resolve this later
+                  sqft={closingData?.currentProperty?.squareFootage || 0}
+                  />
               </MainPaper>
               <ActivityList activities={activities} />
             </Group>

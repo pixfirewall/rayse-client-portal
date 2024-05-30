@@ -5,12 +5,39 @@ import { PropertyRoot } from '../types'
 
 import zeroHome from '../fixtures/assets/zero-home.png';
 
-export const getClosingPropertyId = (data: any) :number | null => {
+const getClosingPropertyId = (data: any) :number | null => {
   if (!data?.milestones || data?.milestones.length === 0) {
     return null;
   }
 
   for (const milestone of data.milestones) {
+    if (milestone.outcomes && milestone.outcomes.length > 0) {
+      for (const outcome of milestone.outcomes) {
+        if (outcome.journeyPropertyId) {
+          return outcome.journeyPropertyId;
+        }
+      }
+    }
+  }
+
+  return null;
+}
+
+const getDuringPropertyId = (steps: any) :number | null => {
+  if (!steps || steps.length === 0) {
+    return null;
+  }
+
+  let latestStep;
+  //@ts-expect-error add types
+  const closingStep = steps.find(s => s.listOrder === 4);
+  if (closingStep?.milestones.length) {
+    latestStep = closingStep;
+  }
+  //@ts-expect-error add types
+  else { latestStep = steps.find(s => s.listOrder === 3);}
+
+  for (const milestone of latestStep.milestones) {
     if (milestone.outcomes && milestone.outcomes.length > 0) {
       for (const outcome of milestone.outcomes) {
         if (outcome.journeyPropertyId) {
@@ -87,7 +114,7 @@ const calculatePriceDifference = (purchasePrice: string | number, listPrice: str
 };
 
 
-export const findOfferAcceptedPrice = (journeyActivities: any[]): number | null => {
+const findOfferAcceptedPrice = (journeyActivities: any[]): number | null => {
   for (const activity of journeyActivities) {
     if (activity.outcomePayloads) {
       // @ts-expect-error resolve after demo
@@ -154,16 +181,17 @@ const preprocessJourneyProperties = (properties) => {
   }, {});
 };
 
-export const usePrepareClosingPropertyData = (journey: any, journeyData: any) => {
+export const usePrepareDuringPropertyData = (journey: any, journeyData: any) => {
   const [data, setData] = useState<HomeCardProps | null>(null)
 
   const processData = useCallback(() => {
     if (!journey || !journeyData) return;
 
-          // @ts-expect-error resolve after demo
+    // @ts-expect-error resolve after demo
     const closingStep = journeyData?.steps.find(s => s.listOrder === 4);
-    const propertyId = getClosingPropertyId(closingStep);
-      // @ts-expect-error resolve after demo
+    // const propertyId = getClosingPropertyId(closingStep);
+    const propertyId = getDuringPropertyId(journeyData?.steps);
+    // @ts-expect-error resolve after demo
     const selectedProperty = journeyData?.journeyProperties.find(p => p.id === propertyId);
     const selectedPropertyData = selectedProperty ? propertyMapper(selectedProperty) : null;
     const listPrice = selectedPropertyData?.price || ''

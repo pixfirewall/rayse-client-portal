@@ -130,7 +130,7 @@ export const Post = () => {
         <React.Fragment>
         <Grid item xs={12}>
         {/* @ts-expect-error resolve this later           */}
-        <HomeSlider images={closingData?.currentProperty?.images} />
+        <HomeSlider images={closingData?.currentProperty?.images || []} />
         </Grid>
 
         <Grid item xs={12}>

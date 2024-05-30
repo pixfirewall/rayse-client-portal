@@ -41,7 +41,6 @@ export const Milestone: FunctionComponent<MilestoneProps> = () => {
           <Group>
             <NavBar title={title} />
           </Group>
-          <Image src={home} style={{ borderRadius: 25, border: '1px solid #EEECE6' }} />
           <ActivityHead title={title} date={date} />
           <Progress data={progressData} />
           <MainPaper style={{ boxShadow: 'none' }}>
