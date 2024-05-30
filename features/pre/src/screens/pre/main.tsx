@@ -42,6 +42,8 @@ import checkeredImage from './assets/checkered.png'
 import emptyImage from '../../assets/checkered.png'
 import slide2 from './assets/slide02.png'
 import slide3 from './assets/slide03.png'
+import meetRaysePosterVideo from './assets/blur.jpg'
+import meetRayseBgVideo from './assets/meet_rayse_bg.mp4'
 
 export type MatchSizes = {
   xs: boolean
@@ -217,8 +219,17 @@ export const Main = () => {
           </Box>
         </Grid>
         <Grid item xs={12}>
-          <Box display="flex" alignItems="center" justifyContent="center">
+          <Box display="flex" alignItems="center" justifyContent="center" className={styles.meetRayseWrapper}>
             <Box className={styles.meetRayseContainer}>
+              <video
+                className={styles.meetRayseVideoBg}
+                src={meetRayseBgVideo}
+                poster={meetRaysePosterVideo}
+                loop
+                muted
+                autoPlay
+                playsInline
+              />
               <WhiteButton onClick={() => navigateToPreSecondaryPage(agentId)}>
                 <Text variant="rayse-32700">
                   Meet Rayse
