@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useLocation, ScrollRestoration, Link as RouterLink } from 'react-router-dom'
 import queryString from 'query-string'
@@ -68,9 +68,9 @@ export const Main = () => {
     const rawCode = parsedQuery?.['code'] || '';
     const rawAgentId = parsedQuery?.['agentId'] || '';
 
-  // @ts-expect-error resolve these after demo
+    // @ts-expect-error resolve these after demo
     const decodedCode = decodeURIComponent(rawCode);
-  // @ts-expect-error resolve these after demo
+    // @ts-expect-error resolve these after demo
     const decodedAgentId = decodeURIComponent(rawAgentId);
 
     dispatch(setCode(decodedCode));
@@ -200,20 +200,21 @@ export const Main = () => {
 
       <Grid container item className={styles.sectionTwo} paddingTop="30px" xs={12}>
         <Grid item xs={12}>
-          <Text
-            variant={matchSize.tablet ? "rayse-68700" : "rayse-32700"}
-            width="700px"
-            lineHeight={matchSize.tablet ? "78px" : "36px"}
-          >
-            The search is only 5% of the process.
-          </Text>
-        </Grid>
-        <Grid item xs={12}
+          <Box style={{ maxWidth: '700px', margin: 'auto' }}>
+            <Text
+              variant={matchSize.tablet ? "rayse-68700" : "rayse-32700"}
+              lineHeight={matchSize.tablet ? "78px" : "36px"}
             >
-          <Text variant={matchSize.tablet ? "rayse-24400" : "rayse-20400"}
-          >
-            I’ll help you navigate 100 percent of it, all mapped out in advance, with easy information sharing and real-time collaboration.
-          </Text>
+              The search is only 5% of the process.
+            </Text>
+          </Box>
+        </Grid>
+        <Grid item xs={12}>
+          <Box style={{ maxWidth: '920px', margin: 'auto' }}>
+            <Text variant={matchSize.tablet ? "rayse-24400" : "rayse-20400"}>
+              I’ll help you navigate 100 percent of it, all mapped out in advance, with easy information sharing and real-time collaboration.
+            </Text>
+          </Box>
         </Grid>
         <Grid item xs={12}>
           <Box display="flex" alignItems="center" justifyContent="center">
@@ -314,7 +315,7 @@ export const Main = () => {
           <Box className={styles.bottomSectionLower}>
             <Image src={rayseLogo} className={matchSize.tablet ? styles.rayseLogo : styles.rayseLogoMobile} />
 
-          <RouterLink to={`/register`}>
+            <RouterLink to={`/register`}>
               <LongButton color="lightGreen">
                 <Box
                   className={styles.agentButtonIcon}
