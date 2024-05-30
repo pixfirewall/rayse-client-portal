@@ -26,10 +26,11 @@ export type ReportProps = {
 }
 
 export type ActivityLogRecord = {
+
   title: string
   milestone: string
   date: string
   duration: string
-  location: string
-  details: string
+  location?: string
+  notes: string
 }

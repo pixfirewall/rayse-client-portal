@@ -107,7 +107,17 @@ export const findOfferAcceptedActivityPrice = (journeyData: any, journeyProperty
   }
 
   return null
+
 }
+
+// @ts-expect-error resolve after demo
+const preprocessJourneyProperties = (properties) => {
+  // @ts-expect-error resolve after demo
+  return properties.reduce((acc, property) => {
+    acc[property.id] = property;
+    return acc;
+  }, {});
+};
 
 export const usePrepareClosingPropertyData = (journey: any, journeyData: any) => {
   const [data, setData] = useState<HomeCardProps | null>(null)
@@ -124,6 +134,7 @@ export const usePrepareClosingPropertyData = (journey: any, journeyData: any) =>
     const listPrice = selectedPropertyData?.price || ''
     const purchasePrice = findOfferAcceptedActivityPrice(journeyData, propertyId) || listPrice;
     const priceDifference = calculatePriceDifference(purchasePrice, listPrice);
+    const activities = journeyData?.journeyActivities
     const closingReport = {
       outcomesFinished: journey?.statistics?.outcomesFinished,
       activities: journeyData?.journeyActivities.length,
@@ -145,9 +156,10 @@ export const usePrepareClosingPropertyData = (journey: any, journeyData: any) =>
         totalMileage: journey?.statistics?.milesTraveled
       }
     }
+    const properties = preprocessJourneyProperties(journeyData?.journeyProperties)
 
           // @ts-expect-error resolve after demo
-    setData({ currentProperty: selectedPropertyData, closingReport })
+    setData({ currentProperty: selectedPropertyData, closingReport, activities, properties })
   }, [journey, journeyData])
 
   useEffect(() => {

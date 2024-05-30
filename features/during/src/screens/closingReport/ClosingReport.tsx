@@ -126,7 +126,8 @@ export const ClosingReport = () => {
       </Grid>
 
       <Grid item xs={12}>
-        <ActivityLog />
+        {/* @ts-expect-error resolve after demo */}
+        <ActivityLog activities={agentActivityData?.activities} properties={agentActivityData?.properties}/>
       </Grid>
 
       <Grid item xs={12}>

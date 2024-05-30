@@ -73,7 +73,6 @@ export const Main = () => {
   // @ts-expect-error resolve these after demo
     const decodedAgentId = decodeURIComponent(rawAgentId);
 
-    console.log('decodedCode', decodedCode);
     dispatch(setCode(decodedCode));
     dispatch(setAgentId(Number(decodedAgentId)));
   }, [dispatch, location.search]);

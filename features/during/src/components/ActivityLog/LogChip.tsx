@@ -17,7 +17,7 @@ export const LogChip = ({ data, smallScreen }: Props) => {
     date,
     duration,
     location,
-    details
+    notes
   } = data
   const [showDetails, setShowDetails] = useState<boolean>(false)
   const infoVariant = smallScreen ? "rayse-14400" : "rayse-16400"
@@ -29,7 +29,7 @@ export const LogChip = ({ data, smallScreen }: Props) => {
           //width: '100%',
           flexShrink: 0
         }}>
-        <Text variant="rayse-18400" color="#161616">{title} - {milestone}</Text>
+        <Text variant="rayse-18400" color="#161616">{title}{milestone ? ` - ${milestone}` : ''}</Text>
         </Box>
         <Box style={{
           width: '100%',
@@ -49,15 +49,19 @@ export const LogChip = ({ data, smallScreen }: Props) => {
       <Box className={styles.infoRow}>
         <Text variant={infoVariant} color="#535049">{date}</Text>
         <RayseDivider color="#C5C2BA" gap={2} />
-        <Text variant={infoVariant} color="#535049">{duration}</Text>
-        <RayseDivider color="#C5C2BA" gap={2} />
-        <Text variant={infoVariant} color="#535049">{location}</Text>
+        <Text variant={infoVariant} color="#535049">{`${duration} min`}</Text>
+        { location && 
+        <React.Fragment>
+          <RayseDivider color="#C5C2BA" gap={2} />
+          <Text variant={infoVariant} color="#535049">{location}</Text>
+        </React.Fragment>
+        }
       </Box>
 
       {showDetails && (
         <Box paddingTop="8px">
           <Text variant="rayse-14400" color="#535049">
-            {details}
+            {notes}
           </Text>
         </Box>
       )}

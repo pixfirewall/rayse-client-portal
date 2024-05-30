@@ -67,10 +67,6 @@ export const Post = () => {
   } = useGetMyJourneyDataQuery({ journeyId }, { skip: journeyDataSkip })
 
 
-  // const closingPropertyId = getClosingProperty(journeyData?.steps);
-  // console.log('consolePropId', closingPropertyId);
-	// const closingPropertyData = usePrepareClosingPropertyData(journey?.properties, closingPropertyId)
-  // console.log('consolePropId', closingPropertyData);
 	const myJourneyData = usePrepareJourneyData(journeyData?.steps)
 
   const closingData = usePrepareClosingPropertyData(journey, journeyData);
@@ -112,7 +108,6 @@ export const Post = () => {
   // }, [journey])
 
   useEffect(() => {
-  console.log('closingData', closingData);
   dispatch(setAgentActivityData(closingData));
   }, [journeyData, journeyId, journeyList, closingData])
 

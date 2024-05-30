@@ -13,7 +13,6 @@ export interface YourAgentProps {}
 
 export const YourAgent: FunctionComponent<YourAgentProps> = () => {
   const agentId = useDuringSelector(state => state.DURING_REDUCER_PATH.agentId)
-	console.log({agentId})
 
   const { data: agentData, error: agentError, isLoading: agentLoading } = useGetAgentDataQuery({ agentId })
 

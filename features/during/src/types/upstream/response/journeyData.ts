@@ -152,3 +152,4 @@ const UpstreamMyJourneyDataResponseSchema = z.object({
   offers: z.array(OffersSchema).optional(),
 })
 export type UpstreamMyJourneyDataResponse = z.infer<typeof UpstreamMyJourneyDataResponseSchema>
+export type UpstreamMyJourneyActivities = z.infer<typeof JourneyActivitiesSchema>
