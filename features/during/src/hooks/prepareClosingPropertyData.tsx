@@ -23,6 +23,18 @@ export const getClosingPropertyId = (data: any) :number | null => {
   return null;
 }
 
+const formatPhoneNumber = (number: string | null | undefined): string => {
+  if (number == null || number.length !== 10 || isNaN(Number(number))) {
+    throw new Error('Invalid phone number input');
+  }
+
+  const areaCode = number.slice(0, 3);
+  const centralOfficeCode = number.slice(3, 6);
+  const lineNumber = number.slice(6, 10);
+
+  return `(${areaCode}) ${centralOfficeCode}-${lineNumber}`;
+};
+
 const formatDate = (): string => {
   const date = new Date();
   const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based, so we add 1
@@ -31,19 +43,42 @@ const formatDate = (): string => {
   return `${month}/${day}/${year}`;
 };
 
+const calculateDaysPassed = (startDate: string): number => {
+  const start = new Date(startDate);
+  const now = new Date();
+
+  const differenceInTime = now.getTime() - start.getTime();
+
+  const differenceInDays = Math.floor(differenceInTime / (1000 * 3600 * 24));
+
+  return differenceInDays;
+};
+
 const calculatePriceDifference = (purchasePrice: string | number, listPrice: string | number): string => {
+  if (!listPrice || !purchasePrice) return '0%';
   const parsePrice = (price: string | number): number => {
     if (typeof price === 'string') {
-      return parseFloat(price.replace(/[$,]/g, ''));
+      const parsedPrice = parseFloat(price.replace(/[$,]/g, ''));
+      if (isNaN(parsedPrice)) {
+        throw new Error(`Invalid price input: ${price}`);
+      }
+      return parsedPrice;
+    } else if (typeof price === 'number') {
+      return price;
+    } else {
+      throw new Error(`Unsupported price input type: ${typeof price}`);
     }
-    return price;
   };
 
   const purchase = parsePrice(purchasePrice);
   const list = parsePrice(listPrice);
 
-  if (isNaN(purchase) || isNaN(list) || list === 0) {
-    throw new Error('Invalid price inputs or list price is zero.');
+  if (isNaN(purchase) || isNaN(list)) {
+    throw new Error('Invalid price inputs.');
+  }
+  
+  if (list === 0) {
+    throw new Error('List price cannot be zero.');
   }
 
   const difference = ((purchase - list) / list) * 100;
@@ -141,6 +176,8 @@ export const usePrepareClosingPropertyData = (journey: any, journeyData: any) =>
       homesToured: journey?.statistics?.homesToured,
       offers: journey?.statistics?.offers,
       daysWorked: journey?.statistics?.daysWorked,
+      agentEmail: journey?.primaryAgent?.user?.emailAddress,
+      agentPhone: formatPhoneNumber(journey?.primaryAgent?.user?.phones[0]?.number),
       report: {
         journeyLength: journey?.statistics?.daysWorked,
         homesToured: journey?.statistics?.homesToured,

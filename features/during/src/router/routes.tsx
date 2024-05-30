@@ -21,7 +21,7 @@ export const routes: RouteObject[] = [
   },
   {
     path: '/during/agent-activity',
-    element: <AgentActivity />,
+    element: <ClosingReport isJourneyClosed={false} />,
   },
   {
     path: '/during/home-info',
@@ -41,6 +41,6 @@ export const routes: RouteObject[] = [
   },
   {
     path: '/closing-report',
-    element: <ClosingReport />,
+    element: <ClosingReport isJourneyClosed={true} />,
   },
 ]

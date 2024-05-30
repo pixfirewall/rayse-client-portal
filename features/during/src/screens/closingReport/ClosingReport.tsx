@@ -35,8 +35,12 @@ const itemTitles = {
   totalHours: 'Total hours',
   totalMileage: 'Total mileage'
 }
+interface ClosingReportProps {
+  isJourneyClosed?: boolean;
+}
 
-export const ClosingReport = () => {
+export const ClosingReport: React.FC<ClosingReportProps> = ({ isJourneyClosed = false }) => {
+
   const navigateToPost = useNavigateToPost()
   //@ts-expect-error resolve after demo
   const agentActivityData = useSelector(state => state.DURING_REDUCER_PATH.agentActivityData)
@@ -67,7 +71,7 @@ export const ClosingReport = () => {
             justifyContent: 'space-around',
             paddingRight: '64px'
           }}>
-            <Text variant="rayse-14700" color="#161616">Closing report</Text>
+            <Text variant="rayse-14700" color="#161616">{isJourneyClosed ? 'Closing report' : 'Agent activities'}</Text>
           </Box>
         </Box>
       </Grid>
@@ -94,7 +98,7 @@ export const ClosingReport = () => {
             </Box>
           </Box>
 
-          <Showif con={!!report}>
+          <Showif con={!!report && isJourneyClosed}>
           <Box className={styles.detailsContainer}>
             <Text variant="rayse-24700" color="#171717">Closing Report</Text>
             {Object.keys(report).map(item => {

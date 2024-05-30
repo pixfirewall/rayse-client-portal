@@ -15,6 +15,7 @@ const camelCaseToWords = (str: string) => {
 };
 
 const durationToMinutes = (duration: string) => {
+  if (!duration) return 0;
   const [hours, minutes, seconds] = duration.split(':').map(Number);
   return (hours * 60) + minutes + Math.round(seconds / 60);
 };

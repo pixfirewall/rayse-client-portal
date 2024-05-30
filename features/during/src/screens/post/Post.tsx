@@ -119,7 +119,8 @@ export const Post = () => {
           <Header />
         </Grid>
         <Grid item xs={12} className={styles.sectionContainer}>
-          <TimeTaken days={47} />
+          {/* @ts-expect-error resolve this later           */}
+          <TimeTaken days={closingData?.closingReport?.daysWorked} />
         </Grid>
 
         <Grid item xs={12}>

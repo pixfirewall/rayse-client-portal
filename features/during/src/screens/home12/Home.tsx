@@ -17,9 +17,9 @@ import {
   HomeDetails,
   ActivityList,
 } from '../../components'
-import { setActiveStep, setAgentId, setJourneyId } from '../../data'
+import { setActiveStep, setAgentId, setJourneyId, setAgentActivityData } from '../../data'
 import { MenuProvider } from '../../contexts'
-import { useDuringSelector, usePrepareActivityData, usePrepareHomeData, usePrepareJourneyData } from '../../hooks'
+import { useDuringSelector, usePrepareActivityData, usePrepareHomeData, usePrepareJourneyData, usePrepareClosingPropertyData } from '../../hooks'
 import { useGetMyJourneyListQuery, useGetMyJourneyByIdQuery, useGetMyJourneyDataQuery } from '../../api/during'
 import { State } from '../../components/Journey/JourneyCard'
 
@@ -60,6 +60,7 @@ export const Home12: FunctionComponent<Home12Props> = () => {
 
   const homeData = usePrepareHomeData(journey?.properties)
   const myJourneyData = usePrepareJourneyData(journeyData?.steps)
+  const closingData = usePrepareClosingPropertyData(journey, journeyData);
   const activities = usePrepareActivityData(
     journeyData?.steps.filter(s => activeStep.includes(s.id)).flatMap(s => s.milestones),
   )
@@ -90,6 +91,10 @@ export const Home12: FunctionComponent<Home12Props> = () => {
       dispatch(setAgentId(journey?.primaryAgent.id))
     }
   }, [journey])
+
+  useEffect(() => {
+    dispatch(setAgentActivityData(closingData));
+  }, [journeyData, journeyId, journeyList, closingData])
 
   useEffect(() => {
     const steps =
