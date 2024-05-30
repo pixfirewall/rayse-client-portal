@@ -15,7 +15,8 @@ import {
   OtherHomes,
   ContactInfo,
   Matrix,
-  HomeSlider
+  HomeSlider,
+  Loading,
 } from '../../components'
 import { MenuProvider } from '../../contexts'
 import { useGetMyJourneyListQuery, useGetMyJourneyByIdQuery, useGetMyJourneyDataQuery } from '../../api'
@@ -68,10 +69,8 @@ export const Post = () => {
   } = useGetMyJourneyDataQuery({ journeyId }, { skip: journeyDataSkip })
 
 
-	const myJourneyData = usePrepareJourneyData(journeyData?.steps)
-
+	// const myJourneyData = usePrepareJourneyData(journeyData?.steps)
   const closingData = usePrepareClosingPropertyData(journey, journeyData);
-
 
   useEffect(() => {
     if (journeySkip && journeyListSkip && journeyDataSkip) {
@@ -104,13 +103,15 @@ export const Post = () => {
     }
   }, [journeyId])
 
-  // useEffect(() => {
-  //   // do something if required
-  // }, [journey])
-
   useEffect(() => {
   dispatch(setAgentActivityData(closingData));
   }, [journeyData, journeyId, journeyList, closingData])
+
+  if (!closingData) {
+    return (
+      <Loading/>
+    )
+  }
 
   return (
     <MenuProvider menuRef={menuRef}>
@@ -135,20 +136,20 @@ export const Post = () => {
         <Grid item xs={12}>
           <PostHomeInfo
             title=""
-            // {/* @ts-expect-error resolve this later           */}
+            //@ts-expect-error resolve this later
             address={closingData?.currentProperty?.address}
-            // {/* @ts-expect-error resolve this later           */}
+            //@ts-expect-error resolve this later
             price={closingData?.currentProperty?.price}
-            // {/* @ts-expect-error resolve this later           */}
+            //@ts-expect-error resolve this later
             discount={closingData?.closingReport?.report?.purchaseVsListPrice}
-            // {/* @ts-expect-error resolve this later           */}
+            //@ts-expect-error resolve this later
             finalFee={closingData?.closingReport?.report?.purchasePrice}
             specs={[
-              // {/* @ts-expect-error resolve this later           */}
+              //@ts-expect-error resolve this later
               { value: `${closingData?.currentProperty?.bed}`, feature: 'bed' },
-              // {/* @ts-expect-error resolve this later           */}
+            //@ts-expect-error resolve this later
               { value: `${closingData?.currentProperty?.bath}`, feature: 'bath' },
-              // {/* @ts-expect-error resolve this later           */}
+            //@ts-expect-error resolve this later
               { value: `${closingData?.currentProperty?.squareFootage || 0}`, feature: 'sqft' }
             ]}
             seenStatus='SEEN 4 DAYS AGO'

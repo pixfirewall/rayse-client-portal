@@ -16,6 +16,7 @@ import {
   HomeSlider,
   HomeDetails,
   ActivityList,
+  Loading
 } from '../../components'
 import { setActiveStep, setAgentId, setJourneyId, setAgentActivityData } from '../../data'
 import { MenuProvider } from '../../contexts'
@@ -115,6 +116,12 @@ export const Home12: FunctionComponent<Home12Props> = () => {
       dispatch(setActiveStep([3, 4]))
     }
   }, [journeyData])
+
+  if (!journeyData || !journey) {
+    return (
+      <Loading/>
+    )
+  }
 
   return (
     <MenuProvider menuRef={menuRef}>
