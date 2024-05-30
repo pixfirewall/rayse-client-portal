@@ -1,6 +1,5 @@
 import React from 'react'
-import { useLocation, ScrollRestoration } from 'react-router-dom'
-import queryString from 'query-string'
+import { ScrollRestoration } from 'react-router-dom'
 
 import { Box, Link, WhiteIcon, Text, RayseIcon, Image, LongButton, YellowIcon, Space } from '@rayseinc-packages/ui'
 import styles from './styles/Accountability.module.css'
@@ -10,20 +9,13 @@ import { useNavigateToYourAgent } from '../../'
 
 import checkeredImage from './assets/checkered.png'
 
-const DEFAULT_AGENT_ID = 80224
+import { usePreSelector } from '../../'
+
+const DEFAULT_AGENT_ID = 80208
 
 export const Accountability = () => {
   const navigateToYourAgent = useNavigateToYourAgent()
-  const location = useLocation()
-  const agentId = Number(queryString.parse(location.search)?.['agentId'])
-
-  if (isNaN(agentId)) {
-    return (<Box>
-      * ERROR: Please provide the agent id in the url. Example: <Link href={`/accountability?agentId=${DEFAULT_AGENT_ID}`} color="primary">
-        /accountability?agentId={DEFAULT_AGENT_ID}
-      </Link>
-    </Box>)
-  }
+  const agentId = usePreSelector(state => state.PRE_REDUCER_PATH.agentId) || DEFAULT_AGENT_ID
 
   const {
     data: agentInfo

@@ -18,7 +18,7 @@ import {
   ActivityList,
   Loading
 } from '../../components'
-import { setActiveStep, setAgentId, setJourneyId, setAgentActivityData } from '../../data'
+import { setActiveStep, setAgentId, setJourneyId, setAgentActivityData, setBrokerageInfo } from '../../data'
 import { MenuProvider } from '../../contexts'
 import { useDuringSelector, usePrepareActivityData, usePrepareHomeData, usePrepareJourneyData, usePrepareDuringPropertyData } from '../../hooks'
 import { useGetMyJourneyListQuery, useGetMyJourneyByIdQuery, useGetMyJourneyDataQuery } from '../../api/during'
@@ -90,6 +90,10 @@ export const Home12: FunctionComponent<Home12Props> = () => {
   useEffect(() => {
 		if (!agentId && journey?.primaryAgent.id) {
       dispatch(setAgentId(journey?.primaryAgent.id))
+    }
+    if (journey?.primaryAgent?.team?.brokerage) {
+      const { name, logoImagePath, websiteUrl } = journey.primaryAgent.team.brokerage
+      dispatch(setBrokerageInfo({ name, logoImagePath, websiteUrl }))
     }
   }, [journey])
 
@@ -174,7 +178,7 @@ export const Home12: FunctionComponent<Home12Props> = () => {
               offers={journey?.statistics.offers ?? 0}
             />
             <Journey data={myJourneyData} />
-            <BrandFooter />
+            <BrandFooter logoUrl={journey?.primaryAgent?.team?.brokerage?.logoImagePath || ''} />
             <Footer />
           </Group>
         </Group>

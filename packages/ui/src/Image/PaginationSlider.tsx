@@ -47,7 +47,6 @@ export const PaginationSlider: FunctionComponent<PaginationSliderProps> = ({
               width: '100%',
               overflow: 'hidden',
               display: 'block',
-              objectPosition: '50% 20%',
               objectFit: 'cover',
               borderRadius,
             }}

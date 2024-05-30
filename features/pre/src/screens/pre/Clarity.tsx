@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import { useInView } from "react-intersection-observer"
 
-import { useLocation, ScrollRestoration } from 'react-router-dom'
-import queryString from 'query-string'
+import { ScrollRestoration } from 'react-router-dom'
 
 import { Box, Link, WhiteIcon, Text, RayseIcon } from '@rayseinc-packages/ui'
 
@@ -12,21 +11,14 @@ import { CLARITY_STEPS, CLARITY_METRICS } from '../../constants'
 
 import styles from './styles/clarity.module.css'
 
-const DEFAULT_AGENT_ID = 80224
+import { usePreSelector } from '../../'
+
+const DEFAULT_AGENT_ID = 80208
 
 export const Clarity = () => {
   const [activeMetric, setActiveMetric] = useState(0)
 
-  const location = useLocation()
-  const agentId = Number(queryString.parse(location.search)?.['agentId'])
-
-  if (isNaN(agentId)) {
-    return (<Box>
-      * ERROR: Please provide the agent id in the url. Example: <Link href={`/clarity?agentId=${DEFAULT_AGENT_ID}`} color="primary">
-        /clarity?agentId={DEFAULT_AGENT_ID}
-      </Link>
-    </Box>)
-  }
+  const agentId = usePreSelector(state => state.PRE_REDUCER_PATH.agentId) || DEFAULT_AGENT_ID
 
   const { ref } = useInView({
     onChange: inView => {

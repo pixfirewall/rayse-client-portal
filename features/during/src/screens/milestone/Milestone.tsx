@@ -17,6 +17,7 @@ export const Milestone: FunctionComponent<MilestoneProps> = () => {
   } = useLocation()
 
   const journeyId = useDuringSelector(state => state.DURING_REDUCER_PATH.journeyId)
+  const brokerageInfo = useDuringSelector(state => state.DURING_REDUCER_PATH.brokerageInfo)
 
   const {
     data: journeyData,
@@ -51,7 +52,7 @@ export const Milestone: FunctionComponent<MilestoneProps> = () => {
           </MainPaper>
         </Group>
         <Group dir="vertical" gap={12}>
-          <BrandFooter />
+          <BrandFooter logoUrl={brokerageInfo.logoImagePath || ''} />
           <Footer />
         </Group>
       </Group>

@@ -15,7 +15,7 @@ import {
   Menu,
   type MenuRef,
 } from '../../components'
-import { setJourneyId } from '../../data'
+import { setJourneyId, setBrokerageInfo } from '../../data'
 import { MenuProvider } from '../../contexts'
 import { useDuringSelector, usePrepareActivityData, usePrepareJourneyData } from '../../hooks'
 import { useGetMyJourneyByIdQuery, useGetMyJourneyDataQuery, useGetMyJourneyListQuery } from '../../api'
@@ -76,6 +76,14 @@ export const Home34: FunctionComponent<Home34Props> = () => {
       }
     }
   }, [journeyList])
+
+  useEffect(() => {
+    if (journey?.primaryAgent?.team?.brokerage) {
+      const { name, logoImagePath, websiteUrl } = journey.primaryAgent.team.brokerage
+      dispatch(setBrokerageInfo({ name, logoImagePath, websiteUrl }))
+    }
+  }, [journey])
+
   return (
     <MenuProvider menuRef={menuRef}>
       <PageLayout>
@@ -100,7 +108,7 @@ export const Home34: FunctionComponent<Home34Props> = () => {
               offers={journey?.statistics.offers ?? 0}
             />
             <Journey data={myJourneyData}/>
-            <BrandFooter />
+            <BrandFooter logoUrl={journey?.primaryAgent?.team?.brokerage?.logoImagePath || ''} />
             <Footer />
           </Group>
         </Group>

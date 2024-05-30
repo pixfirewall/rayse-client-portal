@@ -2,18 +2,30 @@ import { PayloadAction } from '@rayseinc-core/types'
 import { createSlice } from '@rayseinc-core/redux'
 import { DURING_REDUCER_PATH } from '../constants'
 
+type BrokerageInfo = {
+  name: string | null
+  logoImagePath: string | null
+  websiteUrl: string | null
+}
+
 export interface DuringState {
   journeyId: number
   agentId: number
   activeStep: number[]
   agentActivityData: any | null
+  brokerageInfo: BrokerageInfo
 }
 
 const initialState: DuringState = {
   journeyId: 0,
   agentId: 0,
   activeStep: [0],
-  agentActivityData: null
+  agentActivityData: null,
+  brokerageInfo: {
+    name: '',
+    logoImagePath: '',
+    websiteUrl: '',
+  },
 }
 
 export const duringSlice = createSlice({
@@ -30,7 +42,10 @@ export const duringSlice = createSlice({
       state.agentId = action.payload
     },
     setAgentActivityData: (state, action: PayloadAction<any>) => { 
-      state.agentActivityData = action.payload;
+      state.agentActivityData = action.payload
+    },
+    setBrokerageInfo: (state, action: PayloadAction<BrokerageInfo>) => {
+      state.brokerageInfo = action.payload
     },
   },
 })

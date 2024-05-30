@@ -185,7 +185,7 @@ export const Post = () => {
         </Grid>
 
         <Grid item xs={12}>
-          <BrandFooter />
+          <BrandFooter logoUrl={journey?.primaryAgent?.team?.brokerage?.logoImagePath || ''} />
         </Grid>
         <Grid item xs={12}>
           <Footer />

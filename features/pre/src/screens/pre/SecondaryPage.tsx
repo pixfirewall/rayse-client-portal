@@ -1,5 +1,5 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useLocation, ScrollRestoration, Link as RouterLink } from 'react-router-dom'
 import queryString from 'query-string'
 
@@ -14,22 +14,30 @@ import {
   Image
 } from '@rayseinc-packages/ui'
 
+import { usePreSelector } from '../../'
+
 import styles from './styles/secondary.module.css'
 
 import { useGetAgentInfoQuery } from '../../api'
 import { setAgentId } from '../../data'
-import { useNavigateToPre } from '../../'
+import {
+  useNavigateToPre,
+  useNavigateToAccountability,
+  useNavigateToClarity,
+  useNavigateToCollaboration,
+  useNavigateToPreClosingReport
+} from '../../'
 
 import brixtonCard from './assets/brixton-card.png'
 
-const DEFAULT_AGENT_ID = 80224
+const DEFAULT_AGENT_ID = 80208
 
 export const SecondaryPage = () => {
   const location = useLocation()
-  const agentId = Number(queryString.parse(location.search)?.['agentId'])
+  const agentId = Number(queryString.parse(location.search)?.['agentId']) ||
+    usePreSelector(state => state.PRE_REDUCER_PATH.agentId)
 
-  // @ts-expect-error resolve this after demo
-  const code = useSelector(state => state.PRE_REDUCER_PATH.code)
+  const code = usePreSelector(state => state.PRE_REDUCER_PATH.code)
 
   if (isNaN(agentId)) {
     return (<Box>
@@ -38,6 +46,11 @@ export const SecondaryPage = () => {
       </Link>
     </Box>)
   }
+
+  const navigateToAccountability = useNavigateToAccountability()
+  const navigateToClarity = useNavigateToClarity()
+  const navigateToCollaboration = useNavigateToCollaboration()
+  const navigateToPreClosingReport = useNavigateToPreClosingReport()
 
   const navigateToPre = useNavigateToPre(agentId, code)
   const dispatch = useDispatch()
@@ -88,7 +101,7 @@ export const SecondaryPage = () => {
 
       <Box className={styles.cardSection}>
 
-        <Link href={`/clarity?agentId=${agentId}`}
+        <Box onClick={() => navigateToClarity()}
           style={{
             cursor: 'pointer'
           }}>
@@ -105,10 +118,10 @@ export const SecondaryPage = () => {
               <Box className={styles.clarityBlur} />
             </Box>
           </RoundCard>
-        </Link>
+        </Box>
 
         <Box className={styles.twoColumnSection}>
-          <Link href={`/accountability?agentId=${agentId}`}
+          <Box onClick={() => navigateToAccountability()}
             style={{
               cursor: 'pointer'
             }}>
@@ -144,9 +157,9 @@ export const SecondaryPage = () => {
                 </Text>
               </Box>
             </RoundCard>
-          </Link>
+          </Box>
 
-          <Link href={`/collaboration?agentId=${agentId}`}
+          <Box onClick={() => navigateToCollaboration()}
             style={{
               cursor: 'pointer'
             }}>
@@ -174,10 +187,10 @@ export const SecondaryPage = () => {
                 </Text>
               </Box>
             </RoundCard>
-          </Link>
+          </Box>
         </Box>
 
-        <Link href={`/pre-closing-report?agentId=${agentId}`}
+        <Box onClick={() => navigateToPreClosingReport()}
           style={{
             cursor: 'pointer',
             width: '100%'
@@ -202,7 +215,7 @@ export const SecondaryPage = () => {
               </Box>
             </Box>
           </RoundCard>
-        </Link>
+        </Box>
 
         <Link href={'https://www.rayse.com/'} target="_blank"
           style={{

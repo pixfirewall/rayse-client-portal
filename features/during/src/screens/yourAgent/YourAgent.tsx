@@ -8,12 +8,16 @@ import { AgentBio, AgentReviews, BrandFooter, ContactInfo, Footer, NavBar } from
 import { useDuringSelector, usePrepareAgentData } from '../../hooks'
 import { useGetAgentDataQuery } from '../../api'
 
+import { usePreSelector } from '@rayseinc-features/pre'
+
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface YourAgentProps {}
 
 export const YourAgent: FunctionComponent<YourAgentProps> = () => {
-  const agentId = useDuringSelector(state => state.DURING_REDUCER_PATH.agentId)
+  const agentIdFromDuring = useDuringSelector(state => state.DURING_REDUCER_PATH.agentId)
+  const agentIdFromPre = usePreSelector(state => state.PRE_REDUCER_PATH.agentId)
 
+  const agentId = agentIdFromDuring || agentIdFromPre
   const { data: agentData, error: agentError, isLoading: agentLoading } = useGetAgentDataQuery({ agentId })
 
   const processedAgentData = usePrepareAgentData(agentData)
@@ -41,7 +45,7 @@ export const YourAgent: FunctionComponent<YourAgentProps> = () => {
           </Group>
         </Group>
         <Group dir="vertical" gap={12}>
-          <BrandFooter />
+          <BrandFooter logoUrl={agentData?.team?.brokerage?.logoImagePath || ''} />
           <Footer />
         </Group>
       </Group>

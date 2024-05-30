@@ -22,6 +22,8 @@ export const Consultation: FunctionComponent<ConsultationProps> = () => {
   const [journeyListSkip, setJourneyListSkip] = useState(true)
 
   const journeyId = useDuringSelector(state => state.DURING_REDUCER_PATH.journeyId)
+  const brokerageInfo = useDuringSelector(state => state.DURING_REDUCER_PATH.brokerageInfo)
+
   const dispatch = useDispatch()
 
   const {
@@ -83,7 +85,7 @@ export const Consultation: FunctionComponent<ConsultationProps> = () => {
           <ActivityList activities={activities} />
         </Group>
         <Group dir="vertical" gap={12}>
-          <BrandFooter />
+          <BrandFooter logoUrl={brokerageInfo.logoImagePath || ''} />
           <Footer />
         </Group>
       </Group>

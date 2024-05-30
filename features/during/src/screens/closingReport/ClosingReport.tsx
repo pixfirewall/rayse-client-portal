@@ -3,7 +3,6 @@ import { ScrollRestoration, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 import { Box, Text, Divider, Image, Grid, Icon, Button, Showif } from '@rayseinc-packages/ui'
-import { useNavigateToPost } from '../../navigations'
 
 import { ActivityLog, ContactInfoSmall, Footer, BrandFooter, Loading } from '../../components'
 
@@ -51,9 +50,13 @@ export const ClosingReport: React.FC<ClosingReportProps> = ({ isJourneyClosed = 
       )
     }
 
+  //@ts-expect-error resolve after demo
+  const brokerageInfo = useSelector(state => state.DURING_REDUCER_PATH.brokerageInfo)
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { daysWorked, outcomesFinished, activities, report, agentPicture, agentEmail, agentPhone, ...details } = agentActivityData.closingReport
 
+  console.log(agentActivityData)
   return (
     <Grid container className={styles.topContainer}>
       <ScrollRestoration />
@@ -143,7 +146,7 @@ export const ClosingReport: React.FC<ClosingReportProps> = ({ isJourneyClosed = 
       </Grid>
 
       <Grid item xs={12}>
-        <BrandFooter />
+        <BrandFooter logoUrl={brokerageInfo.logoImagePath || ''} />
       </Grid>
       <Grid item xs={12}>
         <Footer />
