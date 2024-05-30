@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollRestoration } from 'react-router-dom'
+import { ScrollRestoration, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 import { Box, Text, Divider, Image, Grid, Icon, Button, Showif } from '@rayseinc-packages/ui'
@@ -41,7 +41,7 @@ interface ClosingReportProps {
 
 export const ClosingReport: React.FC<ClosingReportProps> = ({ isJourneyClosed = false }) => {
 
-  const navigateToPost = useNavigateToPost()
+  const navigate = useNavigate();
   //@ts-expect-error resolve after demo
   const agentActivityData = useSelector(state => state.DURING_REDUCER_PATH.agentActivityData)
 
@@ -60,7 +60,7 @@ export const ClosingReport: React.FC<ClosingReportProps> = ({ isJourneyClosed = 
       
       <Grid item xs={12}>
         <Box className={styles.headerContainer}>
-          <Button onClick={() => navigateToPost()}>
+          <Button onClick={() => navigate(-1)}>
             <Icon sx={{ color: 'black' }}>close</Icon>
           </Button>
           <Box style={{
