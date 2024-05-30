@@ -177,7 +177,7 @@ export const SecondaryPage = () => {
           </Link>
         </Box>
 
-        <Link href={'#'}
+        <Link href={`/pre-closing-report?agentId=${agentId}`}
           style={{
             cursor: 'pointer',
             width: '100%'
