@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { FilledInput, FormControl, InputLabel, IconButton, InputAdornment, Button, Container } from '@mui/material'
+import { useSelector } from 'react-redux'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import { Text, Group, RayseIcon } from '@rayseinc-packages/ui'
 import { useNavigateToDuringHome12 } from '@rayseinc-features/during'
 import { useLazyRegisterQuery } from '../../api/homeApi'
-import { useLocation } from 'react-router-dom'
-import queryString from 'query-string'
 
 export const Register = () => {
   const navigateToDuringHome12 = useNavigateToDuringHome12()
+  // @ts-expect-error move register screen into pre directory after demo
+  const code = useSelector(state => state.PRE_REDUCER_PATH.code)
 
   const [formError, setFormError] = useState('')
   const [isFormValid, setIsFormValid] = useState(false)
@@ -17,8 +18,6 @@ export const Register = () => {
     password: '',
     confirmPassword: '',
   })
-  const location = useLocation()
-  const code = String(queryString.parse(location.search)?.['code'])
 
   const [triggerRegister, { data: registerResponse, error: registerError, isLoading: registerListLoading }] =
     useLazyRegisterQuery()

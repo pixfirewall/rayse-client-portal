@@ -4,10 +4,12 @@ import { PRE_REDUCER_PATH } from '../constants'
 
 export interface PreState {
   agentId: number
+  code: string
 }
 
 const initialState: PreState = {
   agentId: 0,
+  code: ''
 }
 
 export const preSlice = createSlice({
@@ -16,6 +18,9 @@ export const preSlice = createSlice({
   reducers: {
     setAgentId: (state, action: PayloadAction<number>) => {
       state.agentId = action.payload
+    },
+    setCode: (state, action: PayloadAction<string>) => {
+      state.code = action.payload
     },
   },
 })

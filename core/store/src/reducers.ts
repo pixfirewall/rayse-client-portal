@@ -14,3 +14,5 @@ export const appReducers = combineReducers({
   ...duringReducers,
   ...duringApiReducers,
 })
+
+export type RootState = ReturnType<typeof rootReducer>;

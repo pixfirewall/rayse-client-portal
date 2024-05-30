@@ -1,12 +1,12 @@
-import React from 'react'
-import { useDispatch } from 'react-redux'
-import { useLocation, ScrollRestoration } from 'react-router-dom'
+import React, {useEffect} from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useLocation, ScrollRestoration, Link as RouterLink } from 'react-router-dom'
 import queryString from 'query-string'
 
 import { useTheme } from '@mui/material/styles'
 
 import { useGetAgentInfoQuery } from '../../api'
-import { setAgentId } from '../../data'
+import { setAgentId, setCode } from '../../data'
 import { useNavigateToPreSecondaryPage } from '../../'
 
 import { clsx } from 'clsx'
@@ -54,25 +54,39 @@ export type MatchSizes = {
   min860: boolean
 }
 
-const DEFAULT_AGENT_ID = 80223
+export const Main = () => {
+  const dispatch = useDispatch()
+  const location = useLocation();
+  const navigateToPreSecondaryPage = useNavigateToPreSecondaryPage()
+  // @ts-expect-error resolve these after demo
+  const code = useSelector(state => state.PRE_REDUCER_PATH.code)
+  // @ts-expect-error resolve these after demo
+  const agentId = useSelector(state => state.PRE_REDUCER_PATH.agentId)
 
-export const Main = ({ demoAgentId }: { demoAgentId?: number }) => {
-  const location = useLocation()
-  const agentId = Number(queryString.parse(location.search)?.['agentId'] || demoAgentId)
-  const code = queryString.parse(location.search)?.['code'] || ''
+  useEffect(() => {
+    const parsedQuery = queryString.parse(location.search);
+    const rawCode = parsedQuery?.['code'] || '';
+    const rawAgentId = parsedQuery?.['agentId'] || '';
+
+  // @ts-expect-error resolve these after demo
+    const decodedCode = decodeURIComponent(rawCode);
+  // @ts-expect-error resolve these after demo
+    const decodedAgentId = decodeURIComponent(rawAgentId);
+
+    console.log('decodedCode', decodedCode);
+    dispatch(setCode(decodedCode));
+    dispatch(setAgentId(Number(decodedAgentId)));
+  }, [dispatch, location.search]);
 
   if (isNaN(agentId)) {
     return (<Box>
-      * ERROR: Please provide the agent id in the url. Example: <Link href={`/pre?agentId=${DEFAULT_AGENT_ID}`} color="primary">
-        /pre?agentId={DEFAULT_AGENT_ID}
+      * ERROR: Please provide the agent id in the url. Example: <Link href={`/intro?agentId=${80208}`} color="primary">
+        /intro?agentId=80208
       </Link>
     </Box>)
   }
 
-  const navigateToPreSecondaryPage = useNavigateToPreSecondaryPage()
 
-  const dispatch = useDispatch()
-  dispatch(setAgentId(agentId))
 
   const theme = useTheme()
   const matchSize: MatchSizes = {
@@ -109,7 +123,7 @@ export const Main = ({ demoAgentId }: { demoAgentId?: number }) => {
           <RayseIcon size={56} iconSize={40} />
         </Grid>
         <Grid item>
-          <Link href={`/register?agentId=${agentId}&code=${code}`}>
+          <RouterLink to={`/register`}>
             <LongButton color="darkGreen">
               <Box
                 className={styles.agentButtonIcon}
@@ -123,7 +137,7 @@ export const Main = ({ demoAgentId }: { demoAgentId?: number }) => {
               {matchSize.sm && <Box style={{ width: '24px' }} />}
               <WhiteIcon material="arrow_forward" />
             </LongButton>
-          </Link>
+          </RouterLink>
         </Grid>
       </Grid>
 
@@ -159,10 +173,10 @@ export const Main = ({ demoAgentId }: { demoAgentId?: number }) => {
                   <SwiperSlide key={index}>
                     <Image src={value}
                       width="100%"
-                      height="414.428px"
+                      height={414.428}
                       style={{
                         borderRadius: '24px 24px 0 0',
-                        objectPosition: '50% 50%',
+                        objectPosition: '50% 20%',
                         objectFit: 'cover'
                       }}
                     />
@@ -296,7 +310,7 @@ export const Main = ({ demoAgentId }: { demoAgentId?: number }) => {
           <Box className={styles.bottomSectionLower}>
             <Image src={rayseLogo} className={matchSize.tablet ? styles.rayseLogo : styles.rayseLogoMobile} />
 
-          <Link href={`/register?agentId=${agentId}&code=${code}`}>
+          <RouterLink to={`/register`}>
               <LongButton color="lightGreen">
                 <Box
                   className={styles.agentButtonIcon}
@@ -310,7 +324,7 @@ export const Main = ({ demoAgentId }: { demoAgentId?: number }) => {
                 {matchSize.sm && <Box style={{ width: '24px' }} />}
                 <WhiteIcon material="arrow_forward" />
               </LongButton>
-            </Link>
+            </RouterLink>
 
           </Box>
         </Box>

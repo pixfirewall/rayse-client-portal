@@ -55,3 +55,6 @@ docker run -p 80:80 rayse-client-portal
 * API Documentation: https://api.dev.rayse.com/swagger/index.html
 * Link to Confluence: https://rayseinc.atlassian.net/wiki/spaces/DevOps/pages/112328706/Developer+Info
 
+
+## Common errors
+If you are getting an NX build error and it is referencing a file or directory that no longer exists, you may need to run `yarn nx reset` to clear the NX cache.

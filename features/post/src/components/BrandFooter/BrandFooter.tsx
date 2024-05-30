@@ -17,10 +17,7 @@ export const BrandFooter = () => {
         <RayseDivider center dir="horizontal" stretch color="rgba(0, 0, 0, 0.32)" />
         <Group dir="vertical">
           <Text variant="rayse-24700" color="#FFFFFF">
-            25% of buyers end up
-          </Text>
-          <Text variant="rayse-24700" color="#FFFFFF">
-            seeking a lawyer
+            Improving the experience one home at a time.
           </Text>
         </Group>
       </Group>

@@ -1,6 +1,6 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
-import { useLocation, ScrollRestoration } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { useLocation, ScrollRestoration, Link as RouterLink } from 'react-router-dom'
 import queryString from 'query-string'
 
 import {
@@ -28,6 +28,9 @@ export const SecondaryPage = () => {
   const location = useLocation()
   const agentId = Number(queryString.parse(location.search)?.['agentId'])
 
+  // @ts-expect-error resolve this after demo
+  const code = useSelector(state => state.PRE_REDUCER_PATH.code)
+
   if (isNaN(agentId)) {
     return (<Box>
       * ERROR: Please provide the agent id in the url. Example: <Link href={`/pre-2nd?agentId=${DEFAULT_AGENT_ID}`} color="primary">
@@ -36,7 +39,7 @@ export const SecondaryPage = () => {
     </Box>)
   }
 
-  const navigateToPre = useNavigateToPre(agentId)
+  const navigateToPre = useNavigateToPre(agentId, code)
   const dispatch = useDispatch()
   dispatch(setAgentId(agentId))
 
@@ -64,15 +67,15 @@ export const SecondaryPage = () => {
 
         <RayseIcon size={56} iconSize={40} />
 
-        <Link href="/login">
+        <RouterLink to="/register">
           <LongButton color="black">
             <Box style={{ width: '1px' }} />
             <Text variant="rayse-20700">
-              Get started today
+              Get started
             </Text>
             <WhiteIcon material="arrow_forward" />
           </LongButton>
-        </Link>
+        </RouterLink>
       </Box>
 
       <Box className={styles.subSection}>

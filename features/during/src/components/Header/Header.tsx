@@ -18,7 +18,8 @@ export const Header: FunctionComponent<HeaderProps> = ({ agentImage, review = fa
         <Contact image={agentImage} />
         <Menu />
       </Group>
-      <Review show={review} />
+      {/* Client to-do features delayed */}
+      {/* <Review show={review} /> */}
     </Box>
   )
 }

@@ -4,7 +4,7 @@ import { Main, SecondaryPage, Clarity, Accountability, Collaboration } from '../
 
 export const routes: RouteObject[] = [
   {
-    path: '/',
+    path: '/intro',
     element: <Main />
   },
   {

@@ -1,10 +1,10 @@
 import { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-export const useNavigateToPre = (agentId?: number) => {
+export const useNavigateToPre = (agentId?: number, code?: string) => {
   const navigate = useNavigate()
 
-  const url = `/pre` + (agentId ? `?agentId=${agentId}` : '')
+  const url = `/intro` + (agentId ? `?agentId=${agentId}` : '') + `&code=${encodeURIComponent(code || '')}`
   return useCallback(() => navigate(url, { replace: false }), [])
 }
 
