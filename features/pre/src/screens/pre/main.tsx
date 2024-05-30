@@ -315,7 +315,7 @@ export const Main = () => {
                 <Box
                   className={styles.agentButtonIcon}
                   style={{
-                    backgroundImage: `url(${agentInfo?.user?.imagePath})`
+                    backgroundImage: `url(${agentInfo?.headshotImagePath})`
                   }}
                 />
                 <Text variant="rayse-20700">

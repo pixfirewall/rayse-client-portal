@@ -80,13 +80,6 @@ export const Consultation: FunctionComponent<ConsultationProps> = () => {
             <Text variant="rayse-24700">{title}</Text>
             <Text variant="rayse-18400">{description}</Text>
           </Group>
-          <Matrix
-            title="Activity for this step"
-            activities={journey?.statistics.activities ?? 0}
-            outcomes={journey?.statistics.outcomesFinished ?? 0}
-            tours={journey?.statistics.homesToured ?? 0}
-            offers={journey?.statistics.offers ?? 0}
-          />
           <ActivityList activities={activities} />
         </Group>
         <Group dir="vertical" gap={12}>
