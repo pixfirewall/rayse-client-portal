@@ -38,8 +38,16 @@ export const PostHomeInfo = ({
       <Box className={styles.priceRow}>
         <Text variant="rayse-20700" color="#161616" paddingTop="3px">{price}</Text>
         {discount && (
-          <Box className={styles.discountBox}>
-            <Text variant="rayse-12600" color="#116A3C">{discount}</Text>
+          <Box
+            className={styles.discountBox}
+            sx={{
+              backgroundColor: discount.startsWith('+') ? '#FDE7E6' : discount.startsWith('-') ? '#DAFEE9' : '#DAFEE9'
+            }}
+          >
+            <Text variant="rayse-12600"
+              color={discount.startsWith('+') ? '#961B34' : discount.startsWith('-') ? '#116A3C' : '#116A3C'}
+            >
+              {discount}</Text>
           </Box>
         )}
         {finalFee && (

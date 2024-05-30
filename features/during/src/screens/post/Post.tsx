@@ -15,6 +15,7 @@ import {
   OtherHomes,
   ContactInfo,
   Matrix,
+  HomeSlider
 } from '../../components'
 import { MenuProvider } from '../../contexts'
 import { useGetMyJourneyListQuery, useGetMyJourneyByIdQuery, useGetMyJourneyDataQuery } from '../../api'
@@ -123,29 +124,38 @@ export const Post = () => {
           <TimeTaken days={closingData?.closingReport?.daysWorked} />
         </Grid>
 
+        {/* @ts-expect-error resolve this later           */}
+        {(closingData?.currentProperty) &&
+        <React.Fragment>
         <Grid item xs={12}>
-          <Box className={styles.imageBox}>
-            <Image src={home1} width="100%" style={{
-              borderRadius: '24px'
-            }} />
-          </Box>
+        {/* @ts-expect-error resolve this later           */}
+        <HomeSlider images={closingData?.currentProperty?.images} />
         </Grid>
 
         <Grid item xs={12}>
           <PostHomeInfo
             title=""
-            address=""
-            price="$799,000"
-            discount="-6%"
-            finalFee="$750,000"
+            // {/* @ts-expect-error resolve this later           */}
+            address={closingData?.currentProperty?.address}
+            // {/* @ts-expect-error resolve this later           */}
+            price={closingData?.currentProperty?.price}
+            // {/* @ts-expect-error resolve this later           */}
+            discount={closingData?.closingReport?.report?.purchaseVsListPrice}
+            // {/* @ts-expect-error resolve this later           */}
+            finalFee={closingData?.closingReport?.report?.purchasePrice}
             specs={[
-              { value: '3', feature: 'bed' },
-              { value: '4', feature: 'bath' },
-              { value: '4.6k', feature: 'sqft' }
+              // {/* @ts-expect-error resolve this later           */}
+              { value: `${closingData?.currentProperty?.bed}`, feature: 'bed' },
+              // {/* @ts-expect-error resolve this later           */}
+              { value: `${closingData?.currentProperty?.bath}`, feature: 'bath' },
+              // {/* @ts-expect-error resolve this later           */}
+              { value: `${closingData?.currentProperty?.squareFootage || 0}`, feature: 'sqft' }
             ]}
             seenStatus='SEEN 4 DAYS AGO'
           />
         </Grid>
+        </React.Fragment>
+        }
 
         <Grid item xs={12}>
           <Matrix
