@@ -50,7 +50,6 @@ export const PaginationSlider: FunctionComponent<PaginationSliderProps> = ({
               objectPosition: '50% 20%',
               objectFit: 'cover',
               borderRadius,
-              objectFit: 'cover'
             }}
           />
         </SwiperSlide>
