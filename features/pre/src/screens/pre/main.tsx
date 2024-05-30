@@ -30,7 +30,7 @@ import { Pagination } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/pagination'
 
-import { AgentProfile } from '../../components'
+import { AgentProfile, TextWithHighlight } from '../../components'
 
 import styles from './styles/main.module.css'
 
@@ -109,9 +109,9 @@ export const Main = () => {
 
   const sliderImages = [slide2, slide3]
   const sliderCaptions = [
-    'Because having an expert is key(s).',
-    'Because homeowning > homescrolling.',
-    'Because you can’t return a house.'
+    ['Because having an', 'expert', 'is key(s).'],
+    ['Because', 'homeowning >', 'homescrolling.'],
+    ['Because you can’t return', 'a house.', '']
   ]
 
   return (
@@ -180,13 +180,18 @@ export const Main = () => {
                         objectFit: 'cover'
                       }}
                     />
-                    <Text
-                      variant={matchSize.sm ? "rayse-32700" : "rayse-24700"}
+                    <Box
                       className={styles.imageSlideCaption}
                       height="50px"
                     >
-                      {sliderCaptions[index]}
-                    </Text>
+                      <TextWithHighlight
+                        pre={sliderCaptions[index][0]}
+                        highlighted={sliderCaptions[index][1]}
+                        post={sliderCaptions[index][2]}
+                        highlightColor="#FFD800"
+                        variant={matchSize.sm ? "rayse-32700" : "rayse-24700"}
+                      />
+                    </Box>
                   </SwiperSlide>
                 ))}
             </Swiper>

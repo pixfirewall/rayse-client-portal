@@ -10,7 +10,8 @@
 		"prettier": "prettier . --check --loglevel warn",
 		"start": "PORT=80 node server.js",
 		"start:web": "nx run web:serve",
-		"start:web:clean": "rm -rf .nx && nx run web:serve"
+		"start:web:clean": "rm -rf .nx && nx run web:serve",
+		"clean": "nx reset"
 	},
 	"dependencies": {
 		"@emotion/react": "^11.11.4",
