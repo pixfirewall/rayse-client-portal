@@ -6,12 +6,14 @@ export interface DuringState {
   journeyId: number
   agentId: number
   activeStep: number[]
+  agentActivityData: any | null
 }
 
 const initialState: DuringState = {
   journeyId: 0,
   agentId: 0,
   activeStep: [0],
+  agentActivityData: null
 }
 
 export const duringSlice = createSlice({
@@ -26,6 +28,9 @@ export const duringSlice = createSlice({
     },
     setAgentId: (state, action: PayloadAction<number>) => {
       state.agentId = action.payload
+    },
+    setAgentActivityData: (state, action: PayloadAction<any>) => { 
+      state.agentActivityData = action.payload;
     },
   },
 })

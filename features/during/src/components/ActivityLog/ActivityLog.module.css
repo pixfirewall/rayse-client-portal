@@ -1,0 +1,42 @@
+.container {
+	display: flex;
+	padding: 20px 20px 24px 20px;
+	flex-direction: column;
+	align-items: flex-start;
+  gap: 24px;
+  color: #171717;
+
+	border-radius: 24px;
+	border: 1px solid #C6BDAC;
+	background: #EEECE6;
+}
+
+.buttonContainer {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.buttonActive {
+  display: flex;
+  padding: 10px 16px;
+  align-items: flex-start;
+  gap: 8px;
+  
+  border-radius: 24px;
+  border: 2px solid #171717;
+  background: #EEECE6;
+  cursor: pointer;
+}
+
+.buttonInactive {
+  display: flex;
+  padding: 10px 16px;
+  align-items: flex-start;
+  gap: 8px;
+  
+  border-radius: 24px;
+  border: 2px solid #D9D4C8;
+  background: #FFF;
+  cursor: pointer;
+}

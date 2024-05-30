@@ -1,39 +1,19 @@
 import React from 'react'
 import { ScrollRestoration } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
-import { Box, Text, Divider, Image, Grid, Icon, Button } from '@rayseinc-packages/ui'
-import { useNavigateToPost } from '../navigations'
+import { Box, Text, Divider, Image, Grid, Icon, Button, Showif } from '@rayseinc-packages/ui'
+import { useNavigateToPost } from '../../navigations'
 
-import { ActivityLog, ContactInfoSmall, Footer, BrandFooter } from '../components'
+import { ActivityLog, ContactInfoSmall, Footer, BrandFooter, Loading } from '../../components'
 
-import styles from './styles/Report.module.css'
+import styles from './Report.module.css'
 
-import type { ReportProps } from '../types'
+import type { ReportProps } from '../../types'
 
 import clipboardIcon from './assets/clipboard.png'
 import calendarIcon from './assets/calendar.png'
 import awardIcon from './assets/award.png'
-
-const sampleReportData: ReportProps = {
-  outcomes: 34,
-  activities: 42,
-  tours: 15,
-  offers: 1,
-  days: 47,
-  journeyLength: '40 days',
-  homesToured: 10,
-  offersMade: 3,
-  purchaseDate: '09/14/22',
-  closingDate: '10/24/22',
-  listPrice: '$799,000',
-  purchasePrice: '$750,000',
-  purchaseVsListPrice: '-7%',
-  closingCredits: '+$6,500',
-  milestones: 21,
-  completedOutcomes: 105,
-  totalHours: 81.5,
-  totalMileage: '396 miles'
-}
 
 const itemTitles = {
   outcomes: 'Outcomes',
@@ -56,12 +36,19 @@ const itemTitles = {
   totalMileage: 'Total mileage'
 }
 
-export const Report = () => {
-  const reportProps = { ...sampleReportData }
+export const ClosingReport = () => {
   const navigateToPost = useNavigateToPost()
+  //@ts-expect-error resolve after demo
+  const agentActivityData = useSelector(state => state.DURING_REDUCER_PATH.agentActivityData)
+
+    if (!agentActivityData) {
+      return (
+        <Loading/>
+      )
+    }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { days, outcomes, activities, tours, offers, ...details } = reportProps
+  const { daysWorked, outcomesFinished, activities, report, agentPicture, agentEmail, agentPhone, ...details } = agentActivityData.closingReport
 
   return (
     <Grid container className={styles.topContainer}>
@@ -90,13 +77,13 @@ export const Report = () => {
           <Box className={styles.capsuleContainer}>
             <Box className={styles.capsules}>
               <Image src={calendarIcon} width="36px" height="36px" />
-              <Text variant="rayse-24700" color="#FFF" paddingTop="18px">{days}</Text>
+              <Text variant="rayse-24700" color="#FFF" paddingTop="18px">{daysWorked}</Text>
               <Text variant="rayse-16400" color="#FFF">Days</Text>
             </Box>
 
             <Box className={styles.capsules}>
               <Image src={awardIcon} width="36px" height="36px" />
-              <Text variant="rayse-24700" color="#FFF" paddingTop="18px">{outcomes}</Text>
+              <Text variant="rayse-24700" color="#FFF" paddingTop="18px">{outcomesFinished}</Text>
               <Text variant="rayse-16400" color="#FFF">Outcomes</Text>
             </Box>
 
@@ -107,9 +94,10 @@ export const Report = () => {
             </Box>
           </Box>
 
+          <Showif con={!!report}>
           <Box className={styles.detailsContainer}>
             <Text variant="rayse-24700" color="#171717">Closing Report</Text>
-            {Object.keys(details).map(item => {
+            {Object.keys(report).map(item => {
               return (
                 <Box>
                   <Box className={styles.reportItem}>
@@ -117,7 +105,7 @@ export const Report = () => {
                       {itemTitles[item as keyof typeof itemTitles]}
                     </Text>
                     <Text variant="rayse-18400" color="#171717" alignSelf={"stretch"}>
-                      {reportProps[item as keyof ReportProps]}
+                      {report[item as keyof ReportProps]}
                     </Text>
                   </Box>
 
@@ -133,6 +121,7 @@ export const Report = () => {
               )
             })}
           </Box>
+          </Showif>
         </Box>
       </Grid>
 
@@ -142,9 +131,9 @@ export const Report = () => {
 
       <Grid item xs={12}>
         <ContactInfoSmall
-          picture=""
-          email="email@gmail.com"
-          phone="(512) 123 - 1234"
+          picture={agentPicture}
+          email={agentEmail || "email@gmail.com"}
+          phone={agentPhone || "(512) 123 - 1234"}
         />
       </Grid>
 

@@ -5,6 +5,7 @@ export const ClientIdValueItems = {
   AuthClient: 'auth-client',
   DuringClient: 'during-client',
   PreClient: 'pre-client',
+  PostClient: 'post-client',
 } as const
 
 export const ClientIdValuesSchema = z.nativeEnum(ClientIdValueItems)
