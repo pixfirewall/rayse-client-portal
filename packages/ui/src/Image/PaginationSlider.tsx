@@ -44,9 +44,11 @@ export const PaginationSlider: FunctionComponent<PaginationSliderProps> = ({
           <Image
             src={image}
             style={{
-              display: 'block',
               width: '100%',
-              height: '400px',
+              overflow: 'hidden',
+              display: 'block',
+              objectPosition: '50% 20%',
+              objectFit: 'cover',
               borderRadius,
               objectFit: 'cover'
             }}

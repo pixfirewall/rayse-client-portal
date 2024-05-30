@@ -6,12 +6,14 @@ import { Box, Link, WhiteIcon, Text, RayseIcon, Image, LongButton, YellowIcon, S
 import styles from './styles/PreClosingReport.module.css'
 
 import { useGetAgentInfoQuery } from '../../api'
+import { useNavigateToYourAgent } from '../../'
 
 import checkeredImage from './assets/checkered.png'
 
 const DEFAULT_AGENT_ID = 80224
 
 export const PreClosingReport = () => {
+  const navigateToYourAgent = useNavigateToYourAgent()
   const location = useLocation()
   const agentId = Number(queryString.parse(location.search)?.['agentId'])
 
@@ -95,21 +97,19 @@ export const PreClosingReport = () => {
         <Box className={styles.bottomCard}>
           <Text variant="rayse-36700" color="#FFF">Any questions?</Text>
 
-          <Link href={'#'}>
-            <LongButton color="darkGreen">
-              <Space />
-              <Text variant="rayse-20700">
-                Contact {agentInfo?.user?.firstName}
-              </Text>
-              <Box
-                className={styles.agentButtonIcon}
-                style={{
-                  backgroundImage: `url(${agentInfo?.user?.imagePath})`
-                }}
-              />
-              <YellowIcon material="arrow_forward" />
-            </LongButton>
-          </Link>
+          <LongButton color="darkGreen" onClick={navigateToYourAgent}>
+            <Space />
+            <Text variant="rayse-20700">
+              Contact {agentInfo?.user?.firstName}
+            </Text>
+            <Box
+              className={styles.agentButtonIcon}
+              style={{
+                backgroundImage: `url(${agentInfo?.user?.imagePath})`
+              }}
+            />
+            <YellowIcon material="arrow_forward" />
+          </LongButton>
         </Box>
 
       </Box>
