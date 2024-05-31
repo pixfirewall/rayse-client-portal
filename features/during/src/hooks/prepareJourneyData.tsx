@@ -53,7 +53,6 @@ export const usePrepareJourneyData = (stepsData: Step[] = []) => {
         outcomesCompleted,
       }
 		})
-    console.log("journeyData", journeyData);
     setData(journeyData)
   }, [JSON.stringify(stepsData)])
 

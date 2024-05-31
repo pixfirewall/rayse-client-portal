@@ -6,14 +6,12 @@ import { useGetMyJourneyDataQuery } from '../../api'
 import { useDuringSelector, usePrepareProgressData } from '../../hooks'
 import { ActivityHead, BrandFooter, Footer, NavBar, Progress } from '../../components'
 
-import home from '../../fixtures/assets/hand-home.jpg'
-
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface MilestoneProps {}
 
 export const Milestone: FunctionComponent<MilestoneProps> = () => {
   const {
-    state: { title, description, milestoneId, date },
+    state: { title, description, milestoneId, date, outcomes },
   } = useLocation()
 
   const journeyId = useDuringSelector(state => state.DURING_REDUCER_PATH.journeyId)
@@ -43,7 +41,7 @@ export const Milestone: FunctionComponent<MilestoneProps> = () => {
             <NavBar title={title} />
           </Group>
           <ActivityHead title={title}/>
-          <Progress data={progressData} />
+          <Progress data={outcomes} />
           <MainPaper style={{ boxShadow: 'none' }}>
             <Group dir="vertical">
               <Text variant="rayse-24700" style={{paddingBottom: 8}}>Important information</Text>

@@ -38,9 +38,9 @@ export const OtherHomes = () => {
             <ImageListItem key={img}>
               <Image src={img} className={styles.imageStyle} width="95%"
               />
-              <Text className={styles.tagButton} alignSelf="center" fontSize="12px" color="#116A3C">
+              {/* <Text className={styles.tagButton} alignSelf="center" fontSize="12px" color="#116A3C">
                 TAG
-              </Text>
+              </Text> */}
             </ImageListItem>
           ))}
         </ImageList>

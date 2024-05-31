@@ -1,8 +1,32 @@
 import { useCallback, useEffect, useState } from 'react'
 
-import { Milestone } from '../types'
+import { Milestone, Outcome } from '../types'
 import { Activity } from '../components'
 import { ActivityStatus } from '../components/ActivityList/Activity'
+
+interface FormattedOutcome {
+  title: string;
+  date: string;
+  image: string,
+}
+
+const getCheckedOutcomes = (outcomes: Outcome[]): FormattedOutcome[] => {
+  // @ts-expect-error resolve later
+  return outcomes
+    .filter(outcome => outcome.status === 'Checked')
+    .map(outcome => ({
+      title: outcome.name,
+      date: formatDate(outcome.createdOn),
+      image: 'Completed'
+    }));
+};
+
+const formatDate = (dateString: string): string => {
+  const date = new Date(dateString);
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const day = date.getDate().toString().padStart(2, '0');
+  return `${month}/${day}`;
+};
 
 const getMilestoneStatus = (milestone: Milestone): ActivityStatus => {
   const requiredOutcomes = milestone.outcomes.filter(o => o.requiredForMilestoneCompletion);
@@ -36,7 +60,8 @@ export const usePrepareActivityData = (milestones: Milestone[] = [], clickable =
         description: m.clientLongDescription ?? '',
         date,
         // subtitle: m.isComplete ? 'Scheduled' : undefined,
-				milestoneId: m.id
+				milestoneId: m.id,
+        outcomes: getCheckedOutcomes(m.outcomes)
       }
     })
     setData(milestoneData)

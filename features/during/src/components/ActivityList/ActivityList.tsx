@@ -29,6 +29,8 @@ export const ActivityList: FunctionComponent<ActivityListProps> = ({ activities 
                       description: activity.description,
                       milestoneId: activity.milestoneId,
                       date: activity.date,
+                      //@ts-expect-error add outcomes array to type
+                      outcomes: activity.outcomes
                     })
                   : undefined
               }
