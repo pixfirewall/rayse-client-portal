@@ -258,18 +258,16 @@ export const Main = () => {
                 className={matchSize.tablet ? styles.companyLogo
                   : (matchSize.sm ? styles.companyLogoMobile : styles.companyLogoTiny)}
               />
-              <Divider className={styles.collabDivider} orientation="vertical" flexItem />
-              <Text
-                variant={matchSize.tablet ? "rayse-24700" : "rayse-18400"}
-                color="#FFF"
-                align="left"
-                maxWidth="10vw"
-                style={{
-                  paddingTop: matchSize.sm ? 0 : '48px'
-                }}
-              >
-                {agentInfo?.team?.brokerage?.name}
-              </Text>
+              {agentInfo?.team?.imagePath &&
+              <React.Fragment>
+                <Divider className={styles.collabDivider} orientation="vertical" flexItem />
+                <Image
+                  src={agentInfo?.team?.imagePath || checkeredImage}
+                  className={matchSize.tablet ? styles.companyLogo
+                    : (matchSize.sm ? styles.companyLogoMobile : styles.companyLogoTiny)}
+                />
+              </React.Fragment>
+                }
             </Box>
 
             <Box paddingTop={matchSize.md ? '32px' : '0'}>
