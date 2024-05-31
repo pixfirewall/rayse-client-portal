@@ -33,7 +33,7 @@ export const TimeTaken: FunctionComponent<TimeLeftProps> = ({ days }) => {
             alignItems: 'center'
           }}>
             <Text variant="rayse-24700" color="rayse-green.main">
-              {`day${days > 1 ? 's' : ''}`}
+              {`days`}
             </Text>
             <Space />
             <Text variant="rayse-24700">to close</Text>
