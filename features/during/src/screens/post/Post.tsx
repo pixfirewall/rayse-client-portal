@@ -118,7 +118,7 @@ export const Post = () => {
       <Menu ref={menuRef} />
       <Grid container className={styles.topContainer}>
         <Grid item xs={12}>
-          <Header />
+          <Header agentImage={journey?.primaryAgent.user.imagePath ?? ''} />
         </Grid>
         <Grid item xs={12} className={styles.sectionContainer}>
           {/* @ts-expect-error resolve this later           */}
