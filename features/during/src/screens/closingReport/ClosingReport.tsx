@@ -27,9 +27,9 @@ const itemTitles = {
   closingDate: 'Closing date',
   listPrice: 'List price',
   purchasePrice: 'Purchase price',
-  purchaseVsListPrice: 'Purcase vs list price',
+  purchaseVsListPrice: 'Purchase vs list price',
   closingCredits: 'Closing credits',
-  milestones: 'Milestones acheived',
+  milestones: 'Milestones achieved',
   completedOutcomes: 'Completed outcomes',
   totalHours: 'Total hours',
   totalMileage: 'Total mileage'
@@ -56,7 +56,6 @@ export const ClosingReport: React.FC<ClosingReportProps> = ({ isJourneyClosed = 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { daysWorked, outcomesFinished, activities, report, agentPicture, agentEmail, agentPhone, ...details } = agentActivityData.closingReport
 
-  console.log(agentActivityData)
   return (
     <Grid container className={styles.topContainer}>
       <ScrollRestoration />

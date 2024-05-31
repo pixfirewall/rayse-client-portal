@@ -13,6 +13,7 @@ export const theme = createTheme({
     },
   },
   typography: {
+    fontFamily: 'inter',
     'rayse-36': {
       fontSize: 36,
       fontFamily: 'inter',

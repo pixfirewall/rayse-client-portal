@@ -18,7 +18,9 @@ export const TimeLeft: FunctionComponent<TimeLeftProps> = ({ value = 0 }) => {
             {value}
           </Text>
           <Space />
-          <Text variant="rayse-24700">days left to close</Text>
+          <Text variant="rayse-24700">
+            {`day${value > 1 ? 's' : ''} left to close`}
+          </Text>
         </Group>
         <Box style={{ width: 52, height: 52 }}>
           <CircularProgressbarWithChildren

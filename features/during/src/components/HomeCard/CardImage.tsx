@@ -5,4 +5,5 @@ export const CardImage = styled(Image)({
   aspectRatio: 1,
   width: '100%',
   borderRadius: 24,
+  objectFit: 'cover',
 })

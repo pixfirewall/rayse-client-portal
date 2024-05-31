@@ -8,6 +8,7 @@ export type JourneyData = {
   order: number
   description: string
   outcomes: number
+  outcomesCompleted: number
   info: string
   state: State
   clickable: boolean
@@ -37,7 +38,7 @@ export const Journey: FunctionComponent<JourneyProps> = ({ data }) => {
                     : undefined
                 }
                 order={j.order}
-                outcomes={j.outcomes}
+                outcomes={j.outcomesCompleted}
                 state={j.state}
               />
             </Grid>

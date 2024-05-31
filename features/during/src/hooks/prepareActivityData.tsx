@@ -4,6 +4,24 @@ import { Milestone } from '../types'
 import { Activity } from '../components'
 import { ActivityStatus } from '../components/ActivityList/Activity'
 
+const getMilestoneStatus = (milestone: Milestone): ActivityStatus => {
+  const requiredOutcomes = milestone.outcomes.filter(o => o.requiredForMilestoneCompletion);
+  const checkedRequiredOutcomes = requiredOutcomes.filter(o => o.status === 'Checked');
+  const hasCheckedOutcomes = milestone.outcomes.some(o => o.status === 'Checked');
+
+  if (requiredOutcomes.length === 0) {
+    return hasCheckedOutcomes ? ActivityStatus.Inprogres : ActivityStatus.Todo;
+  }
+
+  if (requiredOutcomes.length === checkedRequiredOutcomes.length) {
+    return ActivityStatus.Done;
+  } else if (hasCheckedOutcomes) {
+    return ActivityStatus.Inprogres;
+  } else {
+    return ActivityStatus.Todo;
+  }
+};
+
 export const usePrepareActivityData = (milestones: Milestone[] = [], clickable = true) => {
   const [data, setData] = useState<Activity[]>([])
 
@@ -14,7 +32,7 @@ export const usePrepareActivityData = (milestones: Milestone[] = [], clickable =
       return {
         clickable,
         title: m.name ?? '',
-        status: m.isComplete ? ActivityStatus.Done : ActivityStatus.Todo,
+        status: getMilestoneStatus(m),
         description: m.clientLongDescription ?? '',
         date,
         // subtitle: m.isComplete ? 'Scheduled' : undefined,

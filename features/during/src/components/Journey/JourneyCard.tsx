@@ -1,7 +1,7 @@
 import React from 'react'
 import { Group, GreenIcon, YellowIcon, Text, Image, Showif, MainPaper, Button } from '@rayseinc-packages/ui'
 
-import logo from './assets/logo.png'
+import logo from './assets/award.svg'
 
 export enum State {
   Done = 'done',
@@ -39,10 +39,10 @@ export const JourneyCard = ({
             <Text variant="h6">
               <Group sx={{ lineHeight: 'normal' }}>{info}</Group>
             </Text>
-            {state !== 'todo' ? (
+            {(state !== 'todo' && outcomes) ? (
               <Group gap={2}>
-                <Image src={logo} style={{ width: 11, height: 15 }} />
-                <Text variant="caption">{outcomes} Outcomes</Text>
+                <Image src={logo} style={{ width: 11 }} />
+                <Text style={{}}variant="caption">{outcomes} Outcomes</Text>
               </Group>
             ) : null}
           </Group>

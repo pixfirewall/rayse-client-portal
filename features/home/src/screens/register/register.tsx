@@ -130,7 +130,12 @@ export const Register = () => {
         </FormControl>
         <Button
           variant="contained"
-          sx={{ backgroundColor: '#000000', height: 48, borderRadius: '12px' }}
+          sx={{ backgroundColor: '#000000', height: 48, borderRadius: '12px',
+          '&:hover': {
+            backgroundColor: '#FFD800',
+            color: '#000000',
+          },
+           }}
           onClick={handleSubmit}
           disabled={!isFormValid}
         >

@@ -33,7 +33,6 @@ export const Account: FunctionComponent<AccountProps> = () => {
 
   const onSaveChanges = () => {
     setIfChanged(false)
-    console.log(formData)
   }
 
   return (
