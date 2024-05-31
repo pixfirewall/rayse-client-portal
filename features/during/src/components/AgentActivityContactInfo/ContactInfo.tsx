@@ -35,7 +35,7 @@ const ContactInfo = ({ picture, email, phone }: Props) => {
 
 export const ContactInfoSmall = ({ picture, email, phone }: Props) => {
   return (
-    <Box className={styles.container}>
+    <Box style={{ overflow: "scroll" }} className={styles.container}>
       <Text variant="rayse-32700" color="#FFF" paddingBottom="12px">
         My contact info
       </Text>
