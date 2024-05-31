@@ -284,8 +284,7 @@ export const Main = () => {
 
           <Divider className={styles.collabDivider} orientation="horizontal" flexItem />
           <Text variant={matchSize.tablet ? "rayse-32700" : "rayse-18400"} color="#FFF" align="left">
-            Our collaboration is all the more valuable with the support, access and expertise of the team
-            I’m proud to be a part of in leading the way forward in residential real estate.
+          Our collaboration is all the more valuable with the support, access and expertise of my team I’m proud to be a part of. Together, we are leading the way forward in residential real estate.
           </Text>
         </Box>
       </Grid>

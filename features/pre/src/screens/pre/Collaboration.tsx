@@ -26,11 +26,11 @@ export const Collaboration = () => {
     <Box className={styles.mainContainer}>
       <ScrollRestoration />
 
-      <Box className={styles.topNavBar}>
+      <Box style={{ backgroundColor: "#3F947D" }} className={styles.topNavBar}>
         <Link href={`/pre-2nd?agentId=${agentId}`}>
           <WhiteIcon material="arrow_back" size={48} />
         </Link>
-        <Text variant="rayse-18700">Collaboration</Text>
+        <Text sx={{ color: "white" }} variant="rayse-18700">Collaboration</Text>
         <RayseIcon size={48} iconSize={32} />
       </Box>
 

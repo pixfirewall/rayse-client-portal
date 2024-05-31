@@ -36,9 +36,9 @@ export const Evaluating: FunctionComponent<EvaluatingProps> = ({ evaluating = []
   return (
     <Group dir="vertical" gap={24}>
       <Group dir="vertical" gap={6} padding="0 10px 0 0">
-        <Text variant="rayse-24700">Your tours & offers</Text>
+        <Text variant="rayse-24700">Your Tours & Offers</Text>
         <Showif con={!ifZero}>
-          <Text variant="rayse-18400">Take a look at the homes you and your agent have toured up to this point.</Text>
+          <Text variant="rayse-18400">Here are the homes you and your agent have viewed.</Text>
         </Showif>
         <Showif con={ifZero}>
           <Text variant="rayse-18400">Your agent is busy find homes and scheduling tours.</Text>

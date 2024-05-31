@@ -37,25 +37,22 @@ export const Clarity = () => {
     <Box className={styles.mainContainer}>
       <ScrollRestoration />
 
-      <Box className={styles.topNavBar}>
+      <Box style={{ backgroundColor: "#3F947D" }} className={styles.topNavBar}>
         <Link href={`/pre-2nd?agentId=${agentId}`}>
           <WhiteIcon material="arrow_back" size={48} />
         </Link>
-        <Text variant="rayse-18700">Clarity</Text>
+        <Text sx={{color: "white" }} variant="rayse-18700">Clarity</Text>
         <RayseIcon size={48} iconSize={32} />
       </Box>
 
       <Box className={styles.multiColumnSection} paddingTop="96px">
         <Box className={styles.multiRowSection} justifyContent={'center'}>
-          <Text variant="rayse-68700">100% Visibility</Text>
+          <Text variant="rayse-68700">Real-time visibility.</Text>
           <Text variant="rayse-24400">
-            You’re not expected to know which monumental to minor issues will arise for us.
-            Or how to illuminate or eliminate them as they do. It’s not like you’re navigating
-            the process of buyinga home every day!
+          You’re not expected to know which issues will arise for us. It’s not like you’re navigating the process of buying a home every day!
           </Text>
           <Text variant="rayse-24400">
-            But I am. And as your agent, I welcome the opportunity to demonstrate exactly what
-            we’ve accomplishedand what’s next—together building trusting and lifting anxiety.
+          But I am. And as your agent, I welcome the opportunity to demonstrate exactly what we’ve accomplished and what’s next—together building trust and reducing anxiety.
           </Text>
         </Box>
 

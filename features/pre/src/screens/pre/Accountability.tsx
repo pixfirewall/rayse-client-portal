@@ -25,11 +25,11 @@ export const Accountability = () => {
     <Box className={styles.mainContainer}>
       <ScrollRestoration />
 
-      <Box className={styles.topNavBar}>
+      <Box style={{ backgroundColor: "#3F947D" }} className={styles.topNavBar}>
         <Link href={`/pre-2nd?agentId=${agentId}`}>
           <WhiteIcon material="arrow_back" size={48} />
         </Link>
-        <Text variant="rayse-18700">Accountability</Text>
+        <Text style={{ color: 'white' }} variant="rayse-18700">Accountability</Text>
         <RayseIcon size={48} iconSize={32} />
       </Box>
 
@@ -93,15 +93,15 @@ export const Accountability = () => {
 
           <LongButton color="darkGreen" onClick={navigateToYourAgent}>
             <Space />
-            <Text variant="rayse-20700">
-              Contact {agentInfo?.user?.firstName}
-            </Text>
             <Box
               className={styles.agentButtonIcon}
               style={{
                 backgroundImage: `url(${agentInfo?.user?.imagePath})`
               }}
             />
+            <Text variant="rayse-20700">
+              Get started
+            </Text>
             <YellowIcon material="arrow_forward" />
           </LongButton>
         </Box>

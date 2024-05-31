@@ -17,7 +17,7 @@ export const BrandFooter = () => {
         <RayseDivider center dir="horizontal" stretch color="rgba(0, 0, 0, 0.32)" />
         <Group dir="vertical">
           <Text variant="rayse-24700" color="#FFFFFF">
-            Improving the experience one home at a time.
+            Making bold moves.
           </Text>
         </Group>
       </Group>

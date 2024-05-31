@@ -169,7 +169,7 @@ export const Home12: FunctionComponent<Home12Props> = () => {
           </Showif>
           <Group dir="vertical" gap={12}>
             <Matrix
-              title={`This is what ${journey?.primaryAgent.user.firstName} has been up to on your behalf`}
+              title={`Here's what ${journey?.primaryAgent.user.firstName} has been up to on your behalf`}
               agentName={journey?.primaryAgent.user.firstName ?? ''}
               agentImage={journey?.primaryAgent.user.imagePath ?? ''}
               activities={journey?.statistics.activities ?? 0}

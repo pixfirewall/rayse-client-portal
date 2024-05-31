@@ -5,6 +5,7 @@ import LinkedIn from '../../fixtures/assets/LinkedIn.png'
 import Facebook from '../../fixtures/assets/Facebook.png'
 import Instagram from '../../fixtures/assets/Instagram.png'
 import TikTok from '../../fixtures/assets/TikTok.png'
+import LuxTeam from '../../fixtures/assets/Lux-Team.png'
 
 export interface AgentBioProps {
   name?: string
@@ -58,7 +59,7 @@ export const AgentBio: FunctionComponent<AgentBioProps> = ({
             </Link>
           </Group>
           <Group alignV="center" gap={8}>
-            <Image size={36} src={TikTok} />
+            <Image size={36} src={LuxTeam} />
             <Link href={website} target="_blank">
               <Text color="white" variant="rayse-18400">
                 Website

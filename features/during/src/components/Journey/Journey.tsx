@@ -25,7 +25,7 @@ export const Journey: FunctionComponent<JourneyProps> = ({ data }) => {
     <MainPaper bgcolor="#3F947D" padding="20px 16px">
       <Group dir="vertical" gap={24}>
         <Text variant="rayse-24700" color="#FFFFFF">
-          Your journey progess
+          Our journey progess
         </Text>
         <Grid container spacing={2}>
           {data?.map(j => (

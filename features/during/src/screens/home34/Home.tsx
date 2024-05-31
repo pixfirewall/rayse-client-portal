@@ -100,7 +100,7 @@ export const Home34: FunctionComponent<Home34Props> = () => {
           </Group>
           <Group dir="vertical" gap={12}>
             <Matrix
-              title="This is what Julie has been up to on your behalf"
+              title="Here's what Julie has been up to on your behalf"
               agentName="Julie"
               activities={journey?.statistics.activities ?? 0}
               outcomes={journey?.statistics.outcomesFinished ?? 0}

@@ -13,7 +13,7 @@ export const ActivityList: FunctionComponent<ActivityListProps> = ({ activities 
   return (
     <MainPaper>
       <Group dir="vertical" gap={24}>
-        <Text variant="rayse-24700">What’s happening</Text>
+        <Text variant="rayse-24700">Your progress</Text>
         <Group dir="vertical" gap={18}>
           {activities.map((activity, index) => (
             <Activity

@@ -7,6 +7,7 @@ import instagramIcon from './icons/instagram.png'
 import linkedinIcon from './icons/linkedin.png'
 import tiktokIcon from './icons/tiktok.png'
 import noIcon from '../AgentProfile/checkered.png'
+import luxTeamIcon from './icons/Lux-Team.png'
 
 const UNKNOWN_MEDIA_TEXT = 'Link'
 
@@ -15,7 +16,7 @@ const socialIcons: { [index: string]: object } = {
   Instagram: instagramIcon,
   LinkedIn: linkedinIcon,
   TikTok: tiktokIcon,
-  Website: noIcon
+  Website: luxTeamIcon
 }
 
 const inferMediaName = (url: string) => {
