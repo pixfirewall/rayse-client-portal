@@ -1,34 +1,30 @@
-import React from 'react'
-import { useInView } from "react-intersection-observer"
-
+import React, { useEffect, useRef, ForwardedRef } from 'react'
 import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component'
 import './timelineComponent.css'
-
 import { Box, Text, Divider } from '@rayseinc-packages/ui'
-
 import type { ClarityStepProps } from '../../types'
-
 import styles from './ClarityStep.module.css'
 
 type Props = {
   steps: ClarityStepProps
-  onVisibilityChange?: (number: number, visible: boolean) => void
+  dataIndex: number
 }
 
-export const ClarityStep = ({ steps, onVisibilityChange }: Props) => {
-  const {
-    number, days, activities, details
-  } = steps
+export const ClarityStep = React.forwardRef(({ steps, dataIndex }: Props, ref: ForwardedRef<HTMLElement>) => {
+  const { number, days, activities, details } = steps
+  const stepRef = useRef<HTMLElement | null>(null)
 
-  const { ref } = useInView({
-    onChange: inView => {
-      onVisibilityChange && onVisibilityChange(number, inView)
-    },
-    threshold: 0.25
-  })
+  useEffect(() => {
+    if (ref && typeof ref === 'function') {
+      ref(stepRef.current)
+    } else if (ref && 'current' in ref) {
+      //@ts-expect-error resolve
+      (ref as MutableRefObject<HTMLElement | null>).current = stepRef.current
+    }
+  }, [ref])
 
   return (
-    <Box className={styles.container}>
+    <Box className={styles.container} ref={stepRef} data-index={dataIndex}>
       <Divider orientation="horizontal" flexItem style={{
         backgroundColor: '#FCFCFC',
         height: '1px',
@@ -51,7 +47,7 @@ export const ClarityStep = ({ steps, onVisibilityChange }: Props) => {
         </Box>
       </Box>
 
-      <Box style={{ width: '100%' }} ref={ref}>
+      <Box style={{ width: '100%' }}>
         <VerticalTimeline lineColor="#EEECE6">
           {details.map((item, index) => (
             <VerticalTimelineElement
@@ -77,4 +73,4 @@ export const ClarityStep = ({ steps, onVisibilityChange }: Props) => {
       </Box>
     </Box>
   )
-}
+})

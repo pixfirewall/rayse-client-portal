@@ -64,13 +64,13 @@ export const ContactInfoSmall = ({ picture, email, phone }: Props) => {
           </Box>
         </Box>
 
-        {/* <Image
+        <Image
           className={styles.avatarStyle}
           width="96px"
           src={picture || sampleAvatar}
           style={{
             paddingTop: '7px'
-          }}/> */}
+          }}/>
       </Box>
     </Box >
   )

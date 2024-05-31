@@ -17,6 +17,7 @@ import {
   Matrix,
   HomeSlider,
   Loading,
+  ContactInfoSmall
 } from '../../components'
 import { MenuProvider } from '../../contexts'
 import { useGetMyJourneyListQuery, useGetMyJourneyByIdQuery, useGetMyJourneyDataQuery } from '../../api'
@@ -176,11 +177,12 @@ export const Post = () => {
         </Grid>
 
         <Grid item xs={12}>
-          <ContactInfo
-            // @ts-expect-error resolve post demo
+          <ContactInfoSmall
             picture={journey?.primaryAgent.user.imagePath ?? ''}
-            email="email@gmail.com"
-            phone="(512) 123 - 1234"
+            //@ts-expect-error resolve later
+            email={closingData?.closingReport?.agentEmail}
+            //@ts-expect-error resolve later
+            phone={closingData?.closingReport?.agentPhone}
           />
         </Grid>
 
