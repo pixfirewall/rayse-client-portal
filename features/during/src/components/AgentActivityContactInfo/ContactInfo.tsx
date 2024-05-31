@@ -46,12 +46,13 @@ export const ContactInfoSmall = ({ picture, email, phone }: Props) => {
         flexDirection: 'row',
         paddingTop: '8px',
         width: '100%',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        overflow: 'scroll',
       }}>
         <Box style={{
           display: 'flex',
           flexDirection: 'column',
-          gap: '12px'
+          gap: '12px',
         }}>
           <Box className={styles.contactRow} paddingTop="12px">
             <Image src={mailIcon} width="36px" height="36px" />
@@ -63,13 +64,13 @@ export const ContactInfoSmall = ({ picture, email, phone }: Props) => {
           </Box>
         </Box>
 
-        <Image
+        {/* <Image
           className={styles.avatarStyle}
           width="96px"
           src={picture || sampleAvatar}
           style={{
             paddingTop: '7px'
-          }}/>
+          }}/> */}
       </Box>
     </Box >
   )
