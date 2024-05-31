@@ -9,6 +9,16 @@ const REFRESH_TOKEN_KEY = 'rayseRefreshToken'
 
 type UpstreamAuthResponse = { bearerToken: string; refreshToken: string; changePasswordToken: string }
 
+const GzipMiddleware: Middleware = () => ({
+  async request(request) {
+    return request.enhance({
+      headers: {
+        'Accept-Encoding': 'gzip',
+      },
+    });
+  },
+});
+
 const authClient = forge({
   clientId: ClientIdValueItems.AuthClient,
   host: ClientApis[ClientIdValueItems.AuthClient] as string,
@@ -55,7 +65,8 @@ const getAccessTokenMiddleware = () => {
           accessToken = getToken(ACCESS_TOKEN_KEY)
         }
         return request.enhance({
-          headers: { Authorization: `Bearer ${accessToken}` },
+          headers: { Authorization: `Bearer ${accessToken}`
+         },
         })
       },
       response(next) {
@@ -86,6 +97,6 @@ export const createClient = <T extends ResourceTypeConstraint>({
   forge({
     clientId: `${clientId}-${uuidv4()}`,
     host: host ? host : (ClientApis[clientId] as string),
-    middleware: isPublic ? [EncodeJsonMiddleware] : [EncodeJsonMiddleware, getAccessTokenMiddleware()],
+    middleware: isPublic ? [EncodeJsonMiddleware, GzipMiddleware] : [EncodeJsonMiddleware, getAccessTokenMiddleware(), GzipMiddleware],
     resources,
   })
