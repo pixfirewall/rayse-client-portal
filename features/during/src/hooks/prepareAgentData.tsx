@@ -17,11 +17,11 @@ export const usePrepareAgentData = (agent?: UpstreamAgentDataResponse) => {
   const processData = useCallback(() => {
     const agentBio = {
       name: `${agent?.user.firstName} ${agent?.user.lastName}`,
-      description: agent?.bio,
-      facebook: agent?.agentLinks.find(l => l.name === 'Facebook')?.url ?? '',
-      linkedIn: agent?.agentLinks.find(l => l.name === 'LinkedIn')?.url ?? '',
-      instagram: agent?.agentLinks.find(l => l.name === 'Instagram')?.url ?? '',
-      website: agent?.agentLinks.find(l => l.name === 'Website')?.url ?? '',
+      description: agent?.bio ?? '',
+      facebook: agent?.agentLinks?.find(l => l.name === 'Facebook')?.url ?? '',
+      linkedIn: agent?.agentLinks?.find(l => l.name === 'LinkedIn')?.url ?? '',
+      instagram: agent?.agentLinks?.find(l => l.name === 'Instagram')?.url ?? '',
+      website: agent?.agentLinks?.find(l => l.name === 'Website')?.url ?? '',
     }
     setData({
       bio: agentBio,

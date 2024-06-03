@@ -7,8 +7,8 @@ export const AgentSchema = z.object({
   updatedBy: z.number(),
   updatedOn: z.string(),
   agentId: z.number(),
-  name: z.string(),
-  url: z.string(),
+  name: z.string().nullable(),
+  url: z.string().nullable(),
 })
 
 export const PhonesSchema = z.object({
@@ -96,13 +96,14 @@ export const PrimaryAgentSchema = z.object({
   createdOn: z.string(),
   updatedBy: z.number(),
   updatedOn: z.string(),
-  additionalInfo: z.string(),
-  agentLinks: z.array(AgentSchema),
-  bio: z.string(),
-  licenseId: z.string(),
+  additionalInfo: z.string().nullable(),
+  agentLinks: z.array(AgentSchema).nullable(),
+  bio: z.string().nullable(),
+  licenseId: z.string().nullable(),
   user: BaseUserSchema,
   team: TeamSchema,
-  brokerageAgentId: z.string(),
+  brokerageAgentId: z.string().nullable(),
+  headshotImagePath: z.string().nullable(),
 })
 export type PrimaryAgent = z.infer<typeof PrimaryAgentSchema>
 
@@ -116,11 +117,12 @@ export const MyJourneyListSchema = z.object({
   offersCount: z.number(),
   activitiesDuration: z.number(),
   activitiesUnconfirmed: z.number(),
-  recentJourneyStep: z.string(),
+  recentJourneyStep: z.string().nullable(),
   isActive: z.boolean(),
   primaryAgent: PrimaryAgentSchema,
   startDate: z.string(),
-  users: z.array(UserSchema),
+  closeDate: z.string().nullable(),
+  users: z.array(UserSchema).nullable(),
 })
 
 export const UpstreamMyJourneyListResponseSchema = z.array(MyJourneyListSchema)
