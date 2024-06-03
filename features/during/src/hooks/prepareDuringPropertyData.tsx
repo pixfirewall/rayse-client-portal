@@ -52,7 +52,7 @@ const getDuringPropertyId = (steps: any) :number | null => {
 
 const formatPhoneNumber = (number: string | null | undefined): string => {
   if (number == null || number.length !== 10 || isNaN(Number(number))) {
-    throw new Error('Invalid phone number input');
+    return '';
   }
 
   const areaCode = number.slice(0, 3);
@@ -64,9 +64,9 @@ const formatPhoneNumber = (number: string | null | undefined): string => {
 
 const formatDate = (): string => {
   const date = new Date();
-  const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based, so we add 1
+  const month = String(date.getMonth() + 1).padStart(2, '0');
   const day = String(date.getDate()).padStart(2, '0');
-  const year = String(date.getFullYear()).slice(-2); // Get the last two digits of the year
+  const year = String(date.getFullYear()).slice(-2);
   return `${month}/${day}/${year}`;
 };
 
@@ -87,13 +87,15 @@ const calculatePriceDifference = (purchasePrice: string | number, listPrice: str
     if (typeof price === 'string') {
       const parsedPrice = parseFloat(price.replace(/[$,]/g, ''));
       if (isNaN(parsedPrice)) {
-        throw new Error(`Invalid price input: ${price}`);
+        console.error(`Invalid price input: ${price}`);
+        return 0;
       }
       return parsedPrice;
     } else if (typeof price === 'number') {
       return price;
     } else {
-      throw new Error(`Unsupported price input type: ${typeof price}`);
+      console.error(`Unsupported price input type: ${typeof price}`);
+      return 0;
     }
   };
 
@@ -101,11 +103,13 @@ const calculatePriceDifference = (purchasePrice: string | number, listPrice: str
   const list = parsePrice(listPrice);
 
   if (isNaN(purchase) || isNaN(list)) {
-    throw new Error('Invalid price inputs.');
+    console.error('Invalid price inputs.');
+    return '0%';
   }
   
   if (list === 0) {
-    throw new Error('List price cannot be zero.');
+    console.error('List price cannot be zero.');
+    return '0%';
   }
 
   const difference = ((purchase - list) / list) * 100;
