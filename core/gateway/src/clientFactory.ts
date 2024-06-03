@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid'
 import forge, { Middleware, ResourceTypeConstraint } from 'mappersmith'
 
-import { ClientApis, ClientIdValueItems, ClientIdValues } from './types'
+import { ClientApis, ClientIdValueItems, ClientIdValues, websitsAPIBaseUrl } from './types'
 import { EncodeJsonMiddleware } from 'mappersmith/middleware'
 
 const ACCESS_TOKEN_KEY = 'rayseAccessToken'
@@ -21,7 +21,7 @@ const GzipMiddleware: Middleware = () => ({
 
 const authClient = forge({
   clientId: ClientIdValueItems.AuthClient,
-  host: ClientApis[ClientIdValueItems.AuthClient] as string,
+  host: websitsAPIBaseUrl(),
   middleware: [EncodeJsonMiddleware],
   resources: {
     Auth: {
@@ -99,4 +99,4 @@ export const createClient = <T extends ResourceTypeConstraint>({
     host: host ? host : (ClientApis[clientId] as string),
     middleware: isPublic ? [EncodeJsonMiddleware, GzipMiddleware] : [EncodeJsonMiddleware, getAccessTokenMiddleware(), GzipMiddleware],
     resources,
-  })
+  });

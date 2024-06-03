@@ -1,4 +1,4 @@
-import { ClientIdValueItems, createClient } from '@rayseinc-core/gateway'
+import { API_URL_KEY, ClientIdValueItems, DEFAULT_API_URL, createClient, websitsAPIBaseUrl } from '@rayseinc-core/gateway'
 import { createApi, fetchBaseQuery } from '@rayseinc-core/redux'
 import { POST_API_REDUCER_PATH } from '../constants'
 
@@ -10,11 +10,11 @@ const resources = {
   },
 }
 
-const postClient = createClient({ host: 'https://api.dev.rayse.com', clientId: ClientIdValueItems.PostClient, resources })
+const postClient = createClient({ host: websitsAPIBaseUrl(), clientId: ClientIdValueItems.PostClient, resources })
 
 export const postApi = createApi({
   reducerPath: POST_API_REDUCER_PATH,
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://api.dev.rayse.com' }),
+  baseQuery: fetchBaseQuery({ baseUrl: websitsAPIBaseUrl() }),
   keepUnusedDataFor: 300,
   endpoints: builder => ({
   }),

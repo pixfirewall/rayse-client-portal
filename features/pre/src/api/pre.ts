@@ -11,7 +11,6 @@ const resources = {
 }
 
 const preClient = createClient({
-  // host: 'https://api.dev.rayse.com',
   clientId: ClientIdValueItems.PreClient,
   resources,
   isPublic: true
