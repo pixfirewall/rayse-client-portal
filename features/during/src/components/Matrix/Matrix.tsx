@@ -23,7 +23,7 @@ export const Matrix: FunctionComponent<MatrixProps> = ({ title, agentName, agent
     <MainPaper bgcolor={isJourneyClosed ? '#EEECE6' : '#D9D4C8'} padding="24px 20px">
       <Group dir="vertical" gap={32}>
         <Showif con={!!isJourneyClosed}>
-          <Image src={iconStars} width='56px' height='56px' />
+          <Image src={iconStars} width="56px" height="56px" />
         </Showif>
         <Text variant="rayse-24700">{title}</Text>
         <Info {...data} />
@@ -32,13 +32,12 @@ export const Matrix: FunctionComponent<MatrixProps> = ({ title, agentName, agent
         </Showif>
         <Showif con={!!isJourneyClosed}>
           <LongButton color="report" onClick={() => navigateToClosingReport()}>
-          <Text variant="rayse-16700">View entire report</Text>
-          <Box alignSelf="stretch">
-            <YellowIcon material="arrow_forward" />
-          </Box>
-      </LongButton>
+            <Text variant="rayse-16700">View entire report</Text>
+            <Box alignSelf="stretch">
+              <YellowIcon material="arrow_forward" />
+            </Box>
+          </LongButton>
         </Showif>
-
       </Group>
     </MainPaper>
   )

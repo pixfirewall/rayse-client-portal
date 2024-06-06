@@ -17,19 +17,19 @@ export const Accountability = () => {
   const navigateToYourAgent = useNavigateToYourAgent()
   const agentId = usePreSelector(state => state.PRE_REDUCER_PATH.agentId) || DEFAULT_AGENT_ID
 
-  const {
-    data: agentInfo
-  } = useGetAgentInfoQuery({ id: agentId as number })
+  const { data: agentInfo } = useGetAgentInfoQuery({ id: agentId as number })
 
   return (
     <Box className={styles.mainContainer}>
       <ScrollRestoration />
 
-      <Box style={{ backgroundColor: "#3F947D" }} className={styles.topNavBar}>
+      <Box style={{ backgroundColor: '#3F947D' }} className={styles.topNavBar}>
         <Link href={`/pre-2nd?agentId=${agentId}`}>
           <WhiteIcon material="arrow_back" size={48} />
         </Link>
-        <Text style={{ color: 'white' }} variant="rayse-18700">Accountability</Text>
+        <Text style={{ color: 'white' }} variant="rayse-18700">
+          Accountability
+        </Text>
         <RayseIcon size={48} iconSize={32} />
       </Box>
 
@@ -39,16 +39,17 @@ export const Accountability = () => {
           sx={{
             'padding-top': '48px',
             'padding-bottom': '24px',
-            'text-align': 'center'
-          }}>
+            'text-align': 'center',
+          }}
+        >
           Look what we’ve accomplished!
         </Text>
 
         <Box className={styles.roundCard} style={{ background: '#F8F7F4' }}>
           <Text variant="rayse-32700">Accountability</Text>
           <Text variant="rayse-24400">
-            We’ll be working together on the first platform to make visible—and effortlessly
-            sharable—the questions and answers, activities and milestones.
+            We’ll be working together on the first platform to make visible—and effortlessly sharable—the questions and
+            answers, activities and milestones.
           </Text>
         </Box>
 
@@ -74,38 +75,32 @@ export const Accountability = () => {
 
         <Box className={styles.multiColumnSection}>
           <Box className={styles.logoCard}>
-            <Image
-              src={agentInfo?.team?.brokerage?.logoImagePath || checkeredImage}
-              className={styles.companyLogo}
-            />
+            <Image src={agentInfo?.team?.brokerage?.logoImagePath || checkeredImage} className={styles.companyLogo} />
           </Box>
 
           <Box className={styles.roundCard} style={{ background: '#D9D4C8' }}>
             <Text variant="rayse-32700">You are here.</Text>
-            <Text variant="rayse-24400">
-              And you are this much closer to your new home.
-            </Text>
+            <Text variant="rayse-24400">And you are this much closer to your new home.</Text>
           </Box>
         </Box>
 
         <Box className={styles.bottomCard}>
-          <Text variant="rayse-36700" color="#FFF">Any questions?</Text>
+          <Text variant="rayse-36700" color="#FFF">
+            Any questions?
+          </Text>
 
           <LongButton color="darkGreen" onClick={navigateToYourAgent}>
             <Space />
             <Box
               className={styles.agentButtonIcon}
               style={{
-                backgroundImage: `url(${agentInfo?.user?.imagePath})`
+                backgroundImage: `url(${agentInfo?.user?.imagePath})`,
               }}
             />
-            <Text variant="rayse-20700">
-              Get started
-            </Text>
+            <Text variant="rayse-20700">Get started</Text>
             <YellowIcon material="arrow_forward" />
           </LongButton>
         </Box>
-
       </Box>
     </Box>
   )

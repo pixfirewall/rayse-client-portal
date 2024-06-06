@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 export type StepInfo = {
   title: string
   description: string
-	stepId: number
+  stepId: number
 }
 
 export const useNavigateToConsultation = () => {

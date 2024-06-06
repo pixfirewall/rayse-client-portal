@@ -22,7 +22,7 @@ export const ReviewCard: FunctionComponent<ReviewCardProps> = ({ text, name }) =
         >
           {text}
         </Text>
-				<Text>{name}</Text>
+        <Text>{name}</Text>
       </Group>
     </MainPaper>
   )

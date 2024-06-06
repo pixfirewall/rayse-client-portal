@@ -28,9 +28,9 @@ export const Evaluating: FunctionComponent<EvaluatingProps> = ({ evaluating = []
     if (ifZero && (evaluating.length > 0 || offers.length > 0)) {
       setIfZero(false)
     }
-		if (evaluating.length === 0 && offers.length > 0) {
-			setValue(1)
-		}
+    if (evaluating.length === 0 && offers.length > 0) {
+      setValue(1)
+    }
   }, [evaluating, offers])
 
   return (

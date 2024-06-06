@@ -12,12 +12,15 @@ export const BrandFooter = ({ logoUrl }: Props) => {
     <MainPaper bgcolor="#2A6656" padding="20px">
       <Group dir="vertical" gap={24}>
         <Group gap={24} alignH="space-between" alignV="center">
-          <Image src={logoUrl || nologo} style={{
-            borderRadius: '12px',
-            maxWidth: '90px',
-            maxHeight: '90px',
-            backgroundSize: 'contain'
-          }} />
+          <Image
+            src={logoUrl || nologo}
+            style={{
+              borderRadius: '12px',
+              maxWidth: '90px',
+              maxHeight: '90px',
+              backgroundSize: 'contain',
+            }}
+          />
           <WhiteButton>
             Learn more
             <YellowIcon material="arrow_forward" />

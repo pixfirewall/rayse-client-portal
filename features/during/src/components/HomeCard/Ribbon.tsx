@@ -11,11 +11,7 @@ interface RibbonProps {
 export const Ribbon: FunctionComponent<RibbonProps> = ({ show }) => {
   if (show) {
     return (
-      <RibbonContainer
-        alignV="center"
-        gap={4}
-        className="Ribbon-Container"
-      >
+      <RibbonContainer alignV="center" gap={4} className="Ribbon-Container">
         <Available />
         <Text variant="rayse-12600">FOR SALE</Text>
       </RibbonContainer>

@@ -9,7 +9,7 @@ export interface PreState {
 
 const initialState: PreState = {
   agentId: 0,
-  code: ''
+  code: '',
 }
 
 export const preSlice = createSlice({

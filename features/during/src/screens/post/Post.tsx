@@ -3,7 +3,12 @@ import { useDispatch } from 'react-redux'
 import { useDuringSelector } from '../../hooks'
 import { setJourneyId, setAgentActivityData } from '../../data'
 import { Box, Grid, Image } from '@rayseinc-packages/ui'
-import { usePrepareActivityData, usePrepareHomeData, usePrepareJourneyData, usePrepareClosingPropertyData } from '../../hooks'
+import {
+  usePrepareActivityData,
+  usePrepareHomeData,
+  usePrepareJourneyData,
+  usePrepareClosingPropertyData,
+} from '../../hooks'
 import {
   Header,
   MenuRef,
@@ -17,7 +22,7 @@ import {
   Matrix,
   HomeSlider,
   Loading,
-  ContactInfoSmall
+  ContactInfoSmall,
 } from '../../components'
 import { MenuProvider } from '../../contexts'
 import { useGetMyJourneyListQuery, useGetMyJourneyByIdQuery, useGetMyJourneyDataQuery } from '../../api'
@@ -26,22 +31,22 @@ import styles from './Closing.module.css'
 
 import home1 from './assets/home1.jpg'
 
-export const getClosingProperty = (data: any) :number | null => {
+export const getClosingProperty = (data: any): number | null => {
   if (!data?.milestones || data?.milestones.length === 0) {
-    return null;
-}
+    return null
+  }
 
-for (const milestone of data.milestones) {
+  for (const milestone of data.milestones) {
     if (milestone.outcomes && milestone.outcomes.length > 0) {
-        for (const outcome of milestone.outcomes) {
-            if (outcome.journeyPropertyId) {
-                return outcome.journeyPropertyId;
-            }
+      for (const outcome of milestone.outcomes) {
+        if (outcome.journeyPropertyId) {
+          return outcome.journeyPropertyId
         }
+      }
     }
-}
+  }
 
-return null;
+  return null
 }
 
 export const Post = () => {
@@ -69,9 +74,8 @@ export const Post = () => {
     isLoading: journeyDataLoading,
   } = useGetMyJourneyDataQuery({ journeyId }, { skip: journeyDataSkip })
 
-
-	// const myJourneyData = usePrepareJourneyData(journeyData?.steps)
-  const closingData = usePrepareClosingPropertyData(journey, journeyData);
+  // const myJourneyData = usePrepareJourneyData(journeyData?.steps)
+  const closingData = usePrepareClosingPropertyData(journey, journeyData)
 
   useEffect(() => {
     if (journeySkip && journeyListSkip && journeyDataSkip) {
@@ -105,13 +109,11 @@ export const Post = () => {
   }, [journeyId])
 
   useEffect(() => {
-  dispatch(setAgentActivityData(closingData));
+    dispatch(setAgentActivityData(closingData))
   }, [journeyData, journeyId, journeyList, closingData])
 
   if (!closingData) {
-    return (
-      <Loading/>
-    )
+    return <Loading />
   }
 
   return (
@@ -127,37 +129,37 @@ export const Post = () => {
         </Grid>
 
         {/* @ts-expect-error resolve this later           */}
-        {(closingData?.currentProperty) &&
-        <React.Fragment>
-        <Grid item xs={12}>
-        {/* @ts-expect-error resolve this later           */}
-        <HomeSlider images={closingData?.currentProperty?.images || []} />
-        </Grid>
+        {closingData?.currentProperty && (
+          <React.Fragment>
+            <Grid item xs={12}>
+              {/* @ts-expect-error resolve this later           */}
+              <HomeSlider images={closingData?.currentProperty?.images || []} />
+            </Grid>
 
-        <Grid item xs={12}>
-          <PostHomeInfo
-            title=""
-            //@ts-expect-error resolve this later
-            address={closingData?.currentProperty?.address}
-            //@ts-expect-error resolve this later
-            price={closingData?.currentProperty?.price}
-            //@ts-expect-error resolve this later
-            discount={closingData?.closingReport?.report?.purchaseVsListPrice}
-            //@ts-expect-error resolve this later
-            finalFee={closingData?.closingReport?.report?.purchasePrice}
-            specs={[
-              //@ts-expect-error resolve this later
-              { value: `${closingData?.currentProperty?.bed}`, feature: 'bed' },
-            //@ts-expect-error resolve this later
-              { value: `${closingData?.currentProperty?.bath}`, feature: 'bath' },
-            //@ts-expect-error resolve this later
-              { value: `${closingData?.currentProperty?.squareFootage || 0}`, feature: 'sqft' }
-            ]}
-            seenStatus='SEEN 4 DAYS AGO'
-          />
-        </Grid>
-        </React.Fragment>
-        }
+            <Grid item xs={12}>
+              <PostHomeInfo
+                title=""
+                //@ts-expect-error resolve this later
+                address={closingData?.currentProperty?.address}
+                //@ts-expect-error resolve this later
+                price={closingData?.currentProperty?.price}
+                //@ts-expect-error resolve this later
+                discount={closingData?.closingReport?.report?.purchaseVsListPrice}
+                //@ts-expect-error resolve this later
+                finalFee={closingData?.closingReport?.report?.purchasePrice}
+                specs={[
+                  //@ts-expect-error resolve this later
+                  { value: `${closingData?.currentProperty?.bed}`, feature: 'bed' },
+                  //@ts-expect-error resolve this later
+                  { value: `${closingData?.currentProperty?.bath}`, feature: 'bath' },
+                  //@ts-expect-error resolve this later
+                  { value: `${closingData?.currentProperty?.squareFootage || 0}`, feature: 'sqft' },
+                ]}
+                seenStatus="SEEN 4 DAYS AGO"
+              />
+            </Grid>
+          </React.Fragment>
+        )}
 
         <Grid item xs={12}>
           <Matrix

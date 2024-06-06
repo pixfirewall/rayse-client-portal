@@ -13,27 +13,37 @@ export const TimeTaken: FunctionComponent<TimeLeftProps> = ({ days }) => {
   return (
     <MainPaper padding="20px">
       <Group alignH="space-between">
-        <Box style={{
-          display: 'flex',
-          flexDirection: 'column'
-        }}>
-          <Box style={{
+        <Box
+          style={{
             display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: '6px'
-          }}>
-            <Text variant="rayse-24700" alignSelf="flex-start">It took us a total</Text>
-            <Text variant="rayse-24700" color="rayse-green.main">{days}</Text>
-          </Box>
-          
-          <Box style={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center'
-          }}>
+            flexDirection: 'column',
+          }}
+        >
+          <Box
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: '6px',
+            }}
+          >
+            <Text variant="rayse-24700" alignSelf="flex-start">
+              It took us a total
+            </Text>
             <Text variant="rayse-24700" color="rayse-green.main">
-            {`days`}
+              {days}
+            </Text>
+          </Box>
+
+          <Box
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}
+          >
+            <Text variant="rayse-24700" color="rayse-green.main">
+              {`days`}
             </Text>
             <Space />
             <Text variant="rayse-24700">to close</Text>

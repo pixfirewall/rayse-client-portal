@@ -16,7 +16,7 @@ const socialIcons: { [index: string]: object } = {
   Instagram: instagramIcon,
   LinkedIn: linkedinIcon,
   TikTok: tiktokIcon,
-  Website: luxTeamIcon
+  Website: luxTeamIcon,
 }
 
 const inferMediaName = (url: string) => {
@@ -37,20 +37,15 @@ type SocialContactProps = {
 }
 
 export const SocialContact = (props: SocialContactProps) => {
-  const {
-    url,
-    size,
-    color = '#FFF',
-    variant,
-    name
-  } = props
+  const { url, size, color = '#FFF', variant, name } = props
 
   return (
-    <Box style={{
-      display: 'flex',
-      alignItems: 'center',
-      gap: '12px'
-    }}
+    <Box
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '12px',
+      }}
     >
       <Image src={String(socialIcons[name])} width={size} height={size} />
       <Link href={url} target="_blank" style={{ cursor: 'pointer' }}>

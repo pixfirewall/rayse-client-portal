@@ -49,7 +49,7 @@ export const ProgressCard: FunctionComponent<ProgressCardProps> = ({ image, titl
         <Text
           variant="rayse-14700"
           sx={{
-						textAlign: 'center',
+            textAlign: 'center',
             display: '-webkit-box',
             overflow: 'hidden',
             WebkitBoxOrient: 'vertical',

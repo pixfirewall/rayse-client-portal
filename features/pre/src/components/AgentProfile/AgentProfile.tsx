@@ -20,7 +20,6 @@ type Props = {
 }
 
 export const AgentProfile = ({ matchSize, data, isLoading }: Props) => {
-
   const [modalOpen, setModalOpen] = useState(false)
   const [modalText, setModalText] = useState('')
 
@@ -39,7 +38,7 @@ export const AgentProfile = ({ matchSize, data, isLoading }: Props) => {
           <Box
             className={matchSize.tablet ? styles.profileImage : styles.profileImageMobile}
             style={{
-              backgroundImage: `url(${data.headshotImagePath})`
+              backgroundImage: `url(${data.headshotImagePath})`,
             }}
           />
         ) : (
@@ -50,96 +49,116 @@ export const AgentProfile = ({ matchSize, data, isLoading }: Props) => {
 
         <Box
           className={styles.profileDetailsContainer}
-          style={matchSize.tablet
-            ? { height: '730px' }
-            : { gap: '48px' }
-          }
+          style={matchSize.tablet ? { height: '730px' } : { gap: '48px' }}
         >
-          <Text variant={matchSize.tablet ? "rayse-36700" : "rayse-32700"} color="#FFF" padding="40px 40px 0 40px" textAlign="left">
-            {isLoading
-              ? <Skeleton width="220px" />
-              : <>{data?.user?.firstName} {data?.user?.lastName}</>
-            }
+          <Text
+            variant={matchSize.tablet ? 'rayse-36700' : 'rayse-32700'}
+            color="#FFF"
+            padding="40px 40px 0 40px"
+            textAlign="left"
+          >
+            {isLoading ? (
+              <Skeleton width="220px" />
+            ) : (
+              <>
+                {data?.user?.firstName} {data?.user?.lastName}
+              </>
+            )}
           </Text>
-          <Text variant={matchSize.tablet ? "rayse-32700" : "rayse-20700"} color="#FFF" padding="0 40px 0 40px" textAlign="left">
-            I’m committed to being your advocate on-demand, honoring your trust and partnership through your unique home-buying journey.
+          <Text
+            variant={matchSize.tablet ? 'rayse-32700' : 'rayse-20700'}
+            color="#FFF"
+            padding="0 40px 0 40px"
+            textAlign="left"
+          >
+            I’m committed to being your advocate on-demand, honoring your trust and partnership through your unique
+            home-buying journey.
           </Text>
           <Box className={styles.profileContactInfoContainer}>
-            <Text variant={matchSize.tablet ? "rayse-24400" : "rayse-20400"} color="#FFF" textAlign="left">
+            <Text variant={matchSize.tablet ? 'rayse-24400' : 'rayse-20400'} color="#FFF" textAlign="left">
               Eliot Park Residential
             </Text>
-            <Text variant={matchSize.tablet ? "rayse-24400" : "rayse-20400"} color="#FFF" textAlign="left">
+            <Text variant={matchSize.tablet ? 'rayse-24400' : 'rayse-20400'} color="#FFF" textAlign="left">
               DRE #02095311
             </Text>
-            <Text variant={matchSize.tablet ? "rayse-24400" : "rayse-20400"} color="#FFF" textAlign="left">
+            <Text variant={matchSize.tablet ? 'rayse-24400' : 'rayse-20400'} color="#FFF" textAlign="left">
               {Boolean(data?.user?.phones?.length) && data?.user.phones[0].number}
             </Text>
-            <Text variant={matchSize.tablet ? "rayse-24400" : "rayse-20400"} color="#FFF" textAlign="left">
+            <Text variant={matchSize.tablet ? 'rayse-24400' : 'rayse-20400'} color="#FFF" textAlign="left">
               {data?.user?.emailAddress}
             </Text>
           </Box>
 
           <Grid container style={{ padding: '0 40px 40px 40px' }} rowSpacing={2} columnSpacing={4}>
-            {data?.agentLinks?.length && data.agentLinks.map((record, index) => (
-              <Grid key={index} item xs={12} tablet={6}>
-                {matchSize.tablet
-                  ? <SocialContact name={record.name} url={record.url} variant="rayse-32400" size="52px" />
-                  : <SocialContact name={record.name} url={record.url} variant="rayse-20400" size="36px" />}
-              </Grid>
-            ))}
+            {data?.agentLinks?.length &&
+              data.agentLinks.map((record, index) => (
+                <Grid key={index} item xs={12} tablet={6}>
+                  {matchSize.tablet ? (
+                    <SocialContact name={record.name} url={record.url} variant="rayse-32400" size="52px" />
+                  ) : (
+                    <SocialContact name={record.name} url={record.url} variant="rayse-20400" size="36px" />
+                  )}
+                </Grid>
+              ))}
           </Grid>
         </Box>
       </Box>
 
       <Box className={matchSize.tablet ? styles.profileBottomSection : styles.profileBottomSectionMobile}>
         <Box>
-          {!isLoading
-            ? (
-              <Text variant={matchSize.tablet ? "rayse-44700" : "rayse-32700"} color="#FFF" width="210px" textAlign="left">
-                {data?.user?.firstName}'s reviews
-              </Text>
-            ) : <Skeleton variant="rounded" width="210px" height="110px" />
-          }
+          {!isLoading ? (
+            <Text
+              variant={matchSize.tablet ? 'rayse-44700' : 'rayse-32700'}
+              color="#FFF"
+              width="210px"
+              textAlign="left"
+            >
+              {data?.user?.firstName}'s reviews
+            </Text>
+          ) : (
+            <Skeleton variant="rounded" width="210px" height="110px" />
+          )}
         </Box>
 
         <Box className={styles.reviewSlideContainer}>
-          {!isLoading
-            ? (
-              <Swiper
-                slidesPerView={
-                  matchSize.min860 ? 3 : (matchSize.min600 ? 2 : 1)
-                }
-                spaceBetween={10}
-                className={styles.reviewSwiperContainer}
-                onSwiper={swp => swiperRef.current = swp}
-              >
-                {data?.testimonials?.map((value, index) => (
-                  <SwiperSlide key={index}>
-                    <Box className={styles.reviewBox}>
-                      <Box onClick={() => handleModalOpen(value?.text)} style={{ cursor: 'pointer' }}>
-                        <Text className={styles.reviewText} variant="rayse-20400">
-                          {value?.text}
-                        </Text>
-                      </Box>
-                      <Text className={styles.reviewText} variant="rayse-16400">
-                        - {value?.clientName}
+          {!isLoading ? (
+            <Swiper
+              slidesPerView={matchSize.min860 ? 3 : matchSize.min600 ? 2 : 1}
+              spaceBetween={10}
+              className={styles.reviewSwiperContainer}
+              onSwiper={swp => (swiperRef.current = swp)}
+            >
+              {data?.testimonials?.map((value, index) => (
+                <SwiperSlide key={index}>
+                  <Box className={styles.reviewBox}>
+                    <Box onClick={() => handleModalOpen(value?.text)} style={{ cursor: 'pointer' }}>
+                      <Text className={styles.reviewText} variant="rayse-20400">
+                        {value?.text}
                       </Text>
                     </Box>
-                  </SwiperSlide>
-                ))}
+                    <Text className={styles.reviewText} variant="rayse-16400">
+                      - {value?.clientName}
+                    </Text>
+                  </Box>
+                </SwiperSlide>
+              ))}
 
-                <PlainHoverButton onClick={() => swiperRef.current?.slideNext()} style={{
+              <PlainHoverButton
+                onClick={() => swiperRef.current?.slideNext()}
+                style={{
                   position: 'absolute',
                   right: '0px',
                   top: '40%',
                   zIndex: 1,
-                  overflow: 'visible'
-                }}>
-                  <YellowIconPre material="chevron_right" size={50} fontSize="36px" />
-                </PlainHoverButton>
-              </Swiper>
-            ) : <Skeleton variant="rounded" width="180px" height="248px" />
-          }
+                  overflow: 'visible',
+                }}
+              >
+                <YellowIconPre material="chevron_right" size={50} fontSize="36px" />
+              </PlainHoverButton>
+            </Swiper>
+          ) : (
+            <Skeleton variant="rounded" width="180px" height="248px" />
+          )}
 
           <Modal
             open={modalOpen}
@@ -148,9 +167,7 @@ export const AgentProfile = ({ matchSize, data, isLoading }: Props) => {
             aria-describedby="modal-modal-description"
           >
             <Box className={styles.modalStyle}>
-              <Text variant="rayse-20400">
-                {modalText}
-              </Text>
+              <Text variant="rayse-20400">{modalText}</Text>
             </Box>
           </Modal>
         </Box>

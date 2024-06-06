@@ -29,14 +29,14 @@ export const Menu = forwardRef<MenuRef, MenuProps>((props, ref) => {
 
   const agentId = useDuringSelector(state => state.DURING_REDUCER_PATH.agentId)
 
-	const dispatch = useDispatch()
+  const dispatch = useDispatch()
   const navigateToLogin = useNavigateToLogin()
   const navigateToAccount = useNavigateToAccount()
   const navigateToAgentActivity = useNavigateToAgentActivity()
   const navigateToPreSecondaryPage = useNavigateToPreSecondaryPage()
 
   const signout = () => {
-		dispatch(duringApi.util.resetApiState())
+    dispatch(duringApi.util.resetApiState())
     removeAccessToken()
     navigateToLogin()
   }

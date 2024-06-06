@@ -20,7 +20,7 @@ export const DataInfo: FunctionComponent<DataInfoProps> = ({ badge, text, icon }
         <Image src={logo[icon - 1]} style={{ marginLeft: 10, width: 36 }} />
       </Grid>
       <Grid item xs={8}>
-        <Group dir='vertical'>
+        <Group dir="vertical">
           <Text variant="rayse-24700">{badge}</Text>
           <Text>{text}</Text>
         </Group>

@@ -39,10 +39,12 @@ export const JourneyCard = ({
             <Text variant="h6">
               <Group sx={{ lineHeight: 'normal' }}>{info}</Group>
             </Text>
-            {(state !== 'todo' && outcomes) ? (
+            {state !== 'todo' && outcomes ? (
               <Group gap={2}>
                 <Image src={logo} style={{ width: 11 }} />
-                <Text style={{}}variant="caption">{outcomes} Outcomes</Text>
+                <Text style={{}} variant="caption">
+                  {outcomes} Outcomes
+                </Text>
               </Group>
             ) : null}
           </Group>

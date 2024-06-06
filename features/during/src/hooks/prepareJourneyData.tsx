@@ -6,42 +6,34 @@ import { State } from '../components/Journey/JourneyCard'
 
 const getStepStatus = (step: Step): State => {
   if (step.milestones.length === 0) {
-    return State.Todo;
+    return State.Todo
   }
 
   const allRequiredOutcomesChecked = step.milestones.every(milestone => {
-    const requiredOutcomes = milestone.outcomes.filter(o => o.requiredForMilestoneCompletion);
-    const checkedRequiredOutcomes = requiredOutcomes.filter(o => o.status === 'Checked');
-    return requiredOutcomes.length > 0 && requiredOutcomes.length === checkedRequiredOutcomes.length;
-  });
+    const requiredOutcomes = milestone.outcomes.filter(o => o.requiredForMilestoneCompletion)
+    const checkedRequiredOutcomes = requiredOutcomes.filter(o => o.status === 'Checked')
+    return requiredOutcomes.length > 0 && requiredOutcomes.length === checkedRequiredOutcomes.length
+  })
 
   if (allRequiredOutcomesChecked) {
-    return State.Done;
+    return State.Done
   }
 
-  const isActive = step.milestones.some(milestone =>
-    milestone.outcomes.some(outcome => outcome.status === 'Checked')
-  );
+  const isActive = step.milestones.some(milestone => milestone.outcomes.some(outcome => outcome.status === 'Checked'))
 
-  return isActive ? State.Inprogres : State.Todo;
-};
-
-
+  return isActive ? State.Inprogres : State.Todo
+}
 
 export const usePrepareJourneyData = (stepsData: Step[] = []) => {
   const [data, setData] = useState<JourneyData[]>([])
 
-
   const processData = useCallback(() => {
     const journeyData = stepsData.map(step => {
-			const state = step.isComplete ? State.Done : getStepStatus(step)
+      const state = step.isComplete ? State.Done : getStepStatus(step)
       const outcomesCompleted = step.milestones.reduce((acc, milestone) => {
-        return (
-          acc +
-          milestone.outcomes.filter(outcome => outcome.status === 'Checked').length
-        );
-      }, 0);
-			return {
+        return acc + milestone.outcomes.filter(outcome => outcome.status === 'Checked').length
+      }, 0)
+      return {
         order: step.id,
         outcomes: step.milestones.reduce((acc, curr) => {
           return acc + curr.outcomes.length
@@ -52,7 +44,7 @@ export const usePrepareJourneyData = (stepsData: Step[] = []) => {
         clickable: state === State.Todo ? false : true,
         outcomesCompleted,
       }
-		})
+    })
     setData(journeyData)
   }, [JSON.stringify(stepsData)])
 

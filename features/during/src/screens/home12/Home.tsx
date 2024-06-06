@@ -16,11 +16,17 @@ import {
   HomeSlider,
   HomeDetails,
   ActivityList,
-  Loading
+  Loading,
 } from '../../components'
 import { setActiveStep, setAgentId, setJourneyId, setAgentActivityData, setBrokerageInfo } from '../../data'
 import { MenuProvider } from '../../contexts'
-import { useDuringSelector, usePrepareActivityData, usePrepareHomeData, usePrepareJourneyData, usePrepareDuringPropertyData } from '../../hooks'
+import {
+  useDuringSelector,
+  usePrepareActivityData,
+  usePrepareHomeData,
+  usePrepareJourneyData,
+  usePrepareDuringPropertyData,
+} from '../../hooks'
 import { useGetMyJourneyListQuery, useGetMyJourneyByIdQuery, useGetMyJourneyDataQuery } from '../../api/during'
 import { State } from '../../components/Journey/JourneyCard'
 
@@ -61,7 +67,7 @@ export const Home12: FunctionComponent<Home12Props> = () => {
 
   const homeData = usePrepareHomeData(journey?.properties)
   const myJourneyData = usePrepareJourneyData(journeyData?.steps)
-  const closingData = usePrepareDuringPropertyData(journey, journeyData);
+  const closingData = usePrepareDuringPropertyData(journey, journeyData)
   const activities = usePrepareActivityData(
     journeyData?.steps.filter(s => activeStep.includes(s.id)).flatMap(s => s.milestones),
   )
@@ -88,7 +94,7 @@ export const Home12: FunctionComponent<Home12Props> = () => {
   }, [journeyList])
 
   useEffect(() => {
-		if (!agentId && journey?.primaryAgent.id) {
+    if (!agentId && journey?.primaryAgent.id) {
       dispatch(setAgentId(journey?.primaryAgent.id))
     }
     if (journey?.primaryAgent?.team?.brokerage) {
@@ -98,7 +104,7 @@ export const Home12: FunctionComponent<Home12Props> = () => {
   }, [journey])
 
   useEffect(() => {
-    dispatch(setAgentActivityData(closingData));
+    dispatch(setAgentActivityData(closingData))
   }, [journeyData, journeyId, journeyList, closingData])
 
   useEffect(() => {
@@ -122,9 +128,7 @@ export const Home12: FunctionComponent<Home12Props> = () => {
   }, [journeyData])
 
   if (!journeyData || !journey) {
-    return (
-      <Loading/>
-    )
+    return <Loading />
   }
 
   return (
@@ -147,7 +151,7 @@ export const Home12: FunctionComponent<Home12Props> = () => {
               {/* @ts-expect-error resolve this later           */}
               <HomeSlider images={closingData?.currentProperty?.images || []} />
               <MainPaper>
-                <HomeDetails 
+                <HomeDetails
                   //@ts-expect-error resolve this later
                   address={closingData?.currentProperty?.address}
                   //@ts-expect-error resolve this later
@@ -158,7 +162,7 @@ export const Home12: FunctionComponent<Home12Props> = () => {
                   bath={closingData?.currentProperty?.bath || 0}
                   //@ts-expect-error resolve this later
                   sqft={closingData?.currentProperty?.squareFootage || 0}
-                  />
+                />
               </MainPaper>
               <ActivityList activities={activities} />
             </Group>

@@ -40,11 +40,13 @@ export const Milestone: FunctionComponent<MilestoneProps> = () => {
           <Group>
             <NavBar title={title} />
           </Group>
-          <ActivityHead title={title}/>
+          <ActivityHead title={title} />
           <Progress data={outcomes} />
           <MainPaper style={{ boxShadow: 'none' }}>
             <Group dir="vertical">
-              <Text variant="rayse-24700" style={{paddingBottom: 8}}>Important information</Text>
+              <Text variant="rayse-24700" style={{ paddingBottom: 8 }}>
+                Important information
+              </Text>
               <Text variant="rayse-18400">{description}</Text>
             </Group>
           </MainPaper>

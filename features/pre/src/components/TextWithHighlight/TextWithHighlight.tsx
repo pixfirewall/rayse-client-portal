@@ -11,16 +11,10 @@ type Props = {
   variant: TypographyOwnProps['variant']
 }
 
-export const TextWithHighlight = ({
-  pre,
-  highlighted,
-  post,
-  highlightColor,
-  variant
- }: Props) => {
+export const TextWithHighlight = ({ pre, highlighted, post, highlightColor, variant }: Props) => {
   return (
     <Box>
-      {pre && (<Text variant={variant}>{pre}</Text>)}
+      {pre && <Text variant={variant}>{pre}</Text>}
       <Text
         variant={variant}
         sx={{
@@ -28,12 +22,12 @@ export const TextWithHighlight = ({
           padding: '5px',
           'margin-left': '4px',
           'margin-right': '4px',
-          'border-radius': '8px'
+          'border-radius': '8px',
         }}
       >
         {highlighted}
       </Text>
-      {post && (<Text variant={variant}>{post}</Text>)}
+      {post && <Text variant={variant}>{post}</Text>}
     </Box>
   )
 }

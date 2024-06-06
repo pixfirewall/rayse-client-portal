@@ -5,10 +5,5 @@ import { ReportProps } from '../types'
 export const useNavigateToMilestone = () => {
   const navigate = useNavigate()
 
-  return useCallback(
-    (params: ReportProps 
-    ) =>
-      navigate(`/closing-report`, { replace: false, state: params }),
-    [],
-  )
+  return useCallback((params: ReportProps) => navigate(`/closing-report`, { replace: false, state: params }), [])
 }

@@ -20,7 +20,7 @@ export interface HomeCardProps {
 }
 
 export const HomeCard: FunctionComponent<HomeCardProps> = ({ images, ribbon, label, ...details }) => {
-	const navigateToHomeInfo = useNavigateToHomeInfo({ images, ...details })
+  const navigateToHomeInfo = useNavigateToHomeInfo({ images, ...details })
 
   return (
     <Button sx={{ all: 'unset' }} onClick={() => navigateToHomeInfo()}>

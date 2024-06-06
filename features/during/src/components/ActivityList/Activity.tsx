@@ -15,14 +15,7 @@ export interface ActivityProps {
   onClick?: () => void
 }
 
-export const Activity: FunctionComponent<ActivityProps> = ({
-  status,
-  title,
-  subtitle,
-  date,
-  onClick,
-  line = true,
-}) => {
+export const Activity: FunctionComponent<ActivityProps> = ({ status, title, subtitle, date, onClick, line = true }) => {
   return (
     <Button sx={{ all: 'unset' }} onClick={onClick}>
       <Group

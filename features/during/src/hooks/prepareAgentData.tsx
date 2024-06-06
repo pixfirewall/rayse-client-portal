@@ -8,7 +8,7 @@ export type AgentData = {
   image: string
   agentName: string
   contact: ContactInfoProps
-  reviews: { text: string, name: string }[]
+  reviews: { text: string; name: string }[]
 }
 
 export const usePrepareAgentData = (agent?: UpstreamAgentDataResponse) => {

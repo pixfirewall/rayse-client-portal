@@ -19,28 +19,36 @@ export const ClarityStep = React.forwardRef(({ steps, dataIndex }: Props, ref: F
       ref(stepRef.current)
     } else if (ref && 'current' in ref) {
       //@ts-expect-error resolve
-      (ref as MutableRefObject<HTMLElement | null>).current = stepRef.current
+      ;(ref as MutableRefObject<HTMLElement | null>).current = stepRef.current
     }
   }, [ref])
 
   return (
     <Box className={styles.container} ref={stepRef} data-index={dataIndex}>
-      <Divider orientation="horizontal" flexItem style={{
-        backgroundColor: '#FCFCFC',
-        height: '1px',
-        width: '100%'
-      }} />
-      <Box style={{
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        color: '#A3A3A3'
-      }}>
+      <Divider
+        orientation="horizontal"
+        flexItem
+        style={{
+          backgroundColor: '#FCFCFC',
+          height: '1px',
+          width: '100%',
+        }}
+      />
+      <Box
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          color: '#A3A3A3',
+        }}
+      >
         <Text variant="rayse-24400">Step {number}</Text>
-        <Box sx={{
-          width: '265px',
-          'text-align': 'right'
-        }}>
+        <Box
+          sx={{
+            width: '265px',
+            'text-align': 'right',
+          }}
+        >
           <Text variant="rayse-24400">
             Typically takes {days} days & {activities} agent activities
           </Text>
@@ -52,21 +60,25 @@ export const ClarityStep = React.forwardRef(({ steps, dataIndex }: Props, ref: F
           {details.map((item, index) => (
             <VerticalTimelineElement
               key={index}
-              position={(index % 2) === 0 ? 'left' : 'right'}
+              position={index % 2 === 0 ? 'left' : 'right'}
               className="vertical-timeline-element--work"
               contentStyle={{
                 display: 'flex',
                 'flex-direction': 'column',
                 padding: 0,
                 gap: '8px',
-                'box-shadow': 'none'
+                'box-shadow': 'none',
               }}
               iconStyle={{
-                background: '#EEECE6'
+                background: '#EEECE6',
               }}
             >
-              <Text variant="rayse-24700" color="#171717">{item.title}</Text>
-              <Text variant="rayse-24400" color="#525252">{item.body}</Text>
+              <Text variant="rayse-24700" color="#171717">
+                {item.title}
+              </Text>
+              <Text variant="rayse-24400" color="#525252">
+                {item.body}
+              </Text>
             </VerticalTimelineElement>
           ))}
         </VerticalTimeline>

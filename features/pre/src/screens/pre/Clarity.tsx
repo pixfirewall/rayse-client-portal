@@ -10,14 +10,14 @@ const DEFAULT_AGENT_ID = 80208
 
 export const Clarity = () => {
   const [activeMetric, setActiveMetric] = useState(0)
-  const stepRefs = useRef<(HTMLElement | null)[]>([]) 
+  const stepRefs = useRef<(HTMLElement | null)[]>([])
   const observerRef = useRef<IntersectionObserver | null>(null)
 
   const agentId = usePreSelector(state => state.PRE_REDUCER_PATH.agentId) || DEFAULT_AGENT_ID
 
   useEffect(() => {
     observerRef.current = new IntersectionObserver(
-      (entries) => {
+      entries => {
         entries.forEach(entry => {
           const target = entry.target as HTMLElement
           // @ts-expect-error resolve
@@ -29,7 +29,7 @@ export const Clarity = () => {
       },
       {
         threshold: 0.25,
-      }
+      },
     )
 
     stepRefs.current.forEach(step => {
@@ -49,11 +49,13 @@ export const Clarity = () => {
     <Box className={styles.mainContainer}>
       <ScrollRestoration />
 
-      <Box style={{ backgroundColor: "#3F947D" }} className={styles.topNavBar}>
+      <Box style={{ backgroundColor: '#3F947D' }} className={styles.topNavBar}>
         <Link href={`/pre-2nd?agentId=${agentId}`}>
           <WhiteIcon material="arrow_back" size={48} />
         </Link>
-        <Text sx={{color: "white" }} variant="rayse-18700">Clarity</Text>
+        <Text sx={{ color: 'white' }} variant="rayse-18700">
+          Clarity
+        </Text>
         <RayseIcon size={48} iconSize={32} />
       </Box>
 
@@ -61,10 +63,12 @@ export const Clarity = () => {
         <Box className={styles.multiRowSection} justifyContent={'center'}>
           <Text variant="rayse-68700">Real-time visibility.</Text>
           <Text variant="rayse-24400">
-          You’re not expected to know which issues will arise for us. It’s not like you’re navigating the process of buying a home every day!
+            You’re not expected to know which issues will arise for us. It’s not like you’re navigating the process of
+            buying a home every day!
           </Text>
           <Text variant="rayse-24400">
-          But I am. And as your agent, I welcome the opportunity to demonstrate exactly what we’ve accomplished and what’s next—together building trust and reducing anxiety.
+            But I am. And as your agent, I welcome the opportunity to demonstrate exactly what we’ve accomplished and
+            what’s next—together building trust and reducing anxiety.
           </Text>
         </Box>
 
@@ -100,20 +104,13 @@ export const Clarity = () => {
       </Box>
 
       <Box style={{ width: '100%', position: 'sticky', top: '94px', zIndex: 1 }}>
-        {activeMetric < CLARITY_METRICS.length && (
-          <MetricsBar metrics={CLARITY_METRICS[activeMetric]} />
-        )}
+        {activeMetric < CLARITY_METRICS.length && <MetricsBar metrics={CLARITY_METRICS[activeMetric]} />}
       </Box>
 
       <Box paddingTop="64px" />
-      {CLARITY_STEPS.map((entry, index) =>
-        <ClarityStep
-          steps={entry}
-          key={index}
-          dataIndex={index + 1}
-          ref={el => (stepRefs.current[index] = el)}
-        />
-      )}
+      {CLARITY_STEPS.map((entry, index) => (
+        <ClarityStep steps={entry} key={index} dataIndex={index + 1} ref={el => (stepRefs.current[index] = el)} />
+      ))}
 
       <Box paddingTop="24px" />
       <Text variant="rayse-44700">Welcome Home!</Text>

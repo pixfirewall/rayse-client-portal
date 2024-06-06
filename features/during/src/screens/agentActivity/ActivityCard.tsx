@@ -22,7 +22,7 @@ interface ActivityCardProps {
   value: number
 }
 
-export const ActivityCard: FunctionComponent<ActivityCardProps> = ({type, value}) => {
+export const ActivityCard: FunctionComponent<ActivityCardProps> = ({ type, value }) => {
   return (
     <MainPaper bgcolor="rayse-green.main" style={{ width: 115, height: 148, position: 'relative' }}>
       <Group dir="vertical" alignH="space-between">

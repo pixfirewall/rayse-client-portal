@@ -4,7 +4,10 @@
   "dependencies": {
     "tslib": "^2.3.0",
     "@reduxjs/toolkit": "^2.2.3",
-    "@rayseinc-features/home": "0.0.1"
+    "@rayseinc-features/home": "0.0.1",
+    "@rayseinc-core/redux": "0.0.1",
+    "@rayseinc-features/pre": "0.0.1",
+    "@rayseinc-features/during": "0.0.1"
   },
   "type": "commonjs",
   "main": "./src/index.js",

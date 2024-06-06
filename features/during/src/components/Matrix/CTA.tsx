@@ -4,11 +4,11 @@ import { useNavigateToYourAgent } from '../../navigations'
 
 interface CTAProps {
   agentName?: string
-	agentImage?: string
+  agentImage?: string
 }
 
 export const CTA: FunctionComponent<CTAProps> = ({ agentName, agentImage }) => {
-	const natigateToYourAgent = useNavigateToYourAgent({})
+  const natigateToYourAgent = useNavigateToYourAgent({})
   return (
     <WhiteButton style={{ justifyContent: 'space-between' }} onClick={natigateToYourAgent}>
       Contact {agentName}

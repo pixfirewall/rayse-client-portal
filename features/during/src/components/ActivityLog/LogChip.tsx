@@ -11,40 +11,38 @@ type Props = {
 }
 
 export const LogChip = ({ data, smallScreen }: Props) => {
-  const {
-    title,
-    milestone,
-    date,
-    duration,
-    location,
-    notes
-  } = data
+  const { title, milestone, date, duration, location, notes } = data
   const [showDetails, setShowDetails] = useState<boolean>(false)
-  const infoVariant = smallScreen ? "rayse-14400" : "rayse-16400"
+  const infoVariant = smallScreen ? 'rayse-14400' : 'rayse-16400'
 
   return (
     <Box className={styles.container}>
       <Box className={styles.topRow}>
         <Box>
-          <Text variant="rayse-18400" color="#161616">{title}{milestone ? ` - ${milestone}` : ''}</Text>
+          <Text variant="rayse-18400" color="#161616">
+            {title}
+            {milestone ? ` - ${milestone}` : ''}
+          </Text>
         </Box>
         <Button onClick={() => setShowDetails(!showDetails)} className={styles.expandButton}>
-          <Icon sx={{ color: '#161616', 'font-size': 36 }}>
-            {showDetails ? 'expand_less' : 'expand_more'}
-          </Icon>
+          <Icon sx={{ color: '#161616', 'font-size': 36 }}>{showDetails ? 'expand_less' : 'expand_more'}</Icon>
         </Button>
       </Box>
 
       <Box className={styles.infoRow}>
-        <Text variant={infoVariant} color="#535049">{date}</Text>
+        <Text variant={infoVariant} color="#535049">
+          {date}
+        </Text>
         <RayseDivider color="#C5C2BA" gap={2} />
         <Text variant={infoVariant} color="#535049">{`${duration} min`}</Text>
-        { location && 
-        <React.Fragment>
-          <RayseDivider color="#C5C2BA" gap={2} />
-          <Text variant={infoVariant} color="#535049">{location}</Text>
-        </React.Fragment>
-        }
+        {location && (
+          <React.Fragment>
+            <RayseDivider color="#C5C2BA" gap={2} />
+            <Text variant={infoVariant} color="#535049">
+              {location}
+            </Text>
+          </React.Fragment>
+        )}
       </Box>
 
       {showDetails && (

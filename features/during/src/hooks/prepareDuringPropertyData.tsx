@@ -3,169 +3,170 @@ import { useCallback, useEffect, useState } from 'react'
 import { HomeCardProps } from '../components'
 import { PropertyRoot } from '../types'
 
-import zeroHome from '../fixtures/assets/zero-home.png';
+import zeroHome from '../fixtures/assets/zero-home.png'
 
-const getClosingPropertyId = (data: any) :number | null => {
+const getClosingPropertyId = (data: any): number | null => {
   if (!data?.milestones || data?.milestones.length === 0) {
-    return null;
+    return null
   }
 
   for (const milestone of data.milestones) {
     if (milestone.outcomes && milestone.outcomes.length > 0) {
       for (const outcome of milestone.outcomes) {
         if (outcome.journeyPropertyId) {
-          return outcome.journeyPropertyId;
+          return outcome.journeyPropertyId
         }
       }
     }
   }
 
-  return null;
+  return null
 }
 
-const getDuringPropertyId = (steps: any) :number | null => {
+const getDuringPropertyId = (steps: any): number | null => {
   if (!steps || steps.length === 0) {
-    return null;
+    return null
   }
 
-  let latestStep;
+  let latestStep
   //@ts-expect-error add types
-  const closingStep = steps.find(s => s.listOrder === 4);
+  const closingStep = steps.find(s => s.listOrder === 4)
   if (closingStep?.milestones.length) {
-    latestStep = closingStep;
+    latestStep = closingStep
+  } else {
+    //@ts-expect-error add types
+    latestStep = steps.find(s => s.listOrder === 3)
   }
-  //@ts-expect-error add types
-  else { latestStep = steps.find(s => s.listOrder === 3);}
 
   for (const milestone of latestStep.milestones) {
     if (milestone.outcomes && milestone.outcomes.length > 0) {
       for (const outcome of milestone.outcomes) {
         if (outcome.journeyPropertyId) {
-          return outcome.journeyPropertyId;
+          return outcome.journeyPropertyId
         }
       }
     }
   }
 
-  return null;
+  return null
 }
 
 const formatPhoneNumber = (number: string | null | undefined): string => {
-  if (number == null || number.length !== 10 || isNaN(Number(number))) {
-    return '';
+  if (number == null || number == undefined || number?.length !== 10 || isNaN(Number(number))) {
+    return ''
   }
 
-  const areaCode = number.slice(0, 3);
-  const centralOfficeCode = number.slice(3, 6);
-  const lineNumber = number.slice(6, 10);
+  const areaCode = number.slice(0, 3)
+  const centralOfficeCode = number.slice(3, 6)
+  const lineNumber = number.slice(6, 10)
 
-  return `(${areaCode}) ${centralOfficeCode}-${lineNumber}`;
-};
+  return `(${areaCode}) ${centralOfficeCode}-${lineNumber}`
+}
 
 const formatDate = (): string => {
-  const date = new Date();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  const year = String(date.getFullYear()).slice(-2);
-  return `${month}/${day}/${year}`;
-};
+  const date = new Date()
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const day = String(date.getDate()).padStart(2, '0')
+  const year = String(date.getFullYear()).slice(-2)
+  return `${month}/${day}/${year}`
+}
 
 const calculateDaysPassed = (startDate: string): number => {
-  const start = new Date(startDate);
-  const now = new Date();
+  const start = new Date(startDate)
+  const now = new Date()
 
-  const differenceInTime = now.getTime() - start.getTime();
+  const differenceInTime = now.getTime() - start.getTime()
 
-  const differenceInDays = Math.floor(differenceInTime / (1000 * 3600 * 24));
+  const differenceInDays = Math.floor(differenceInTime / (1000 * 3600 * 24))
 
-  return differenceInDays;
-};
+  return differenceInDays
+}
 
 const calculatePriceDifference = (purchasePrice: string | number, listPrice: string | number): string => {
-  if (!listPrice || !purchasePrice) return '0%';
+  if (!listPrice || !purchasePrice) return '0%'
   const parsePrice = (price: string | number): number => {
     if (typeof price === 'string') {
-      const parsedPrice = parseFloat(price.replace(/[$,]/g, ''));
+      const parsedPrice = parseFloat(price.replace(/[$,]/g, ''))
       if (isNaN(parsedPrice)) {
-        console.error(`Invalid price input: ${price}`);
-        return 0;
+        console.error(`Invalid price input: ${price}`)
+        return 0
       }
-      return parsedPrice;
+      return parsedPrice
     } else if (typeof price === 'number') {
-      return price;
+      return price
     } else {
-      console.error(`Unsupported price input type: ${typeof price}`);
-      return 0;
+      console.error(`Unsupported price input type: ${typeof price}`)
+      return 0
     }
-  };
+  }
 
-  const purchase = parsePrice(purchasePrice);
-  const list = parsePrice(listPrice);
+  const purchase = parsePrice(purchasePrice)
+  const list = parsePrice(listPrice)
 
   if (isNaN(purchase) || isNaN(list)) {
-    console.error('Invalid price inputs.');
-    return '0%';
+    console.error('Invalid price inputs.')
+    return '0%'
   }
-  
+
   if (list === 0) {
-    console.error('List price cannot be zero.');
-    return '0%';
+    console.error('List price cannot be zero.')
+    return '0%'
   }
 
-  const difference = ((purchase - list) / list) * 100;
+  const difference = ((purchase - list) / list) * 100
 
-  return `${difference > 0 ? '+' : ''}${difference.toFixed(2)}%`;
-};
-
+  return `${difference > 0 ? '+' : ''}${difference.toFixed(2)}%`
+}
 
 const findOfferAcceptedPrice = (journeyActivities: any[]): number | null => {
   for (const activity of journeyActivities) {
     if (activity.outcomePayloads) {
       // @ts-expect-error resolve after demo
-      const foundPayload = activity.outcomePayloads.find(payload => payload.eventTrigger === 'OfferAccepted');
+      const foundPayload = activity.outcomePayloads.find(payload => payload.eventTrigger === 'OfferAccepted')
       if (foundPayload) {
-        return foundPayload.payload.offerPrice;
+        return foundPayload.payload.offerPrice
       }
     }
   }
-  return null;
+  return null
 }
 
 const findOfferAcceptedActivityPrice = (journeyData: any, journeyPropertyId: number | null): number | null => {
   if (!journeyData) return null
-  const { steps, journeyActivities } = journeyData;
-    // @ts-expect-error add type after demo
-  const step = steps.find(step => step.listOrder === 2);
+  const { steps, journeyActivities } = journeyData
+  // @ts-expect-error add type after demo
+  const step = steps.find(step => step.listOrder === 2)
 
   if (!step || !step.milestones) {
-    return null;
+    return null
   }
 
   // @ts-expect-error add type after demo
-  const milestones = step.milestones.filter(milestone => milestone.name === 'Offer Submission');
+  const milestones = step.milestones.filter(milestone => milestone.name === 'Offer Submission')
 
   if (!milestones.length) {
-    return null;
+    return null
   }
-
 
   for (const milestone of milestones) {
     if (milestone.outcomes) {
-      // @ts-expect-error resolve after demo
-      const outcome = milestone.outcomes.find(outcome => outcome.eventTrigger === 'OfferAccepted' && outcome.journeyPropertyId === journeyPropertyId);
+      const outcome = milestone.outcomes.find(
+        // @ts-expect-error resolve after demo
+        outcome => outcome.eventTrigger === 'OfferAccepted' && outcome.journeyPropertyId === journeyPropertyId,
+      )
 
       if (outcome && outcome.activities) {
-        const activityId = outcome.activities[0];
+        const activityId = outcome.activities[0]
 
-      // @ts-expect-error resolve after demo
-        const journeyActivity = journeyActivities.find(activity => activity.id === activityId);
+        // @ts-expect-error resolve after demo
+        const journeyActivity = journeyActivities.find(activity => activity.id === activityId)
 
         if (journeyActivity && journeyActivity.outcomePayloads) {
           // @ts-expect-error resolve after demo
-          const payload = journeyActivity.outcomePayloads.find(payload => payload.payload && payload.payload.offerPrice);
+          const payload = journeyActivity.outcomePayloads.find(payload => payload.payload && payload.payload.offerPrice)
 
           if (payload) {
-            return payload.payload.offerPrice;
+            return payload.payload.offerPrice
           }
         }
       }
@@ -173,34 +174,33 @@ const findOfferAcceptedActivityPrice = (journeyData: any, journeyPropertyId: num
   }
 
   return null
-
 }
 
 // @ts-expect-error resolve after demo
-const preprocessJourneyProperties = (properties) => {
+const preprocessJourneyProperties = properties => {
   // @ts-expect-error resolve after demo
   return properties.reduce((acc, property) => {
-    acc[property.id] = property;
-    return acc;
-  }, {});
-};
+    acc[property.id] = property
+    return acc
+  }, {})
+}
 
 export const usePrepareDuringPropertyData = (journey: any, journeyData: any) => {
   const [data, setData] = useState<HomeCardProps | null>(null)
 
   const processData = useCallback(() => {
-    if (!journey || !journeyData) return;
+    if (!journey || !journeyData) return
 
     // @ts-expect-error resolve after demo
-    const closingStep = journeyData?.steps.find(s => s.listOrder === 4);
+    const closingStep = journeyData?.steps.find(s => s.listOrder === 4)
     // const propertyId = getClosingPropertyId(closingStep);
-    const propertyId = getDuringPropertyId(journeyData?.steps);
+    const propertyId = getDuringPropertyId(journeyData?.steps)
     // @ts-expect-error resolve after demo
-    const selectedProperty = journeyData?.journeyProperties.find(p => p.id === propertyId);
-    const selectedPropertyData = selectedProperty ? propertyMapper(selectedProperty) : null;
+    const selectedProperty = journeyData?.journeyProperties.find(p => p.id === propertyId)
+    const selectedPropertyData = selectedProperty ? propertyMapper(selectedProperty) : null
     const listPrice = selectedPropertyData?.price || ''
-    const purchasePrice = findOfferAcceptedActivityPrice(journeyData, propertyId) || listPrice;
-    const priceDifference = calculatePriceDifference(purchasePrice, listPrice);
+    const purchasePrice = findOfferAcceptedActivityPrice(journeyData, propertyId) || listPrice
+    const priceDifference = calculatePriceDifference(purchasePrice, listPrice)
     const activities = journeyData?.journeyActivities
     const closingReport = {
       outcomesFinished: journey?.statistics?.outcomesFinished,
@@ -222,12 +222,12 @@ export const usePrepareDuringPropertyData = (journey: any, journeyData: any) => 
         closingCredits: '+$6,500',
         milestones: journey?.statistics?.milestonesFinished,
         totalHours: journey?.statistics?.hoursWorked,
-        totalMileage: journey?.statistics?.milesTraveled
-      }
+        totalMileage: journey?.statistics?.milesTraveled,
+      },
     }
     const properties = preprocessJourneyProperties(journeyData?.journeyProperties)
 
-          // @ts-expect-error resolve after demo
+    // @ts-expect-error resolve after demo
     setData({ currentProperty: selectedPropertyData, closingReport, activities, properties })
   }, [journey, journeyData])
 

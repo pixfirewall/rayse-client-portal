@@ -15,9 +15,9 @@ const GzipMiddleware: Middleware = () => ({
       headers: {
         'Accept-Encoding': 'gzip',
       },
-    });
+    })
   },
-});
+})
 
 const authClient = forge({
   clientId: ClientIdValueItems.AuthClient,
@@ -65,8 +65,7 @@ const getAccessTokenMiddleware = () => {
           accessToken = getToken(ACCESS_TOKEN_KEY)
         }
         return request.enhance({
-          headers: { Authorization: `Bearer ${accessToken}`
-         },
+          headers: { Authorization: `Bearer ${accessToken}` },
         })
       },
       response(next) {
@@ -97,6 +96,8 @@ export const createClient = <T extends ResourceTypeConstraint>({
   forge({
     clientId: `${clientId}-${uuidv4()}`,
     host: host ? host : (ClientApis[clientId] as string),
-    middleware: isPublic ? [EncodeJsonMiddleware, GzipMiddleware] : [EncodeJsonMiddleware, getAccessTokenMiddleware(), GzipMiddleware],
+    middleware: isPublic
+      ? [EncodeJsonMiddleware, GzipMiddleware]
+      : [EncodeJsonMiddleware, getAccessTokenMiddleware(), GzipMiddleware],
     resources,
-  });
+  })

@@ -1,6 +1,6 @@
 import { ClientIdValueItems, createClient } from '@rayseinc-core/gateway'
 import { createApi, fetchBaseQuery } from '@rayseinc-core/redux'
-import { AgentPublicInfoRecord, AgentPublicInfoRequestParams  } from '../types'
+import { AgentPublicInfoRecord, AgentPublicInfoRequestParams } from '../types'
 
 import { PRE_API_REDUCER_PATH } from '../constants'
 
@@ -13,7 +13,7 @@ const resources = {
 const preClient = createClient({
   clientId: ClientIdValueItems.PreClient,
   resources,
-  isPublic: true
+  isPublic: true,
 })
 
 export const preApi = createApi({
@@ -25,9 +25,9 @@ export const preApi = createApi({
         const response = await preClient.Pre.getAgentInfoById({ id })
         const data = response.data<AgentPublicInfoRecord>()
         return { data }
-      }
-    })
-  })
+      },
+    }),
+  }),
 })
 
 export const { useGetAgentInfoQuery } = preApi

@@ -20,12 +20,16 @@ export const MetricsBar = ({ metrics }: Props) => {
   const values = [days, hours, activities, outcomes]
 
   return (
-    <Box style={{ backgroundColor: "#3F947D" }} className={styles.container}>
+    <Box style={{ backgroundColor: '#3F947D' }} className={styles.container}>
       {labels.map((label, index) => (
-        <Box style={{ backgroundColor: "#2A6656" }} className={styles.metricStyle} key={index}>
+        <Box style={{ backgroundColor: '#2A6656' }} className={styles.metricStyle} key={index}>
           <Image src={icons[index]} width="32px" height="32px" />
-          <Text sx={{ color: "#FFFFFF" }} variant="rayse-24700">{values[index]}</Text>
-          <Text sx={{ color: "#FFFFFF" }} variant="rayse-24400">{label}</Text>
+          <Text sx={{ color: '#FFFFFF' }} variant="rayse-24700">
+            {values[index]}
+          </Text>
+          <Text sx={{ color: '#FFFFFF' }} variant="rayse-24400">
+            {label}
+          </Text>
         </Box>
       ))}
     </Box>

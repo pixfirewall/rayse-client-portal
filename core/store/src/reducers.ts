@@ -2,7 +2,6 @@ import { combineReducers } from '@reduxjs/toolkit'
 import { reducers as homeReducers, apiReducers as homeApiReducers } from '@rayseinc-features/home'
 import { reducers as preReducers, apiReducers as preApiReducers } from '@rayseinc-features/pre'
 import { reducers as duringReducers, apiReducers as duringApiReducers } from '@rayseinc-features/during'
-import { reducers as postReducers, apiReducers as postApiReducers } from '@rayseinc-features/post'
 
 import rootReducer from './rootSlice'
 
@@ -14,8 +13,6 @@ export const appReducers = combineReducers({
   ...preApiReducers,
   ...duringReducers,
   ...duringApiReducers,
-  ...postReducers,
-  ...postApiReducers,
 })
 
-export type RootState = ReturnType<typeof rootReducer>;
+export type RootState = ReturnType<typeof rootReducer>

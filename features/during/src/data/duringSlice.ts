@@ -41,7 +41,7 @@ export const duringSlice = createSlice({
     setAgentId: (state, action: PayloadAction<number>) => {
       state.agentId = action.payload
     },
-    setAgentActivityData: (state, action: PayloadAction<any>) => { 
+    setAgentActivityData: (state, action: PayloadAction<any>) => {
       state.agentActivityData = action.payload
     },
     setBrokerageInfo: (state, action: PayloadAction<BrokerageInfo>) => {

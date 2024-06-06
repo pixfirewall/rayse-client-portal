@@ -8,10 +8,12 @@
 	"dependencies": {
 		"tslib": "^2.3.0",
     "react": "18.2.0",
-    "antd": "^5.17.0",
     "react-dom": "18.2.0",
     "@rayseinc-core/router": "0.0.1",
     "@rayseinc-core/store": "0.0.1",
-    "@rayseinc-core/redux": "0.0.1"
+    "@rayseinc-core/redux": "0.0.1",
+    "@mui/material": "^5.15.17",
+    "@fontsource/roboto": "^5.0.13",
+    "@fontsource/inter": "^5.0.18"
 	}
 }

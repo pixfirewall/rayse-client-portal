@@ -3,7 +3,7 @@ import { Group, Text, MainPaper } from '@rayseinc-packages/ui'
 import { Activity, ActivityProps } from './Activity'
 import { useNavigateToMilestone } from '../../navigations'
 
-export type Activity = ActivityProps & { clickable: boolean; description: string; milestoneId: number, date: string }
+export type Activity = ActivityProps & { clickable: boolean; description: string; milestoneId: number; date: string }
 interface ActivityListProps {
   activities: Activity[]
 }
@@ -30,7 +30,7 @@ export const ActivityList: FunctionComponent<ActivityListProps> = ({ activities 
                       milestoneId: activity.milestoneId,
                       date: activity.date,
                       //@ts-expect-error add outcomes array to type
-                      outcomes: activity.outcomes
+                      outcomes: activity.outcomes,
                     })
                   : undefined
               }

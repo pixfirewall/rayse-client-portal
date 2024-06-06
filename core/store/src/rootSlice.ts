@@ -10,7 +10,7 @@ export interface RootState {
 
 const initialState: RootState = {
   appName: 'frontend',
-  agentId: TEST_AGENT_ID
+  agentId: TEST_AGENT_ID,
 }
 
 export const rootSlice = createSlice({
@@ -22,7 +22,7 @@ export const rootSlice = createSlice({
     },
     setAgentId: (state, action: PayloadAction<number>) => {
       state.agentId = action.payload
-    }
+    },
   },
 })
 

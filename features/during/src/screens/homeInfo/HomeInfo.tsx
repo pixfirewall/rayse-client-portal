@@ -32,7 +32,10 @@ export const HomeInfo = () => {
   } = useGetMyJourneyDataQuery({ journeyId })
 
   const progressData = usePrepareProgressData(
-    journeyData?.steps.filter(s => s.id === 1 || s.id === 2).flatMap(s => s.milestones).flatMap(m => m.outcomes) || [],
+    journeyData?.steps
+      .filter(s => s.id === 1 || s.id === 2)
+      .flatMap(s => s.milestones)
+      .flatMap(m => m.outcomes) || [],
   )
 
   return (

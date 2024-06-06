@@ -107,7 +107,7 @@ export const Home34: FunctionComponent<Home34Props> = () => {
               tours={journey?.statistics.homesToured ?? 0}
               offers={journey?.statistics.offers ?? 0}
             />
-            <Journey data={myJourneyData}/>
+            <Journey data={myJourneyData} />
             <BrandFooter logoUrl={journey?.primaryAgent?.team?.brokerage?.logoImagePath || ''} />
             <Footer />
           </Group>

@@ -22,7 +22,7 @@ import {
   WhiteIcon,
   RayseIcon,
   Grid,
-  Link
+  Link,
 } from '@rayseinc-packages/ui'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -58,7 +58,7 @@ export type MatchSizes = {
 
 export const Main = () => {
   const dispatch = useDispatch()
-  const location = useLocation();
+  const location = useLocation()
   const navigateToPreSecondaryPage = useNavigateToPreSecondaryPage()
   // @ts-expect-error resolve these after demo
   const code = useSelector(state => state.PRE_REDUCER_PATH.code)
@@ -66,28 +66,29 @@ export const Main = () => {
   const agentId = useSelector(state => state.PRE_REDUCER_PATH.agentId)
 
   useEffect(() => {
-    const parsedQuery = queryString.parse(location.search);
-    const rawCode = parsedQuery?.['code'] || '';
-    const rawAgentId = parsedQuery?.['agentId'] || '';
+    const parsedQuery = queryString.parse(location.search)
+    const rawCode = parsedQuery?.['code'] || ''
+    const rawAgentId = parsedQuery?.['agentId'] || ''
 
     // @ts-expect-error resolve these after demo
-    const decodedCode = decodeURIComponent(rawCode);
+    const decodedCode = decodeURIComponent(rawCode)
     // @ts-expect-error resolve these after demo
-    const decodedAgentId = decodeURIComponent(rawAgentId);
+    const decodedAgentId = decodeURIComponent(rawAgentId)
 
-    dispatch(setCode(decodedCode));
-    dispatch(setAgentId(Number(decodedAgentId)));
-  }, [dispatch, location.search]);
+    dispatch(setCode(decodedCode))
+    dispatch(setAgentId(Number(decodedAgentId)))
+  }, [dispatch, location.search])
 
   if (isNaN(agentId)) {
-    return (<Box>
-      * ERROR: Please provide the agent id in the url. Example: <Link href={`/intro?agentId=${80208}`} color="primary">
-        /intro?agentId=80208
-      </Link>
-    </Box>)
+    return (
+      <Box>
+        * ERROR: Please provide the agent id in the url. Example:{' '}
+        <Link href={`/intro?agentId=${80208}`} color="primary">
+          /intro?agentId=80208
+        </Link>
+      </Box>
+    )
   }
-
-
 
   const theme = useTheme()
   const matchSize: MatchSizes = {
@@ -98,13 +99,10 @@ export const Main = () => {
     tablet: useMediaQuery(theme.breakpoints.up('tablet')),
     desktop: useMediaQuery(theme.breakpoints.up('desktop')),
     min600: useMediaQuery('(min-width:600px)'),
-    min860: useMediaQuery('(min-width:860px)')
+    min860: useMediaQuery('(min-width:860px)'),
   }
 
-  const {
-    data: agentInfo,
-    isLoading
-  } = useGetAgentInfoQuery({ id: agentId as number })
+  const { data: agentInfo, isLoading } = useGetAgentInfoQuery({ id: agentId as number })
 
   const dutySectionIconSize = matchSize.tablet ? '64px' : '56px'
 
@@ -112,7 +110,7 @@ export const Main = () => {
   const sliderCaptions = [
     ['Because having an', 'expert', 'is key(s).'],
     ['Because', 'homeowning >', 'homescrolling.'],
-    ['Because you can’t return', 'a house.', '']
+    ['Because you can’t return', 'a house.', ''],
   ]
 
   return (
@@ -129,12 +127,10 @@ export const Main = () => {
               <Box
                 className={styles.agentButtonIcon}
                 style={{
-                  backgroundImage: `url(${agentInfo?.user?.imagePath})`
+                  backgroundImage: `url(${agentInfo?.user?.imagePath})`,
                 }}
               />
-              <Text variant="rayse-20700">
-                Get started
-              </Text>
+              <Text variant="rayse-20700">Get started</Text>
               {matchSize.sm && <Box style={{ width: '24px' }} />}
               <WhiteIcon material="arrow_forward" />
             </LongButton>
@@ -144,14 +140,13 @@ export const Main = () => {
 
       <Grid container item className={styles.sectionContainer} xs={12}>
         <Grid item xs={12} paddingTop="30px">
-          <Text variant={matchSize.tablet ? 'rayse-68700' : 'rayse-36700'}>
-            Let's find your way home!
-          </Text>
+          <Text variant={matchSize.tablet ? 'rayse-68700' : 'rayse-36700'}>Let's find your way home!</Text>
         </Grid>
         <Grid item xs={12}>
           <Box display="flex" alignItems="center" justifyContent="center">
             <Text variant={matchSize.tablet ? 'rayse-24400' : 'rayse-20400'} width="880px" align="center">
-              As your advocate on-demand, I’m committed to honoring your trust and partnership through every step of the journey.
+              As your advocate on-demand, I’m committed to honoring your trust and partnership through every step of the
+              journey.
             </Text>
           </Box>
         </Grid>
@@ -162,39 +157,37 @@ export const Main = () => {
               spaceBetween={20}
               pagination={{
                 bulletActiveClass: clsx('swiper-pagination-bullet-active', styles.swiperBulletActive),
-                bulletClass: clsx('swiper-pagination-bullet', styles.swiperBullet)
+                bulletClass: clsx('swiper-pagination-bullet', styles.swiperBullet),
               }}
               modules={[Pagination]}
               className={styles.imageSwiperContainer}
             >
               {(agentInfo?.headshotImagePath
                 ? [agentInfo.headshotImagePath, ...sliderImages]
-                : [emptyImage, ...sliderImages])
-                .map((value, index) => (
-                  <SwiperSlide key={index}>
-                    <Image src={value}
-                      width="100%"
-                      height={414.428}
-                      style={{
-                        borderRadius: '24px 24px 0 0',
-                        objectPosition: '50% 20%',
-                        objectFit: 'cover'
-                      }}
+                : [emptyImage, ...sliderImages]
+              ).map((value, index) => (
+                <SwiperSlide key={index}>
+                  <Image
+                    src={value}
+                    width="100%"
+                    height={414.428}
+                    style={{
+                      borderRadius: '24px 24px 0 0',
+                      objectPosition: '50% 20%',
+                      objectFit: 'cover',
+                    }}
+                  />
+                  <Box className={styles.imageSlideCaption} height="50px">
+                    <TextWithHighlight
+                      pre={sliderCaptions[index][0]}
+                      highlighted={sliderCaptions[index][1]}
+                      post={sliderCaptions[index][2]}
+                      highlightColor="#FFD800"
+                      variant={matchSize.sm ? 'rayse-32700' : 'rayse-24700'}
                     />
-                    <Box
-                      className={styles.imageSlideCaption}
-                      height="50px"
-                    >
-                      <TextWithHighlight
-                        pre={sliderCaptions[index][0]}
-                        highlighted={sliderCaptions[index][1]}
-                        post={sliderCaptions[index][2]}
-                        highlightColor="#FFD800"
-                        variant={matchSize.sm ? "rayse-32700" : "rayse-24700"}
-                      />
-                    </Box>
-                  </SwiperSlide>
-                ))}
+                  </Box>
+                </SwiperSlide>
+              ))}
             </Swiper>
           </Box>
         </Grid>
@@ -204,8 +197,8 @@ export const Main = () => {
         <Grid item xs={12}>
           <Box style={{ maxWidth: '700px', margin: 'auto' }}>
             <Text
-              variant={matchSize.tablet ? "rayse-68700" : "rayse-32700"}
-              lineHeight={matchSize.tablet ? "78px" : "36px"}
+              variant={matchSize.tablet ? 'rayse-68700' : 'rayse-32700'}
+              lineHeight={matchSize.tablet ? '78px' : '36px'}
             >
               The search is only 5% of the process.
             </Text>
@@ -213,8 +206,9 @@ export const Main = () => {
         </Grid>
         <Grid item xs={12}>
           <Box style={{ maxWidth: '920px', margin: 'auto' }}>
-            <Text variant={matchSize.tablet ? "rayse-24400" : "rayse-20400"}>
-              I’ll help you navigate 100 percent of it, all mapped out in advance, with easy information sharing and real-time collaboration.
+            <Text variant={matchSize.tablet ? 'rayse-24400' : 'rayse-20400'}>
+              I’ll help you navigate 100 percent of it, all mapped out in advance, with easy information sharing and
+              real-time collaboration.
             </Text>
           </Box>
         </Grid>
@@ -231,9 +225,7 @@ export const Main = () => {
                 playsInline
               />
               <WhiteButton onClick={() => navigateToPreSecondaryPage(agentId)}>
-                <Text variant="rayse-32700">
-                  Meet Rayse
-                </Text>
+                <Text variant="rayse-32700">Meet Rayse</Text>
                 <YellowIcon material="arrow_forward" />
               </WhiteButton>
             </Box>
@@ -248,34 +240,38 @@ export const Main = () => {
       <Grid item className={styles.sectionContainer} xs={12}>
         <Box className={styles.collaborationContainer} margin="auto">
           <Box className={styles.collabTop}>
-            <Box className={
-              matchSize.md
-                ? styles.brokerageIdSection
-                : styles.brokerageIdSectionSmall
-            }>
+            <Box className={matchSize.md ? styles.brokerageIdSection : styles.brokerageIdSectionSmall}>
               <Image
                 src={agentInfo?.team?.brokerage?.logoImagePath || checkeredImage}
-                className={matchSize.tablet ? styles.companyLogo
-                  : (matchSize.sm ? styles.companyLogoMobile : styles.companyLogoTiny)}
-              />
-              {agentInfo?.team?.imagePath &&
-              <React.Fragment>
-                <Divider className={styles.collabDivider} orientation="vertical" flexItem />
-                <Image
-                  src={agentInfo?.team?.imagePath || checkeredImage}
-                  className={matchSize.tablet ? styles.companyLogo
-                    : (matchSize.sm ? styles.companyLogoMobile : styles.companyLogoTiny)}
-                />
-              </React.Fragment>
+                className={
+                  matchSize.tablet
+                    ? styles.companyLogo
+                    : matchSize.sm
+                    ? styles.companyLogoMobile
+                    : styles.companyLogoTiny
                 }
+              />
+              {agentInfo?.team?.imagePath && (
+                <React.Fragment>
+                  <Divider className={styles.collabDivider} orientation="vertical" flexItem />
+                  <Image
+                    src={agentInfo?.team?.imagePath || checkeredImage}
+                    className={
+                      matchSize.tablet
+                        ? styles.companyLogo
+                        : matchSize.sm
+                        ? styles.companyLogoMobile
+                        : styles.companyLogoTiny
+                    }
+                  />
+                </React.Fragment>
+              )}
             </Box>
 
             <Box paddingTop={matchSize.md ? '32px' : '0'}>
               <Link href={agentInfo?.team?.brokerage?.websiteUrl} target="_blank" style={{ cursor: 'pointer' }}>
                 <WhiteButton>
-                  <Text variant="rayse-20700">
-                    Learn more
-                  </Text>
+                  <Text variant="rayse-20700">Learn more</Text>
                   <YellowIcon material="arrow_forward" />
                 </WhiteButton>
               </Link>
@@ -283,8 +279,9 @@ export const Main = () => {
           </Box>
 
           <Divider className={styles.collabDivider} orientation="horizontal" flexItem />
-          <Text variant={matchSize.tablet ? "rayse-32700" : "rayse-18400"} color="#FFF" align="left">
-          Our collaboration is all the more valuable with the support, access and expertise of my team I’m proud to be a part of. Together, we are leading the way forward in residential real estate.
+          <Text variant={matchSize.tablet ? 'rayse-32700' : 'rayse-18400'} color="#FFF" align="left">
+            Our collaboration is all the more valuable with the support, access and expertise of my team I’m proud to be
+            a part of. Together, we are leading the way forward in residential real estate.
           </Text>
         </Box>
       </Grid>
@@ -296,22 +293,27 @@ export const Main = () => {
             <Image src={shieldPlus} width={dutySectionIconSize} height={dutySectionIconSize} />
           </Box>
 
-          <Text variant={matchSize.tablet ? "rayse-44700" : "rayse-32700"} color="#171717" textAlign="left">
+          <Text variant={matchSize.tablet ? 'rayse-44700' : 'rayse-32700'} color="#171717" textAlign="left">
             I take my fiduciary duty seriously.
           </Text>
 
-          <Text variant={matchSize.tablet ? "rayse-24400" : "rayse-18400"} color="#171717" textAlign="left">
+          <Text variant={matchSize.tablet ? 'rayse-24400' : 'rayse-18400'} color="#171717" textAlign="left">
             You’re making a new future for yourself and your family. I’m making it my job to protect you—from surprises,
-            from unknowns, from bad actors and small print and potential obstacles that range from the size of two termites
-            to a four-lane highway or flood zone. I’m here as your first line of defense to help you anticipate,
-            negotiate and pre-empt the many legal and financial challenges to successful homeowning.
+            from unknowns, from bad actors and small print and potential obstacles that range from the size of two
+            termites to a four-lane highway or flood zone. I’m here as your first line of defense to help you
+            anticipate, negotiate and pre-empt the many legal and financial challenges to successful homeowning.
           </Text>
         </Box>
       </Grid>
 
       <Grid item className={styles.sectionContainer} xs={12}>
         <Box className={styles.bottomSection} margin="auto">
-          <Text variant={matchSize.tablet ? "rayse-44700" : "rayse-32700"} color="#171717" textAlign="left" padding="40px">
+          <Text
+            variant={matchSize.tablet ? 'rayse-44700' : 'rayse-32700'}
+            color="#171717"
+            textAlign="left"
+            padding="40px"
+          >
             Clarity. Accountability. Collaboration.
           </Text>
           <Divider
@@ -328,21 +330,17 @@ export const Main = () => {
                 <Box
                   className={styles.agentButtonIcon}
                   style={{
-                    backgroundImage: `url(${agentInfo?.headshotImagePath})`
+                    backgroundImage: `url(${agentInfo?.headshotImagePath})`,
                   }}
                 />
-                <Text variant="rayse-20700">
-                  Get started
-                </Text>
+                <Text variant="rayse-20700">Get started</Text>
                 {matchSize.sm && <Box style={{ width: '24px' }} />}
                 <WhiteIcon material="arrow_forward" />
               </LongButton>
             </RouterLink>
-
           </Box>
         </Box>
       </Grid>
-
     </Grid>
   )
 }

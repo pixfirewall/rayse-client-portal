@@ -5,26 +5,26 @@ import { Main, SecondaryPage, Clarity, Accountability, Collaboration, PreClosing
 export const routes: RouteObject[] = [
   {
     path: '/intro',
-    element: <Main />
+    element: <Main />,
   },
   {
     path: '/pre-2nd',
-    element: <SecondaryPage />
+    element: <SecondaryPage />,
   },
   {
     path: '/clarity',
-    element: <Clarity />
+    element: <Clarity />,
   },
   {
     path: '/accountability',
-    element: <Accountability />
+    element: <Accountability />,
   },
   {
     path: '/collaboration',
-    element: <Collaboration />
+    element: <Collaboration />,
   },
   {
     path: '/pre-closing-report',
-    element: <PreClosingReport />
-  }
+    element: <PreClosingReport />,
+  },
 ]

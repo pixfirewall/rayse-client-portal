@@ -19,14 +19,13 @@ export type ReportProps = {
     totalHours: number
     totalMileage: string
   }
-  agentPicture: string,
-  agentEmail: string,
+  agentPicture: string
+  agentEmail: string
   agentPhone: string
-  listOfActivities: ActivityLogRecord []
+  listOfActivities: ActivityLogRecord[]
 }
 
 export type ActivityLogRecord = {
-
   title: string
   milestone: string
   date: string
