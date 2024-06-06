@@ -17,12 +17,21 @@
 
 .contactRow {
   display: flex;
-  flex-direction: row;
-  gap: 6px;
+  align-items: center;
+  gap: 8px;
 }
 
+.contactEmailText {
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+
+
 .avatarStyle {
-  //align-self: stretch;
 	border-radius: 50%;
-  //border: 4px solid #FFF;
+  height: 96px;
+  width: 96px;
+  object-fit: cover;
+  margin-left: 10px;
 }

@@ -25,25 +25,14 @@ export const LogChip = ({ data, smallScreen }: Props) => {
   return (
     <Box className={styles.container}>
       <Box className={styles.topRow}>
-        <Box style={{
-          //width: '100%',
-          flexShrink: 0
-        }}>
+        <Box>
         <Text variant="rayse-18400" color="#161616">{title} - {milestone}</Text>
         </Box>
-        <Box style={{
-          width: '100%',
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'flex-end',
-          alignSelf: 'stretch'
-        }}>
-          <Button onClick={() => setShowDetails(!showDetails)}>
-            <Icon sx={{ color: '#161616', 'font-size': 36 }}>
-              {showDetails ? 'expand_less' : 'expand_more'}
-            </Icon>
-          </Button>
-        </Box>
+        <Button onClick={() => setShowDetails(!showDetails)} className={styles.expandButton}>
+          <Icon sx={{ color: '#161616', 'font-size': 36 }}>
+            {showDetails ? 'expand_less' : 'expand_more'}
+          </Icon>
+        </Button>
       </Box>
 
       <Box className={styles.infoRow}>
