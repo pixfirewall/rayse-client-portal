@@ -7,18 +7,11 @@ export const Footer = () => {
       <Group dir="vertical" alignV="center" gap={24}>
         <Group dir="vertical" gap={12} alignV="center">
           <Group gap={12}>
-            <Link href="http://google.com">About</Link>
+            <Link href="https://www.rayse.com/about">About</Link>
             <RayseDivider size={24} center />
-            <Link>Terms & Conditions</Link>
+            <Link href="https://www.rayse.com/terms">Terms</Link>
             <RayseDivider size={24} center />
-            <Link>Legal</Link>
-          </Group>
-          <Group gap={12}>
-            <Link>Link</Link>
-            <RayseDivider size={24} center />
-            <Link>Link</Link>
-            <RayseDivider size={24} center />
-            <Link>Link</Link>
+            <Link href="https://www.rayse.com/privacy">Privacy</Link>
           </Group>
         </Group>
         <Group gap={12} alignV="center">
