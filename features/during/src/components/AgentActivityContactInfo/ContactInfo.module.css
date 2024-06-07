@@ -1,18 +1,18 @@
 .container {
-	display: flex;
-	padding: 24px 20px;
-	flex-direction: column;
-	align-items: flex-start;
+  display: flex;
+  padding: 24px 20px;
+  flex-direction: column;
+  align-items: flex-start;
   gap: 8px;
 
-	border-radius: 24px;
-	background: #3F947D;
+  border-radius: 24px;
+  background: #3f947d;
 }
 
 .imageStyle {
   align-self: stretch;
-	border-radius: 24px;
-  border: 4px solid #FFF;
+  border-radius: 24px;
+  border: 4px solid #fff;
 }
 
 .contactRow {
@@ -26,10 +26,8 @@
   word-break: break-all;
 }
 
-
-
 .avatarStyle {
-	border-radius: 50%;
+  border-radius: 50%;
   height: 96px;
   width: 96px;
   object-fit: cover;

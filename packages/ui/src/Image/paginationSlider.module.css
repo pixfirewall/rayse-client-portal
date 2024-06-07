@@ -1,18 +1,18 @@
 .swiperBulletActive {
-	position: relative;
+  position: relative;
 }
 
 .swiperBulletActive:after {
-	border-radius: 50%;
-	border: 2px solid #ffffff;
-	position: absolute;
-	content: '';
-	top: -4px;
-	left: -4px;
-	bottom: -4px;
-	right: -4px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  position: absolute;
+  content: '';
+  top: -4px;
+  left: -4px;
+  bottom: -4px;
+  right: -4px;
 }
 
 .swiperBullet {
-	background-color: #FFFFFF;
+  background-color: #ffffff;
 }

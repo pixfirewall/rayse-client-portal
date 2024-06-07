@@ -5,14 +5,14 @@ export const Group = styled(Box)<{
   dir?: 'vertical' | 'horizontal'
   alignV?: VerticalAlignment
   alignH?: HorizontalAlignment
-	gap?: number
+  gap?: number
 }>(({ dir = 'horizontal', alignV, alignH, gap }) => {
   return {
     display: 'flex',
     flexDirection: dir === 'horizontal' ? 'row' : 'column',
     justifyContent: alignH,
     alignItems: alignV,
-		gap
+    gap,
   }
 })
 type VerticalAlignment = 'center' | 'start' | 'end' | 'flex-start' | 'flex-end' | 'self-start' | 'self-end'

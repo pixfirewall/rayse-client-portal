@@ -5,10 +5,10 @@
   align-items: flex-start;
   gap: 4px;
   align-self: stretch;
-  
+
   border-radius: 20px;
-  border: 1px solid #D9D4C8;
-  background: #FFF;
+  border: 1px solid #d9d4c8;
+  background: #fff;
 }
 
 .topRow {

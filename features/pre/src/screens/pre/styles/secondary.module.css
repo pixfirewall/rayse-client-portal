@@ -1,105 +1,105 @@
 .topContainer {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	background: #FFF;
-	gap: 64px;
-	padding-top: 20px;
-	padding-bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  gap: 64px;
+  padding-top: 20px;
+  padding-bottom: 100px;
 }
 
 .topNavBar {
-	width: 960px;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: space-between;
+  width: 960px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .agentButtonIcon {
-	width: 40px;
-	height: 40px;
-	flex-shrink: 0;
-	border-radius: 24px;
-	border: 2px solid #FFF;
-	background-blend-mode: luminosity;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 24px;
+  border: 2px solid #fff;
+  background-blend-mode: luminosity;
 
-	background: lightgray 50% / cover no-repeat;
+  background: lightgray 50% / cover no-repeat;
 }
 
 .subSection {
-	display: flex;
-	text-align: center;
-	width: 740px;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	background: #FFF;
-	gap: 1px;
-	padding-top: 50px;
+  display: flex;
+  text-align: center;
+  width: 740px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  gap: 1px;
+  padding-top: 50px;
 }
 
 .cardSection {
-	display: flex;
-	width: 740px;
-	flex-direction: column;
-	align-items: center;
-	background: #FFF;
-	gap: 18px;
+  display: flex;
+  width: 740px;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+  gap: 18px;
 }
 
 .clarityImage {
-	display: flex;
-	flex-direction: column;
-	align-items: flex-end;
-	width: 100%;
-	height: 241px;
-	background: url('../assets/clarity.png') 50% / cover no-repeat;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 100%;
+  height: 241px;
+  background: url('../assets/clarity.png') 50% / cover no-repeat;
 }
 
 .clarityBlur {
-	width: 104px;
-	height: 100%;
-	position: relative;
-	right: 0;
-	background: linear-gradient(90deg, rgba(248, 247, 244, 0.00) 0%, #F8F7F4 75%);
+  width: 104px;
+  height: 100%;
+  position: relative;
+  right: 0;
+  background: linear-gradient(90deg, rgba(248, 247, 244, 0) 0%, #f8f7f4 75%);
 }
 
 .twoColumnSection {
-	display: flex;
-	flex-direction: row;
-	gap: 18px;
+  display: flex;
+  flex-direction: row;
+  gap: 18px;
 }
 
 .houseThumbnail {
-	width: 44px;
-	height: 44px;
-	flex-shrink: 0;
-	border-radius: 6px;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: 6px;
 
-	background: url('../assets/brixton.jpg') lightgray 50% / cover no-repeat;
+  background: url('../assets/brixton.jpg') lightgray 50% / cover no-repeat;
 }
 
 .sampleHouseInfo {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .reportImage {
-	width: 219px;
-	height: 288px;
+  width: 219px;
+  height: 288px;
 
-	background: url('../assets/sample-report.png') 50% / contain no-repeat;
+  background: url('../assets/sample-report.png') 50% / contain no-repeat;
 }
 
 .reportBlur {
-	width: 104px;
-	height: 361px;
-	transform: rotate(90deg);
-	position: relative;
-	bottom: -56px;
-	background: linear-gradient(90deg, rgba(198, 189, 172, 0.00) 0%, #C6BDAC 80%);
+  width: 104px;
+  height: 361px;
+  transform: rotate(90deg);
+  position: relative;
+  bottom: -56px;
+  background: linear-gradient(90deg, rgba(198, 189, 172, 0) 0%, #c6bdac 80%);
 }

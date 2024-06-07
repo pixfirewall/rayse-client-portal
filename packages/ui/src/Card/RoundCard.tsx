@@ -20,7 +20,7 @@ interface RoundCardProps {
   dir?: 'vertical' | 'horizontal'
   align?: ItemAlignment
   spread?: ContentSpread
-	gap?: string
+  gap?: string
   color: string
   radius?: string
   hPadding: string
@@ -29,8 +29,17 @@ interface RoundCardProps {
 }
 
 export const RoundCard: FunctionComponent<PropsWithChildren<RoundCardProps & BoxProps>> = ({
-  children, dir = 'vertical', align = 'flex-start', spread = 'space-between', gap, color,
-  radius = '24px', hPadding, vPadding, style, ...props
+  children,
+  dir = 'vertical',
+  align = 'flex-start',
+  spread = 'space-between',
+  gap,
+  color,
+  radius = '24px',
+  hPadding,
+  vPadding,
+  style,
+  ...props
 }) => {
   return (
     <Box

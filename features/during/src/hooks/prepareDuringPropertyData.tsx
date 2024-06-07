@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 
 import { HomeCardProps } from '../components'
-import { PropertyRoot } from '../types'
+import { PropertyRoot, Step, UpstreamMyJourneyActivities } from '../types'
 
 import zeroHome from '../fixtures/assets/zero-home.png'
 
@@ -191,12 +191,12 @@ export const usePrepareDuringPropertyData = (journey: any, journeyData: any) => 
   const processData = useCallback(() => {
     if (!journey || !journeyData) return
 
-    // @ts-expect-error resolve after demo
-    const closingStep = journeyData?.steps.find(s => s.listOrder === 4)
+    const closingStep = journeyData?.steps.find((s: Step) => s.listOrder === 4)
     // const propertyId = getClosingPropertyId(closingStep);
     const propertyId = getDuringPropertyId(journeyData?.steps)
-    // @ts-expect-error resolve after demo
-    const selectedProperty = journeyData?.journeyProperties.find(p => p.id === propertyId)
+    const selectedProperty = journeyData?.journeyProperties.find(
+      (p: UpstreamMyJourneyActivities) => p.id === propertyId,
+    )
     const selectedPropertyData = selectedProperty ? propertyMapper(selectedProperty) : null
     const listPrice = selectedPropertyData?.price || ''
     const purchasePrice = findOfferAcceptedActivityPrice(journeyData, propertyId) || listPrice

@@ -1,1 +1,1 @@
-yarn lint-staged && yarn build:web
+yarn lint-staged

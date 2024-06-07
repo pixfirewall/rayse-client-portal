@@ -1,13 +1,13 @@
 {
-	"name": "@rayseinc-core/redux",
-	"version": "0.0.1",
-	"private": true,
-	"type": "commonjs",
-	"main": "./src/index.js",
-	"typings": "./src/index.d.ts",
-	"dependencies": {
-		"tslib": "^2.3.0",
+  "name": "@rayseinc-core/redux",
+  "version": "0.0.1",
+  "private": true,
+  "type": "commonjs",
+  "main": "./src/index.js",
+  "typings": "./src/index.d.ts",
+  "dependencies": {
+    "tslib": "^2.3.0",
     "react-redux": "^9.1.2",
     "@reduxjs/toolkit": "^2.2.3"
-	}
+  }
 }

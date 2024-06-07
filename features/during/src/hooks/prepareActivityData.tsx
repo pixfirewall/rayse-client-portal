@@ -11,11 +11,10 @@ interface FormattedOutcome {
 }
 
 const getCheckedOutcomes = (outcomes: Outcome[]): FormattedOutcome[] => {
-  // @ts-expect-error resolve later
   return outcomes
     .filter(outcome => outcome.status === 'Checked')
     .map(outcome => ({
-      title: outcome.name,
+      title: outcome?.name || 'Untitled',
       date: formatDate(outcome.createdOn),
       image: 'Completed',
     }))

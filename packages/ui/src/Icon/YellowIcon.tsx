@@ -27,8 +27,14 @@ export const YellowIcon = ({ material, size = 40, ...props }: { material: Materi
   )
 }
 
-export const YellowIconPre = ({ material, size = 40, fontSize = '24px' }: {
-  material: Material; size?: number, fontSize?: string
+export const YellowIconPre = ({
+  material,
+  size = 40,
+  fontSize = '24px',
+}: {
+  material: Material
+  size?: number
+  fontSize?: string
 }) => {
   return (
     <IconBox className="Icon-Amir" sx={{ width: size, height: size }}>

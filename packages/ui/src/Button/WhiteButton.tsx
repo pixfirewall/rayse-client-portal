@@ -1,5 +1,5 @@
-import styled from "@emotion/styled";
-import { Button } from "@mui/material";
+import styled from '@emotion/styled'
+import { Button } from '@mui/material'
 
 export const WhiteButton = styled(Button)({
   backgroundColor: '#fff',

@@ -1,49 +1,47 @@
 {
-    "family": "${APP_NAME}",
-    "containerDefinitions": [
+  "family": "${APP_NAME}",
+  "containerDefinitions": [
+    {
+      "name": "${APP_NAME}",
+      "image": "${AWS_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${APP_NAME}:${IMAGE_TAG}",
+      "cpu": 0,
+      "portMappings": [
         {
-            "name": "${APP_NAME}",
-            "image": "${AWS_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${APP_NAME}:${IMAGE_TAG}",
-            "cpu": 0,
-            "portMappings": [
-                {
-                    "name": "client-portal-80-tcp",
-                    "containerPort": 80,
-                    "hostPort": 80,
-                    "protocol": "tcp",
-                    "appProtocol": "http"
-                }
-            ],
-            "essential": true,
-            "environment": [
-                {
-                    "name": "REACT_APP_API_URL",
-                    "value": "${API_URL}"
-                }
-            ],
-            "mountPoints": [],
-            "volumesFrom": [],
-            "logConfiguration": {
-                "logDriver": "awslogs",
-                "options": {
-                    "awslogs-create-group": "true",
-                    "awslogs-group": "/ecs/${APP_NAME}",
-                    "awslogs-region": "${AWS_REGION}",
-                    "awslogs-stream-prefix": "ecs"
-                }
-            }
+          "name": "client-portal-80-tcp",
+          "containerPort": 80,
+          "hostPort": 80,
+          "protocol": "tcp",
+          "appProtocol": "http"
         }
-    ],
-    "taskRoleArn": "arn:aws:iam::${AWS_ID}:role/websitesapiEcsTaskRole",
-    "executionRoleArn": "arn:aws:iam::${AWS_ID}:role/websitesapiEcsTaskExecutionRole",
-    "networkMode": "awsvpc",
-    "requiresCompatibilities": [
-        "FARGATE"
-    ],
-    "cpu": "512",
-    "memory": "2048",
-    "runtimePlatform": {
-        "cpuArchitecture": "X86_64",
-        "operatingSystemFamily": "LINUX"
+      ],
+      "essential": true,
+      "environment": [
+        {
+          "name": "REACT_APP_API_URL",
+          "value": "${API_URL}"
+        }
+      ],
+      "mountPoints": [],
+      "volumesFrom": [],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-create-group": "true",
+          "awslogs-group": "/ecs/${APP_NAME}",
+          "awslogs-region": "${AWS_REGION}",
+          "awslogs-stream-prefix": "ecs"
+        }
+      }
     }
+  ],
+  "taskRoleArn": "arn:aws:iam::${AWS_ID}:role/websitesapiEcsTaskRole",
+  "executionRoleArn": "arn:aws:iam::${AWS_ID}:role/websitesapiEcsTaskExecutionRole",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "512",
+  "memory": "2048",
+  "runtimePlatform": {
+    "cpuArchitecture": "X86_64",
+    "operatingSystemFamily": "LINUX"
+  }
 }
