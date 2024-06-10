@@ -10,6 +10,7 @@ type BrokerageInfo = {
 
 export interface DuringState {
   journeyId: number
+  isJourneyClosed: boolean
   agentId: number
   activeStep: number[]
   agentActivityData: any | null
@@ -19,6 +20,7 @@ export interface DuringState {
 const initialState: DuringState = {
   journeyId: 0,
   agentId: 0,
+  isJourneyClosed: false,
   activeStep: [0],
   agentActivityData: null,
   brokerageInfo: {
@@ -34,6 +36,9 @@ export const duringSlice = createSlice({
   reducers: {
     setJourneyId: (state, action: PayloadAction<number>) => {
       state.journeyId = action.payload
+    },
+    setIsJourneyClosed: (state, action: PayloadAction<boolean>) => {
+      state.isJourneyClosed = action.payload
     },
     setActiveStep: (state, action: PayloadAction<number[]>) => {
       state.activeStep = action.payload

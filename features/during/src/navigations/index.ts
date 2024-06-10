@@ -1,6 +1,5 @@
 export * from './navigateToDuringHome12'
 export * from './navigateToAgentActivity'
-export * from './navigateToDuringHome34'
 export * from './navigateToConsultation'
 export * from './navigateToMilestone'
 export * from './navigateToHomeInfo'

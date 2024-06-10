@@ -1,6 +1,5 @@
 export * from './redux'
 export * from './prepareHomeData'
-export * from './prepareClosingPropertyData'
 export * from './prepareDuringPropertyData'
 export * from './prepareJourneyData'
 export * from './prepareActivityData'

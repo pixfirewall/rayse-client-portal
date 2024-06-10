@@ -312,6 +312,7 @@ export const UpstreamMyJourneyResponseSchema = z.object({
   primaryAgent: PrimaryAgentSchema,
   properties: z.array(PropertyRootSchema),
   startDate: z.string(),
+  closeDate: z.string() || null,
   users: z.array(UserSchema),
   statistics: StatisticsSchema,
   milestoneStatus: z.string().nullable(),

@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux'
-import { Group, MainPaper, PageLayout, Showif } from '@rayseinc-packages/ui'
+import { Group, MainPaper, PageLayout, Showif, Grid } from '@rayseinc-packages/ui'
 import React, { FunctionComponent, useEffect, useRef, useState } from 'react'
 
 import {
@@ -14,11 +14,20 @@ import {
   Menu,
   TimeLeft,
   HomeSlider,
-  HomeDetails,
+  PostHomeInfo,
   ActivityList,
   Loading,
+  ContactInfoSmall,
+  OtherHomes,
 } from '../../components'
-import { setActiveStep, setAgentId, setJourneyId, setAgentActivityData, setBrokerageInfo } from '../../data'
+import {
+  setActiveStep,
+  setAgentId,
+  setJourneyId,
+  setIsJourneyClosed,
+  setAgentActivityData,
+  setBrokerageInfo,
+} from '../../data'
 import { MenuProvider } from '../../contexts'
 import {
   useDuringSelector,
@@ -30,10 +39,6 @@ import {
 import { useGetMyJourneyListQuery, useGetMyJourneyByIdQuery, useGetMyJourneyDataQuery } from '../../api/during'
 import { State } from '../../components/Journey/JourneyCard'
 
-import home01 from '../../fixtures/assets/home-01.png'
-import home02 from '../../fixtures/assets/home-02.png'
-import home03 from '../../fixtures/assets/home-03.png'
-
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Home12Props {}
 
@@ -44,6 +49,7 @@ export const Home12: FunctionComponent<Home12Props> = () => {
 
   const menuRef = useRef<MenuRef>(null)
 
+  const isJourneyClosed = useDuringSelector(state => state.DURING_REDUCER_PATH.isJourneyClosed)
   const journeyId = useDuringSelector(state => state.DURING_REDUCER_PATH.journeyId)
   const agentId = useDuringSelector(state => state.DURING_REDUCER_PATH.agentId)
   const activeStep = useDuringSelector(state => state.DURING_REDUCER_PATH.activeStep)
@@ -94,6 +100,9 @@ export const Home12: FunctionComponent<Home12Props> = () => {
   }, [journeyList])
 
   useEffect(() => {
+    if (journey?.closeDate) {
+      dispatch(setIsJourneyClosed(true))
+    }
     if (!agentId && journey?.primaryAgent.id) {
       dispatch(setAgentId(journey?.primaryAgent.id))
     }
@@ -151,20 +160,26 @@ export const Home12: FunctionComponent<Home12Props> = () => {
               {/* @ts-expect-error resolve this later           */}
               <HomeSlider images={closingData?.currentProperty?.images || []} />
               <MainPaper>
-                <HomeDetails
+                <PostHomeInfo
                   //@ts-expect-error resolve this later
                   address={closingData?.currentProperty?.address}
                   //@ts-expect-error resolve this later
                   price={closingData?.currentProperty?.price}
                   //@ts-expect-error resolve this later
-                  bed={closingData?.currentProperty?.bed || 0}
+                  discount={isJourneyClosed ? closingData?.closingReport?.report?.purchaseVsListPrice : null}
                   //@ts-expect-error resolve this later
-                  bath={closingData?.currentProperty?.bath || 0}
-                  //@ts-expect-error resolve this later
-                  sqft={closingData?.currentProperty?.squareFootage || 0}
+                  finalFee={isJourneyClosed ? closingData?.closingReport?.report?.purchasePrice : null}
+                  specs={[
+                    //@ts-expect-error resolve this later
+                    { value: `${closingData?.currentProperty?.bed}`, feature: 'bed' },
+                    //@ts-expect-error resolve this later
+                    { value: `${closingData?.currentProperty?.bath}`, feature: 'bath' },
+                    //@ts-expect-error resolve this later
+                    { value: `${closingData?.currentProperty?.squareFootage || 0}`, feature: 'sqft' },
+                  ]}
                 />
               </MainPaper>
-              <ActivityList activities={activities} />
+              {!isJourneyClosed && <ActivityList activities={activities} />}
             </Group>
           </Showif>
           <Showif con={activeStep.reduce((a, b) => a + b) === 3}>
@@ -173,15 +188,36 @@ export const Home12: FunctionComponent<Home12Props> = () => {
           </Showif>
           <Group dir="vertical" gap={12}>
             <Matrix
-              title={`Here's what ${journey?.primaryAgent.user.firstName} has been up to on your behalf`}
+              title={
+                isJourneyClosed
+                  ? `Everything we did to close on your new home`
+                  : `Here's what ${journey?.primaryAgent.user.firstName} has been up to on your behalf`
+              }
               agentName={journey?.primaryAgent.user.firstName ?? ''}
               agentImage={journey?.primaryAgent.user.imagePath ?? ''}
               activities={journey?.statistics.activities ?? 0}
               outcomes={journey?.statistics.outcomesFinished ?? 0}
               tours={journey?.statistics.homesToured ?? 0}
               offers={journey?.statistics.offers ?? 0}
+              isJourneyClosed={isJourneyClosed}
             />
-            <Journey data={myJourneyData} />
+            {!isJourneyClosed && <Journey data={myJourneyData} />}
+            {isJourneyClosed && (
+              <React.Fragment>
+                <Grid item xs={12}>
+                  <OtherHomes />
+                </Grid>
+                <Grid item xs={12}>
+                  <ContactInfoSmall
+                    picture={journey?.primaryAgent.user.imagePath ?? ''}
+                    //@ts-expect-error resolve later
+                    email={closingData?.closingReport?.agentEmail}
+                    //@ts-expect-error resolve later
+                    phone={closingData?.closingReport?.agentPhone}
+                  />
+                </Grid>
+              </React.Fragment>
+            )}
             <BrandFooter logoUrl={journey?.primaryAgent?.team?.brokerage?.logoImagePath || ''} />
             <Footer />
           </Group>
